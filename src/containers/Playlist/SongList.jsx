@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, List, ListItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
@@ -9,8 +9,9 @@ import { useDispatch } from "react-redux";
 import { setAudioTrackIndex } from "../../App/features/albums/selectedAlbumSlice";
 
 import "./style.css";
-const primaryColor = "#333";
-const secondaryColor = "#0a0b0b";
+
+import { SONG_LIST_COLOR } from "../AmazonMusic/constants";
+
 const SongList = ({
   title,
   dateOfRelease,
@@ -20,6 +21,11 @@ const SongList = ({
   songNo,
 }) => {
   const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(setAudioTrackIndex({ audioTrackIndex: songNo - 1 }));
+  };
+
   return (
     <Stack
       sx={{
@@ -33,9 +39,7 @@ const SongList = ({
         cursor: "pointer",
       }}
       className="songLIst"
-      onClick={() =>
-        dispatch(setAudioTrackIndex({ audioTrackIndex: songNo - 1 }))
-      }
+      onClick={handleClick}
     >
       <Box component="div" flex={1} sx={{ ml: 4 }}>
         <Typography variant="h6" color="#FFF">
@@ -54,11 +58,16 @@ const SongList = ({
         </Typography> */}
       </Box>
 
-      <CustomTheme primaryColor="#FFF" secondaryColor="#FFF">
+      <CustomTheme
+        primaryColor={SONG_LIST_COLOR.PRIMARY_COLOR}
+        secondaryColor={SONG_LIST_COLOR.PRIMARY_COLOR}
+      >
         <Box
           component="div"
           flex={4}
-          sx={{ display: { xs: "none", sm: "none", md: "block", lg: "block" } }}
+          sx={{
+            display: { xs: "none", sm: "none", md: "block", lg: "block" },
+          }}
         >
           <Typography variant="body2" color="#FFF">
             {/* {songDuration} */}

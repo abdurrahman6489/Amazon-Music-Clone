@@ -1,3 +1,4 @@
+//for api calls
 export const config = {
   headers: {
     projectId: "hkj23notg7e0",
@@ -14,3 +15,85 @@ export const SONG_URL = "https://academics.newtonschool.co/api/v1/music/song";
 export const ALBUM_URL = "https://academics.newtonschool.co/api/v1/music/album";
 export const ALL_ARTISTS_URL =
   "https://academics.newtonschool.co/api/v1/music/artist/";
+
+//FUNCTIONS
+function MAKE_COLORS(PRIMARY_COLOUR, SECONDARY_COLOR) {
+  return { PRIMARY_COLOUR, SECONDARY_COLOR };
+}
+
+function MAKE_DISPLAY(xs = "block", sm = "block", md = "block", lg = "block") {
+  return {
+    display: { xs, sm, md, lg },
+  };
+}
+
+//for header component
+export const HEADER_COLORS = {
+  PRIMARY_COLOR: "#0a0b0b",
+  SECONDARY_COLOR: "#0a0b0b",
+};
+
+export const HEADER_NAVIGATING_BTN_COLORS = {
+  PRIMARY_COLOR: "hsl(0, 0%, 10%)",
+  SECONDARY_COLOR: "#333",
+};
+
+export const HEADER_BTN_DISPLAY = {
+  display: { xs: "none", sm: "none", md: "flex", lg: "flex" },
+};
+
+//for body playlist component
+export const BODY_PLAYLIST_BTN_COLOR = {
+  PRIMARY_COLOR: "#0a0b0b",
+  SECONDARY_COLOR: "#0a0b0b",
+};
+
+//for MODAL component
+export const MODAL_COLOR = {
+  PRIMARY_COLOR: "rgb(37, 209, 218)",
+  SECONDARY_COLOR: "#FFF",
+};
+
+export const MODAL_STYLE = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "100%",
+  height: "100%",
+  bgcolor: "rgba(0, 0, 0, 0.92)",
+  boxShadow: 24,
+  p: 4,
+  paddingTop: 5,
+};
+
+//for music player
+
+export const smallScreenDisplay = {
+  display: { xs: "none", sm: "none", md: "inline", lg: "inline" },
+};
+
+export const smallScreenPlayerDisplay = {
+  justifyContent: {
+    xs: "flex-end",
+    sm: "flex-end",
+    md: "center",
+    lg: "center",
+  },
+};
+
+export const PLAYER_COLOR = {
+  PRIMARY_COLOR: "#FFF",
+  SECONDARY_COLOR: "hsla(0, 0%, 100%, 0.15)",
+};
+
+//for songlist component
+export const SONG_LIST_COLOR = {
+  PRIMARY_COLOR: "#FFF",
+  SECONDARY_COLOR: "#FFF",
+};

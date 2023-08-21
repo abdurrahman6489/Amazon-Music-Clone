@@ -25,18 +25,11 @@ import { useSelector, useDispatch } from "react-redux";
 import "./style.css";
 import "./progressbar.css";
 
-const smallScreenDisplay = {
-  display: { xs: "none", sm: "none", md: "inline", lg: "inline" },
-};
-
-const smallScreenPlayerDisplay = {
-  justifyContent: {
-    xs: "flex-end",
-    sm: "flex-end",
-    md: "center",
-    lg: "center",
-  },
-};
+import {
+  smallScreenDisplay,
+  smallScreenPlayerDisplay,
+  PLAYER_COLOR,
+} from "../../constants";
 
 const MusicPlayer = () => {
   const { selectedAlbum } = useSelector((state) => state.selectedAlbums);
@@ -46,6 +39,7 @@ const MusicPlayer = () => {
     (state) => state.selectedAlbums.audioTrackIndex
   );
   const isPlaying = useSelector((state) => state.selectedAlbums.playerPlaying);
+  const isRepeating = useSelector((state) => state.selectedAlbums.isRepeating);
   const [anchorEl, setAnchorEl] = useState(null);
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -73,6 +67,10 @@ const MusicPlayer = () => {
     );
     playAnimationRef.current = requestAnimationFrame(repeat);
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
+
+  useEffect(() => {
+    if (isRepeating) repeat();
+  }, []);
 
   useEffect(() => {
     if (isPlaying) {
@@ -136,8 +134,8 @@ const MusicPlayer = () => {
   };
   return (
     <CustomTheme
-      primaryColor={"#FFF"}
-      secondaryColor={"hsla(0, 0%, 100%, 0.15)"}
+      primaryColor={PLAYER_COLOR.PRIMARY_COLOR}
+      secondaryColor={PLAYER_COLOR.SECONDARY_COLOR}
     >
       <audio
         src={audioTrack[currentTrackIndex].audio_url}

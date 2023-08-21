@@ -14,28 +14,8 @@ import {
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 
 import CustomTheme from "../../CustomTheme";
-const modalBackground = "rgba(0, 0, 0, 0.92)";
-const style = {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "100%",
-  height: "100%",
 
-  bgcolor: modalBackground,
-  boxShadow: 24,
-  p: 4,
-  paddingTop: 5,
-};
-
-const primaryColor = "rgb(37, 209, 218)";
-const secondaryColor = "#FFF";
+import { MODAL_COLOR, MODAL_STYLE } from "../../constants";
 
 const MusicModal = ({ open, setOpen }) => {
   const handleClose = () => setOpen(false);
@@ -47,10 +27,10 @@ const MusicModal = ({ open, setOpen }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={MODAL_STYLE}>
           <CustomTheme
-            primaryColor={primaryColor}
-            secondaryColor={secondaryColor}
+            primaryColor={MODAL_COLOR.PRIMARY_COLOR}
+            secondaryColor={MODAL_COLOR.SECONDARY_COLOR}
           >
             <Box
               sx={{

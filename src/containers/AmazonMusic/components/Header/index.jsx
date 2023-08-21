@@ -25,14 +25,14 @@ import { useNavigate } from "react-router";
 import CustomTheme from "../../CustomTheme";
 import SearchComponent from "./components/Search";
 
-const PRIMARY_COLOUR = "#0a0b0b";
-const SECONDARY_COLOUR = "#0a0b0b";
-
-const BTN_PRIMARY_COLOR = "hsl(0, 0%, 10%)";
+import {
+  HEADER_COLORS,
+  HEADER_NAVIGATING_BTN_COLORS,
+  HEADER_BTN_DISPLAY,
+} from "../../constants";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const navigate = useNavigate();
 
   const handleClick = (name) => {
@@ -48,7 +48,10 @@ const Header = () => {
   };
 
   return (
-    <CustomTheme primaryColor={PRIMARY_COLOUR} secondaryColor={PRIMARY_COLOUR}>
+    <CustomTheme
+      primaryColor={HEADER_COLORS.PRIMARY_COLOR}
+      secondaryColor={HEADER_COLORS.PRIMARY_COLOR}
+    >
       <AppBar position="fixed" color="secondary">
         <Toolbar
           sx={{
@@ -67,7 +70,10 @@ const Header = () => {
             />
           </Box>
 
-          <CustomTheme primaryColor={BTN_PRIMARY_COLOR} secondaryColor="#333">
+          <CustomTheme
+            primaryColor={HEADER_NAVIGATING_BTN_COLORS.PRIMARY_COLOR}
+            secondaryColor={HEADER_NAVIGATING_BTN_COLORS.SECONDARY_COLOR}
+          >
             <Tooltip
               title="Home"
               placement="bottom"
@@ -76,12 +82,7 @@ const Header = () => {
             >
               <Fab variant="extended" color="primary">
                 <HomeIcon sx={{ color: "#FFF", mr: 1 }} fontSize="medium" />
-                <Typography
-                  variant="body2"
-                  sx={{
-                    display: { xs: "none", sm: "none", md: "flex", lg: "flex" },
-                  }}
-                >
+                <Typography variant="body2" sx={{ ...HEADER_BTN_DISPLAY }}>
                   Home
                 </Typography>
               </Fab>
@@ -95,12 +96,7 @@ const Header = () => {
             >
               <Fab variant="extended" color="primary">
                 <PodcastsIcon sx={{ color: "#FFF", mr: 1 }} fontSize="medium" />
-                <Typography
-                  variant="body2"
-                  sx={{
-                    display: { xs: "none", sm: "none", md: "flex", lg: "flex" },
-                  }}
-                >
+                <Typography variant="body2" sx={{ ...HEADER_BTN_DISPLAY }}>
                   Podcast
                 </Typography>
               </Fab>
@@ -111,12 +107,7 @@ const Header = () => {
                   sx={{ color: "#FFF", mr: 1 }}
                   fontSize="medium"
                 />
-                <Typography
-                  variant="body2"
-                  sx={{
-                    display: { xs: "none", sm: "none", md: "flex", lg: "flex" },
-                  }}
-                >
+                <Typography variant="body2" sx={{ ...HEADER_BTN_DISPLAY }}>
                   Library
                 </Typography>
                 <KeyboardArrowDownIcon

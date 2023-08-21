@@ -12,6 +12,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import links from "./containers/links";
 import useAlbums from "./Utils/CustomHook.js";
 import MusicModal from "./containers/AmazonMusic/components/Modal";
+import SearchPage from "./containers/SearchPage";
+import Genres from "./containers/Genres";
 export const config = {
   headers: {
     projectId: "hkj23notg7e0",
@@ -64,6 +66,22 @@ function App() {
       element: (
         <Layout>
           <Music />
+        </Layout>
+      ),
+    },
+    {
+      path: links.search,
+      element: (
+        <Layout>
+          <SearchPage />
+        </Layout>
+      ),
+    },
+    {
+      path: `${links.genres}/:filter`,
+      element: (
+        <Layout>
+          <Genres />
         </Layout>
       ),
     },

@@ -1,8 +1,10 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router";
+import LINKS from "../../../../links";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -44,16 +46,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 const SearchComponent = () => {
+  const [searchParams, setSearchParams] = useState("");
+  const navigate = useNavigate();
+  const handleClick = () => {
+    console.log("search clicked");
+    navigate(LINKS.search);
+  };
+
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    setSearchParams(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate(`${LINKS.genres}/${searchParams}`);
+    setSearchParams("");
+  };
+
   return (
-    <Search>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ "aria-label": "search" }}
-      />
-    </Search>
+    <form onSubmit={handleSubmit}>
+      <Search onClick={() => handleClick()}>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ "aria-label": "search" }}
+          value={searchParams}
+          onChange={handleChange}
+        />
+      </Search>
+    </form>
   );
 };
 

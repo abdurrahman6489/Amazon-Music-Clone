@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import Song from "../Song";
 
-import { Box, Stack, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import PlayListController from "../Body/PlaylistController";
 
 import { useSelector } from "react-redux";

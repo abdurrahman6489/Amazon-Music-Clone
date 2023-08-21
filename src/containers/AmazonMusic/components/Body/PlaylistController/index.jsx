@@ -4,8 +4,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CustomTheme from "../../../CustomTheme";
 
-const PRIMARY_COLOUR = "#0a0b0b";
-const SECONDARY_COLOUR = "#0a0b0b";
+import { BODY_PLAYLIST_BTN_COLOR } from "../../../constants";
 
 const PlayListController = ({ playListName, next, prev, box }) => {
   return (
@@ -24,8 +23,8 @@ const PlayListController = ({ playListName, next, prev, box }) => {
         </Typography>
         <Box sx={{ flexGrow: 1 }}></Box>
         <CustomTheme
-          primaryColor={PRIMARY_COLOUR}
-          secondaryColor={SECONDARY_COLOUR}
+          primaryColor={BODY_PLAYLIST_BTN_COLOR.PRIMARY_COLOR}
+          secondaryColor={BODY_PLAYLIST_BTN_COLOR.SECONDARY_COLOR}
         >
           <Fab color="primary" size="small" onClick={() => prev()}>
             <ChevronLeftIcon />
