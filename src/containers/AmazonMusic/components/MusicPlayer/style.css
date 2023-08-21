@@ -1,0 +1,29 @@
+.volume {
+    display: flex;
+    align-items: center;
+  }
+  
+  .volume button {
+    margin: 0;
+  }
+  
+  .progress {
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left : 2px;
+    margin-right : 2px;
+  }
+  
+  /* time */
+  .time {
+    color: #FFF;
+    font-size: 13px;
+    line-height: 46px;
+  }
+  
+  .time.current {
+    color: #FFF;
+  }
+  
