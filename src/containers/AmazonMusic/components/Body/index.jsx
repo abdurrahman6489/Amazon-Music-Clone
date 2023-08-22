@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Category from "../Category";
-import PlayListController from "./PlaylistController";
-import axios from "axios";
+
 import { useSelector } from "react-redux";
 import { Stack, Box } from "@mui/material";
 import Loader from "../Loader";
@@ -17,7 +16,6 @@ const Body = () => {
         justifyContent: "space-between",
         mt: "1vh",
         mb: "8vh",
-        // border: "1px solid white",
       }}
     >
       <Box flex={1}></Box>
@@ -25,7 +23,6 @@ const Body = () => {
         flex={50}
         sx={{ border: "1px solid black", maxWidth: "92dvw", p: 5 }}
       >
-        {/* <Loader /> */}
         <Category mood="happy" />
         <Category mood="sad" />
         <Category mood="excited" />

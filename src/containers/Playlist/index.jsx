@@ -40,8 +40,7 @@ const Playlist = () => {
           justifyContent: "space-between",
         }}
       >
-        <Box flex={1}></Box>
-        <Box flex={50}>
+        <Box>
           <Box
             component="div"
             style={{
@@ -74,7 +73,6 @@ const Playlist = () => {
           </Box>
           {allSongs}
         </Box>
-        <Box flex={1}></Box>
       </Stack>
     </Box>
   );

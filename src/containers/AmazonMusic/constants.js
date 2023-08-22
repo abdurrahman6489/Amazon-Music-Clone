@@ -16,9 +16,12 @@ export const ALBUM_URL = "https://academics.newtonschool.co/api/v1/music/album";
 export const ALL_ARTISTS_URL =
   "https://academics.newtonschool.co/api/v1/music/artist/";
 
+export const SEARCH_URL =
+  "https://academics.newtonschool.co/api/v1/music/song?filter=";
+
 //FUNCTIONS
-function MAKE_COLORS(PRIMARY_COLOUR, SECONDARY_COLOR) {
-  return { PRIMARY_COLOUR, SECONDARY_COLOR };
+function MAKE_COLORS(primaryColor, secondaryColor) {
+  return { primaryColor, secondaryColor };
 }
 
 function MAKE_DISPLAY(xs = "block", sm = "block", md = "block", lg = "block") {
@@ -97,3 +100,9 @@ export const SONG_LIST_COLOR = {
   PRIMARY_COLOR: "#FFF",
   SECONDARY_COLOR: "#FFF",
 };
+
+//for playlist page song details component
+export const SONG_DETAILS_COLOR = MAKE_COLORS(
+  "hsl(0, 0%, 100%)",
+  "hsl(183, 71%, 50%)"
+);

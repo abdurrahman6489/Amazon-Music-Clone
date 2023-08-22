@@ -18,8 +18,7 @@ import CustomTheme from "../AmazonMusic/CustomTheme";
 import { setPlayerPlaying } from "../../App/features/albums/selectedAlbumSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const primaryColor = "hsl(0, 0%, 100%)";
-const secondaryColor = "hsl(183, 71%, 50%)";
+import { SONG_DETAILS_COLOR } from "../AmazonMusic/constants";
 
 const SongDetails = ({
   title,
@@ -35,21 +34,25 @@ const SongDetails = ({
     <>
       <Card
         sx={{
-          display: { xs: "block", sm: "block", md: "flex", lg: "flex" },
+          display: "flex",
+          flexDirection: { xs: "column", sm: "column", md: "row", lg: "row" },
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: { xs: "0.5em", sm: "0.5em", md: "1em", lg: "1em" },
           backgroundColor: "inherit",
           border: "none",
         }}
       >
         <CardMedia
           component="img"
-          sx={{ width: 300, height: 300 }}
+          sx={{
+            width: { xs: 100, sm: 120, md: 200, lg: 250 },
+            height: { xs: 100, sm: 120, md: 200, lg: 250 },
+          }}
           image={image}
           alt={title}
         />
-        <CustomTheme
-          primaryColor={primaryColor}
-          secondaryColor={secondaryColor}
-        >
+        <CustomTheme {...SONG_DETAILS_COLOR}>
           <Box
             sx={{
               display: "flex",
@@ -62,10 +65,16 @@ const SongDetails = ({
               <Typography component="div" variant="subtitle1" color="secondary">
                 ALBUM
               </Typography>
-              <Typography component="div" variant="h3" color="primary">
+              <Typography
+                component="div"
+                variant="h6"
+                color="primary"
+                sx={{ width: 300 }}
+                noWrap
+              >
                 {title}
               </Typography>
-              <Typography component="div" variant="body1" color="primary">
+              <Typography component="div" variant="body2" color="primary">
                 {description}
               </Typography>
               <Typography

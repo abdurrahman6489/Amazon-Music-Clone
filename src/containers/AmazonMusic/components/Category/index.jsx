@@ -1,13 +1,25 @@
 import React, { useRef } from "react";
 import Song from "../Song";
-
-import { Box } from "@mui/material";
 import PlayListController from "../Body/PlaylistController";
 
+import { Box } from "@mui/material";
+
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router";
 
 const Category = ({ mood }) => {
-  const songs = useSelector((state) => state.albums.albums);
+  const location = useLocation();
+  console.log(location);
+
+  let songs;
+  let filterFunction = (song) => song.mood == mood;
+  songs = useSelector((state) => state.albums.albums);
+
+  if (location.pathname.startsWith("/genres")) {
+    songs = useSelector((state) => state.searchSong.searchSongs);
+    filterFunction = (song) => true;
+  }
+
   console.log(songs);
 
   const boxRef = useRef();
@@ -42,7 +54,6 @@ const Category = ({ mood }) => {
           position: "relative",
           overflow: "hidden",
           mb: "2vh",
-          // border: "1px solid blue",
         }}
       >
         <Box
@@ -55,11 +66,9 @@ const Category = ({ mood }) => {
           }}
           ref={boxRef}
         >
-          {songs
-            ?.filter((song, index) => song.mood == mood)
-            .map((song) => (
-              <Song key={song._id} {...song} />
-            ))}
+          {songs?.filter(filterFunction).map((song) => (
+            <Song key={song._id} {...song} />
+          ))}
         </Box>
       </Box>
     </>
