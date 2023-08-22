@@ -36,10 +36,10 @@ export const HEADER_COLORS = {
   SECONDARY_COLOR: "#0a0b0b",
 };
 
-export const HEADER_NAVIGATING_BTN_COLORS = {
-  PRIMARY_COLOR: "hsl(0, 0%, 10%)",
-  SECONDARY_COLOR: "#333",
-};
+export const HEADER_NAVIGATING_BTN_COLORS = MAKE_COLORS(
+  "hsl(0, 0%, 4%)",
+  "hsl(183, 71%, 50%)"
+);
 
 export const HEADER_BTN_DISPLAY = {
   display: { xs: "none", sm: "none", md: "flex", lg: "flex" },
@@ -98,7 +98,7 @@ export const PLAYER_COLOR = {
 //for songlist component
 export const SONG_LIST_COLOR = {
   PRIMARY_COLOR: "#FFF",
-  SECONDARY_COLOR: "#FFF",
+  SECONDARY_COLOR: "hsl(183, 71%, 50%)",
 };
 
 //for playlist page song details component
@@ -106,3 +106,16 @@ export const SONG_DETAILS_COLOR = MAKE_COLORS(
   "hsl(0, 0%, 100%)",
   "hsl(183, 71%, 50%)"
 );
+
+export const SONG_DETAILS_ALIGN_ITEMS = {
+  alignItems: {
+    xs: "center",
+    sm: "center",
+    md: "flex-start",
+    lg: "flex-start",
+  },
+};
+
+export const SONG_DETAILS_TEXT_ALIGN = {
+  textAlign: { xs: "center", sm: "center", md: "left", lg: "left" },
+};

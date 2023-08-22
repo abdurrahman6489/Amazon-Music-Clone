@@ -70,10 +70,7 @@ const Header = () => {
             />
           </Box>
 
-          <CustomTheme
-            primaryColor={HEADER_NAVIGATING_BTN_COLORS.PRIMARY_COLOR}
-            secondaryColor={HEADER_NAVIGATING_BTN_COLORS.SECONDARY_COLOR}
-          >
+          <CustomTheme {...HEADER_NAVIGATING_BTN_COLORS}>
             <Tooltip
               title="Home"
               placement="bottom"

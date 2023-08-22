@@ -27,18 +27,18 @@ const SongList = ({
   };
 
   return (
-    <Stack
+    <Box
       sx={{
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
         gap: "1em",
-        mt: 5,
-        mb: 5,
         cursor: "pointer",
+        ":hover": {
+          backgroundColor: "hsl(0, 0%, 10%)",
+        },
       }}
-      className="songLIst"
       onClick={handleClick}
     >
       <Box component="div" flex={1} sx={{ ml: 4 }}>
@@ -50,7 +50,11 @@ const SongList = ({
         <img src={thumbnail} height="50px" width="50px" />
       </Box>
       <Box component="div" flex={10}>
-        <Typography variant="h6" color="#FFF" sx={{ textAlign: "left" }}>
+        <Typography
+          variant="h6"
+          color="#FFF"
+          sx={{ textAlign: "left", ":hover": { color: "hsl(183, 71%, 50%)" } }}
+        >
           {title}
         </Typography>
         {/* <Typography variant="body2" color="#FFF" sx={{ textAlign: "left" }}>
@@ -85,7 +89,7 @@ const SongList = ({
           </IconButton>
         </Box>
       </CustomTheme>
-    </Stack>
+    </Box>
   );
 };
 

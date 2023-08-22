@@ -18,7 +18,11 @@ import CustomTheme from "../AmazonMusic/CustomTheme";
 import { setPlayerPlaying } from "../../App/features/albums/selectedAlbumSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import { SONG_DETAILS_COLOR } from "../AmazonMusic/constants";
+import {
+  SONG_DETAILS_COLOR,
+  SONG_DETAILS_ALIGN_ITEMS,
+  SONG_DETAILS_TEXT_ALIGN,
+} from "../AmazonMusic/constants";
 
 const SongDetails = ({
   title,
@@ -46,8 +50,8 @@ const SongDetails = ({
         <CardMedia
           component="img"
           sx={{
-            width: { xs: 100, sm: 120, md: 200, lg: 250 },
-            height: { xs: 100, sm: 120, md: 200, lg: 250 },
+            width: 300,
+            height: 300,
           }}
           image={image}
           alt={title}
@@ -57,24 +61,47 @@ const SongDetails = ({
             sx={{
               display: "flex",
               flexDirection: "column",
-              textAlign: { xs: "center", sm: "center", md: "left", lg: "left" },
+              justifyContent: "space-around",
+              ...SONG_DETAILS_ALIGN_ITEMS,
               border: "none",
             }}
           >
-            <CardContent>
-              <Typography component="div" variant="subtitle1" color="secondary">
+            <CardContent
+              sx={{
+                // border: "1px solid white",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                ...SONG_DETAILS_ALIGN_ITEMS,
+              }}
+            >
+              <Typography
+                component="div"
+                variant="subtitle1"
+                color="secondary"
+                sx={{ ...SONG_DETAILS_TEXT_ALIGN }}
+              >
                 ALBUM
               </Typography>
               <Typography
                 component="div"
                 variant="h6"
                 color="primary"
-                sx={{ width: 300 }}
+                sx={{
+                  width: 300,
+                  ...SONG_DETAILS_TEXT_ALIGN,
+                  // border: "1px solid white",
+                }}
                 noWrap
               >
                 {title}
               </Typography>
-              <Typography component="div" variant="body2" color="primary">
+              <Typography
+                component="div"
+                variant="body2"
+                color="primary"
+                sx={{ ...SONG_DETAILS_TEXT_ALIGN }}
+              >
                 {description}
               </Typography>
               <Typography
@@ -82,11 +109,20 @@ const SongDetails = ({
                 color="primary"
                 component="div"
                 noWrap
-                sx={{ width: 200 }}
+                sx={{
+                  width: 200,
+                  ...SONG_DETAILS_TEXT_ALIGN,
+                  // border: "1px solid white",
+                }}
               >
                 {artists?.map((artist) => artist.name).join(", ")}
               </Typography>
-              <Typography variant="subtitle1" color="primary" component="div">
+              <Typography
+                variant="subtitle1"
+                color="primary"
+                component="div"
+                sx={{ ...SONG_DETAILS_TEXT_ALIGN }}
+              >
                 {songs?.length}
                 {" songs"}
                 {" | "}
