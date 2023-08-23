@@ -7,6 +7,8 @@ const LINKS = {
   login: "/login",
   search: "/search",
   genres: "/genres",
+  login: "/login",
+  signup: "/signup",
 };
 
 export default LINKS;

@@ -7,7 +7,9 @@ import Loader from "../Loader";
 
 const Body = () => {
   const { loading } = useSelector((state) => state.albums);
+
   if (loading) return <Loader />;
+
   return (
     <Stack
       sx={{

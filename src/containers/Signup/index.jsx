@@ -1,99 +1,87 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
 import "./style.css";
-import { Divider } from "@mui/material";
-import { useNavigate } from "react-router";
+
 import LINKS from "../links";
-
-import { login } from "../../App/features/User/userSlice";
-import { useSelector, useDispatch } from "react-redux";
-
-import Loader from "../AmazonMusic/components/Loader";
-import Error from "./Error";
+import { useNavigate } from "react-router";
 
 const INITIAL_STATE = {
+  name: "",
   email: "",
   password: "",
 };
 
 const INITIAL_ERROR_DATA = {
+  nameError: "",
   emailError: "",
   passwordError: "",
 };
 
-function Login() {
+function Signup() {
   const [userData, setUserData] = useState(INITIAL_STATE);
   const [errorData, setErrorData] = useState(INITIAL_ERROR_DATA);
-
-  const { isLoggedIn, loading, error } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate(LINKS.home);
-    }
-  }, [isLoggedIn]);
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
   };
 
-  const loginUser = (event) => {
+  const register = (event) => {
     event.preventDefault();
     setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA }));
-    console.log("clicked login");
+    console.log("clicked register");
     const errorResult = validation(userData);
 
     if (errorResult) {
       setErrorData((obj) => ({ ...obj, ...errorResult }));
       return;
     } else {
-      //dispatch login action
-      //submit user data
-      dispatch(login({ ...userData, appType: "music" }));
+      //dispatch signup action
+      //submit userData in Redux
       console.log(userData);
       setUserData((obj) => ({ ...obj, ...INITIAL_STATE }));
       setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA }));
+      navigate(LINKS.home);
     }
   };
 
   const validation = (userData) => {
-    const { email, password } = userData;
+    const { name, email, password } = userData;
 
-    if (!email || !password) {
+    if (!name || !email || !password) {
       return {
+        nameError: "Please enter all fields",
         emailError: "Please enter all fields",
         passwordError: "Please enter all fields",
       };
     }
+    let nameError =
+      name.length > 3 ? "" : "name must contain atleast 3 letters";
     let emailError =
-      email.length > 3 && email.includes("") ? "" : "Please enter valid email";
+      email.includes("") && email.split("@")[0].length > 3
+        ? ""
+        : "Please enter valid email";
     let passwordError =
       password.length > 3 ? "" : "password must contain atleast 3 letters";
-    console.log(emailError, passwordError);
+    console.log(nameError, emailError, passwordError);
 
-    if (!emailError && !passwordError) return false;
+    if (!emailError && !passwordError && !nameError) return false;
     return {
+      nameError,
       emailError,
       passwordError,
     };
   };
 
-  const routeToSingup = () => {
-    navigate(LINKS.signup);
+  const routeTologin = () => {
+    navigate(LINKS.login);
   };
 
-  const { email, password } = userData;
-  const { emailError, passwordError } = errorData;
-
-  if (loading) return <Loader />;
+  const { name, email, password } = userData;
+  const { nameError, emailError, passwordError } = errorData;
 
   return (
     <div className="login">
-      {error && <Error msg={error} />}
+      {/* <Link to='/'> */}
       <img
         className="login__logo"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
@@ -102,9 +90,19 @@ function Login() {
       {/* </Link> */}
 
       <div className="login__container">
-        <h1>Sign-in</h1>
+        <h1>Signup</h1>
 
-        <form onSubmit={loginUser}>
+        <form onSubmit={register}>
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleChange}
+          />
+          {nameError && <p style={{ color: "red" }}>{nameError}</p>}
+
           <label htmlFor="email">E-mail</label>
           <input
             type="text"
@@ -125,26 +123,22 @@ function Login() {
           />
           {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
 
-          <button onClick={loginUser} className="login__signInButton">
-            Signin
+          <button onClick={register} className="login__signInButton">
+            Signup
           </button>
         </form>
 
         <p>
-          By continuing, you agree to Amazon's Conditions of Use and Privacy
-          Notice.
+          By creating an account, you agree to Amazon's Conditions of Use and
+          Privacy Notice.
         </p>
-        <Divider>New to Amazon?</Divider>
-        <button onClick={routeToSingup} className="login__registerButton">
-          Create your Amazon Account
+
+        <button onClick={routeTologin} className="login__registerButton">
+          Already have an account? Sign in
         </button>
       </div>
     </div>
   );
 }
 
-export default Login;
-
-// "email" : "abdurrahman@gmail.com",
-//     "password" : "123456789",
-//     "appType" : "music"
+export default Signup;

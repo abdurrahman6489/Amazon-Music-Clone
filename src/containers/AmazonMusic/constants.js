@@ -10,9 +10,19 @@ export const body = {
   password: "12345678",
 };
 
-export const AUTH_URL = "https://academics.newtonschool.co/api/v1/user/login";
+export const SIGN_IN_AUTH_URL =
+  "https://academics.newtonschool.co/api/v1/user/login";
+
+export const SIGN_UP_AUTH_URL =
+  "https://academics.newtonschool.co/api/v1/user/signup";
+
+export const UPDATE_PASSWORD_URL =
+  "https://academics.newtonschool.co/api/v1/user/updateMyPassword";
+
 export const SONG_URL = "https://academics.newtonschool.co/api/v1/music/song";
+
 export const ALBUM_URL = "https://academics.newtonschool.co/api/v1/music/album";
+
 export const ALL_ARTISTS_URL =
   "https://academics.newtonschool.co/api/v1/music/artist/";
 

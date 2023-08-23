@@ -14,6 +14,7 @@ import useAlbums from "./Utils/CustomHook.js";
 import MusicModal from "./containers/AmazonMusic/components/Modal";
 import SearchPage from "./containers/SearchPage";
 import Genres from "./containers/Genres";
+import Signup from "./containers/Signup";
 export const config = {
   headers: {
     projectId: "hkj23notg7e0",
@@ -52,6 +53,10 @@ function App() {
     {
       path: links.login,
       element: <Login />,
+    },
+    {
+      path: links.signup,
+      element: <Signup />,
     },
     {
       path: links.libraryPodcasts,
