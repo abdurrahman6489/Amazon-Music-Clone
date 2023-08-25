@@ -1,6 +1,7 @@
 export function getFromLocalStorage(key, data) {
-  if (data === Object(data))
+  if (data === Object(data)) {
     return JSON.parse(localStorage.getItem(key) || "{}");
+  }
 
   if (data === Array.isArray(data))
     return JSON.parse(localStorage.getItem(key) || "[]");

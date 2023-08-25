@@ -24,6 +24,7 @@ import links from "../../../links";
 import { useNavigate } from "react-router";
 import CustomTheme from "../../CustomTheme";
 import SearchComponent from "./components/Search";
+import UserAvatar from "./components/UserAvatar";
 
 import {
   HEADER_COLORS,
@@ -149,7 +150,7 @@ const Header = () => {
           </CustomTheme>
           <Box sx={{ flexGrow: 1 }} />
           <SearchComponent />
-          <Avatar>R</Avatar>
+          <UserAvatar />
         </Toolbar>
       </AppBar>
     </CustomTheme>

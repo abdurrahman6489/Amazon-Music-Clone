@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import "./style.css";
-import { Divider } from "@mui/material";
+import { Divider, Link } from "@mui/material";
 import { useNavigate } from "react-router";
 import LINKS from "../links";
 
@@ -21,9 +21,16 @@ const INITIAL_ERROR_DATA = {
   passwordError: "",
 };
 
+const INITIAL_UPDATE_PASSWORD = {
+  isUpdate: false,
+  value: "",
+  updatePasswordError: "",
+};
+
 function Login() {
   const [userData, setUserData] = useState(INITIAL_STATE);
   const [errorData, setErrorData] = useState(INITIAL_ERROR_DATA);
+  const [updatePassword, setUpdatePassword] = useState(INITIAL_UPDATE_PASSWORD);
 
   const { isLoggedIn, loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -41,6 +48,11 @@ function Login() {
     setUserData({ ...userData, [name]: value });
   };
 
+  const handleChangeUpdatePassword = (event) => {
+    let value = event.target.value;
+    setUpdatePassword((obj) => ({ ...obj, value }));
+  };
+
   const loginUser = (event) => {
     event.preventDefault();
     setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA }));
@@ -49,6 +61,33 @@ function Login() {
 
     if (errorResult) {
       setErrorData((obj) => ({ ...obj, ...errorResult }));
+      return;
+    } else {
+      //dispatch login action
+      //submit user data
+      dispatch(login({ ...userData, appType: "music" }));
+      console.log(userData);
+      setUserData((obj) => ({ ...obj, ...INITIAL_STATE }));
+      setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA }));
+    }
+  };
+
+  const updatePasswordFunction = (event) => {
+    event.preventDefault();
+    setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA }));
+    console.log("clicked login");
+    const errorResult = validation(userData);
+
+    if (errorResult) {
+      setErrorData((obj) => ({ ...obj, ...errorResult }));
+      return;
+    } else if (
+      !updatePasswordValidation(updatePassword.value, userData.password)
+    ) {
+      setUpdatePassword((obj) => ({
+        ...obj,
+        updatePasswordError: "Passwords do not match",
+      }));
       return;
     } else {
       //dispatch login action
@@ -82,12 +121,21 @@ function Login() {
     };
   };
 
+  const updatePasswordValidation = (updatePassword, password) => {
+    return updatePassword === password;
+  };
+
+  const setUpdate = () => {
+    setUpdatePassword((obj) => ({ ...obj, isUpdate: true }));
+  };
+
   const routeToSingup = () => {
     navigate(LINKS.signup);
   };
 
   const { email, password } = userData;
   const { emailError, passwordError } = errorData;
+  const { isUpdate, value, updatePasswordError } = updatePassword;
 
   if (loading) return <Loader />;
 
@@ -110,6 +158,7 @@ function Login() {
             type="text"
             id="email"
             name="email"
+            placeholder="Your Email..."
             value={email}
             onChange={handleChange}
           />
@@ -120,12 +169,31 @@ function Login() {
             id="password"
             type="password"
             name="password"
+            placeholder="Your Password..."
             value={password}
             onChange={handleChange}
           />
           {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
+          {!isUpdate && <Link underline="none" href="" onClick={setUpdate} />}
 
-          <button onClick={loginUser} className="login__signInButton">
+          {isUpdate && (
+            <input
+              id="updatePassword"
+              type="password"
+              name="updatePassword"
+              placeholder="Your new Password..."
+              value={value}
+              onChange={handleChangeUpdatePassword}
+            />
+          )}
+          {isUpdate && updatePasswordError && (
+            <p style={{ color: "red" }}>{updatePasswordError}</p>
+          )}
+
+          <button
+            onClick={!isUpdate ? loginUser : updatePasswordFunction}
+            className="login__signInButton"
+          >
             Signin
           </button>
         </form>

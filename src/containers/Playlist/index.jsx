@@ -16,7 +16,7 @@ const songObject = (selectedAlbum) => {
 const Playlist = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { loading, selectedAlbum } = useSelector(
+  const { loading, selectedAlbum, audioTrackIndex } = useSelector(
     (state) => state.selectedAlbums
   );
 
@@ -29,8 +29,13 @@ const Playlist = () => {
 
   const allSongs = selectedAlbum?.songs?.map((song, index) => (
     <>
-      {index !== 0 && <Divider />}
-      <SongList {...song} songNo={index + 1} key={song._id} />
+      {index !== 0 && <Divider key={song.title} />}
+      <SongList
+        {...song}
+        songNo={index + 1}
+        key={song._id}
+        audioTrackIndex={audioTrackIndex}
+      />
     </>
   ));
 

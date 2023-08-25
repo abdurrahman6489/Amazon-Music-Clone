@@ -45,7 +45,7 @@ const Song = ({ title, album, artist, mood, thumbnail, audio_url }) => {
           sx={{
             color: "#FFF",
             width: 100,
-            textAlign: "center",
+            textAlign: "left",
           }}
         >
           {title}
@@ -57,6 +57,7 @@ const Song = ({ title, album, artist, mood, thumbnail, audio_url }) => {
           sx={{
             color: "#FFF",
             width: 70,
+            textAlign: "left",
           }}
         >
           {artist?.map((artist) => artist.name).join(" ")}

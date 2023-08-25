@@ -11,18 +11,23 @@ import Error from "./containers/Error";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import links from "./containers/links";
 import useAlbums from "./Utils/CustomHook.js";
+import { useUserData } from "./Utils/CustomHook";
 import MusicModal from "./containers/AmazonMusic/components/Modal";
 import SearchPage from "./containers/SearchPage";
 import Genres from "./containers/Genres";
 import Signup from "./containers/Signup";
-export const config = {
-  headers: {
-    projectId: "hkj23notg7e0",
-  },
-};
+
+import { useSelector, useDispatch } from "react-redux";
+import { setMsgDisplayedFalse } from "./App/features/User/registerUserSlice";
+import MessageComponent from "./containers/MessageComponent";
 
 function App() {
   useAlbums();
+  useUserData();
+  const { msgDisplayed, message } = useSelector(
+    (state) => state.registeredUser
+  );
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const router = createBrowserRouter([
     {
@@ -93,6 +98,11 @@ function App() {
   ]);
   return (
     <>
+      <MessageComponent
+        msg={message}
+        setOpen={() => dispatch(setMsgDisplayedFalse())}
+        open={msgDisplayed}
+      />
       <MusicModal open={open} setOpen={setOpen} />
       <RouterProvider router={router} />
     </>

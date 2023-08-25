@@ -2,6 +2,7 @@
 export const config = {
   headers: {
     projectId: "hkj23notg7e0",
+    // Authorization : "Bearer token"
   },
 };
 

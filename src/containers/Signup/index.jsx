@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 
 import LINKS from "../links";
 import { useNavigate } from "react-router";
+
+import { signup } from "../../App/features/User/registerUserSlice";
+import { useSelector, useDispatch } from "react-redux";
+import Loader from "../AmazonMusic/components/Loader";
 
 const INITIAL_STATE = {
   name: "",
@@ -19,7 +23,20 @@ const INITIAL_ERROR_DATA = {
 function Signup() {
   const [userData, setUserData] = useState(INITIAL_STATE);
   const [errorData, setErrorData] = useState(INITIAL_ERROR_DATA);
+
+  const { loading, msgDisplayed } = useSelector(
+    (state) => state.registeredUser
+  );
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (msgDisplayed) {
+      routeTologin();
+    }
+  }, [msgDisplayed]);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
@@ -38,9 +55,9 @@ function Signup() {
       //dispatch signup action
       //submit userData in Redux
       console.log(userData);
+      dispatch(signup({ ...userData, appType: "music" }));
       setUserData((obj) => ({ ...obj, ...INITIAL_STATE }));
       setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA }));
-      navigate(LINKS.home);
     }
   };
 
@@ -78,6 +95,8 @@ function Signup() {
 
   const { name, email, password } = userData;
   const { nameError, emailError, passwordError } = errorData;
+
+  if (loading) return <Loader />;
 
   return (
     <div className="login">
