@@ -26,13 +26,13 @@ const SongList = ({
   _id,
   addRemoveSavedData,
   isSongSaved,
+  album,
 }) => {
   const dispatch = useDispatch();
-
+  console.log(album);
   // console.log(isSongSaved);
 
-  const addOrRemoveSong = (event, name) => {
-    console.log(event);
+  const addOrRemoveSong = (name) => {
     console.log(name);
     addRemoveSavedData({
       title,
@@ -41,15 +41,11 @@ const SongList = ({
       thumbnail,
       audio_url,
       _id,
+      album,
     });
   };
 
-  const handleClick = (event, name) => {
-    console.log(event);
-    console.log(event.target);
-    console.log(name);
-
-    // if (event.target !== event.currentTarget) return;
+  const handleClick = (event) => {
     dispatch(setAudioTrackIndex({ audioTrackIndex: songNo - 1 }));
   };
 
@@ -73,7 +69,11 @@ const SongList = ({
           },
         }}
         name="playSong"
-        onClick={(event) => handleClick(event, "playSong")}
+        onClick={(event) => {
+          console.log(event.target);
+          console.log(event.currentTarget);
+          handleClick("playSong");
+        }}
       >
         <Box component="div" flex={1} sx={{ ml: 4 }}>
           <Typography
@@ -126,7 +126,6 @@ const SongList = ({
           {artistName}
         </Typography> */}
         </Box>
-
         <Box
           component="div"
           flex={4}
@@ -142,13 +141,18 @@ const SongList = ({
             03 : 00
           </Typography>
         </Box>
+
         <Box component="div" flex={2}>
           <Checkbox
             aria-label="Add to wishlist"
             color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
             checked={isSongSaved}
             name="addSongs"
-            onChange={(event) => addOrRemoveSong(event, "addSongs")}
+            onChange={(event) => {
+              event.stopPropagation();
+              console.log(event.currentTarget);
+              addOrRemoveSong("addSongs");
+            }}
             icon={
               <AddIcon
                 fontSize="medium"
@@ -167,6 +171,7 @@ const SongList = ({
           <IconButton
             aria-label="Add to wishlist"
             color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
+            name="more"
           >
             <MoreHorizIcon />
           </IconButton>

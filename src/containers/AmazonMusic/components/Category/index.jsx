@@ -7,42 +7,33 @@ import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 
-const Category = ({ mood }) => {
-  const location = useLocation();
-  console.log(location);
-
-  let songs;
-  let filterFunction = (song) => song.mood == mood;
-  songs = useSelector((state) => state.albums.albums);
-
-  if (location.pathname.startsWith("/genres")) {
-    songs = useSelector((state) => state.searchSong.searchSongs);
-    filterFunction = (song) => true;
-  }
-
-  console.log(songs);
+const Category = ({ mood, playListName, songs, isFilter }) => {
+  let filterFunction;
+  if (isFilter) {
+    filterFunction = (song) => song.mood === mood;
+  } else filterFunction = (song) => true;
 
   const boxRef = useRef();
 
   const nextCards = () => {
     let width = boxRef.current.clientWidth;
     boxRef.current.scrollLeft = boxRef.current.scrollLeft + width;
-    console.log(width);
-    console.log(boxRef);
-    console.log(boxRef.current.scrollLeft);
+    // console.log(width);
+    // console.log(boxRef);
+    // console.log(boxRef.current.scrollLeft);
   };
 
   const prevCards = () => {
     let width = boxRef.current.clientWidth;
     boxRef.current.scrollLeft = boxRef.current.scrollLeft - width;
-    console.log(width);
-    console.log(boxRef.current.scrollLeft);
+    // console.log(width);
+    // console.log(boxRef.current.scrollLeft);
   };
 
   return (
     <>
       <PlayListController
-        playListName={"Featured This Week"}
+        playListName={playListName}
         next={nextCards}
         prev={prevCards}
         box={boxRef}

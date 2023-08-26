@@ -4,7 +4,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CustomTheme from "../../../CustomTheme";
 
-import { BODY_PLAYLIST_BTN_COLOR } from "../../../constants";
+import { BODY_PLAYLIST_BTN_COLOR, FONT_STYLE } from "../../../constants";
 
 const PlayListController = ({ playListName, next, prev, box }) => {
   return (
@@ -18,14 +18,16 @@ const PlayListController = ({ playListName, next, prev, box }) => {
           gap: "1em",
         }}
       >
-        <Typography variant="h6" color="#FFF">
+        <Typography
+          variant="h6"
+          color="#FFF"
+          noWrap
+          sx={{ ...FONT_STYLE, width: 300, textAlign: "left" }}
+        >
           {playListName}
         </Typography>
         <Box sx={{ flexGrow: 1 }}></Box>
-        <CustomTheme
-          primaryColor={BODY_PLAYLIST_BTN_COLOR.PRIMARY_COLOR}
-          secondaryColor={BODY_PLAYLIST_BTN_COLOR.SECONDARY_COLOR}
-        >
+        <CustomTheme {...BODY_PLAYLIST_BTN_COLOR}>
           <Fab color="primary" size="small" onClick={() => prev()}>
             <ChevronLeftIcon />
           </Fab>

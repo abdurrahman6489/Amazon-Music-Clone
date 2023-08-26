@@ -26,8 +26,6 @@ const Genres = () => {
     dispatch(getSearchedSongs(searchObject));
   }, []);
 
-  // console.log("filter is ", filter);
-
   if (loading) return <Loader />;
   console.log("searchSongs is ", searchSongs);
 
@@ -48,7 +46,13 @@ const Genres = () => {
         flex={50}
         sx={{ border: "1px solid black", maxWidth: "92dvw", p: 5 }}
       >
-        <Category mood="happy" />
+        <Category
+          mood={"happy"}
+          songs={searchSongs}
+          playListName={"Top Results"}
+          key={"happy"}
+          isFilter={false}
+        />
       </Box>
       <Box flex={1}></Box>
     </Stack>

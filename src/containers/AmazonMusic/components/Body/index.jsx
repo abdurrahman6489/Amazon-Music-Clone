@@ -4,9 +4,10 @@ import Category from "../Category";
 import { useSelector } from "react-redux";
 import { Stack, Box } from "@mui/material";
 import Loader from "../Loader";
+import { categoryArray } from "../../constants";
 
 const Body = () => {
-  const { loading } = useSelector((state) => state.albums);
+  const { loading, albums } = useSelector((state) => state.albums);
 
   if (loading) return <Loader />;
 
@@ -25,10 +26,19 @@ const Body = () => {
         flex={50}
         sx={{ border: "1px solid black", maxWidth: "92dvw", p: 5 }}
       >
-        <Category mood="happy" />
-        <Category mood="sad" />
-        <Category mood="excited" />
-        <Category mood="romantic" />
+        {categoryArray?.map((category) => {
+          const { mood, playListName, isFilter } = category;
+
+          return (
+            <Category
+              mood={mood}
+              songs={albums}
+              playListName={playListName}
+              key={mood}
+              isFilter={isFilter}
+            />
+          );
+        })}
       </Box>
       <Box flex={1}></Box>
     </Stack>

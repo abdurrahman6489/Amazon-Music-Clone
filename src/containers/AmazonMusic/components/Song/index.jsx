@@ -18,6 +18,7 @@ import LINKS from "../../../links";
 import { useNavigate } from "react-router-dom";
 
 const Song = ({ title, album, artist, mood, thumbnail, audio_url }) => {
+  // console.log(album);
   const navigate = useNavigate();
   return (
     <Card

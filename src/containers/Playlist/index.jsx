@@ -46,8 +46,17 @@ const Playlist = () => {
     thumbnail,
     audio_url,
     _id,
+    album,
   }) => {
-    const song = { title, dateOfRelease, mood, thumbnail, audio_url, _id };
+    const song = {
+      title,
+      dateOfRelease,
+      mood,
+      thumbnail,
+      audio_url,
+      _id,
+      album,
+    };
     console.log("playlist component ", song);
     dispatch(addRemoveSongs({ song }));
   };

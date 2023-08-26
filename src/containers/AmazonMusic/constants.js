@@ -41,10 +41,39 @@ function MAKE_DISPLAY(xs = "block", sm = "block", md = "block", lg = "block") {
   };
 }
 
+//for Body container of Home page.
+export const categoryArray = [
+  {
+    mood: "happy",
+    playListName: "Featured This Week",
+    isFilter: true,
+  },
+  {
+    mood: "sad",
+    playListName: "Soul Soothers",
+    isFilter: true,
+  },
+  {
+    mood: "excited",
+    playListName: "Trending Playlists",
+    isFilter: true,
+  },
+  {
+    mood: "romantic",
+    playListName: "Hip-Hop Forever",
+    isFilter: true,
+  },
+];
+
 //for header component
 export const HEADER_COLORS = {
   PRIMARY_COLOR: "#0a0b0b",
   SECONDARY_COLOR: "#0a0b0b",
+};
+
+export const MENU_COLOR = {
+  PRIMARY_COLOR: "rgba(0, 0, 0, 0.8)",
+  SECONDARY_COLOR: "rgba(0, 0, 0, 0.8)",
 };
 
 export const HEADER_NAVIGATING_BTN_COLORS = MAKE_COLORS(
@@ -57,10 +86,7 @@ export const HEADER_BTN_DISPLAY = {
 };
 
 //for body playlist component
-export const BODY_PLAYLIST_BTN_COLOR = {
-  PRIMARY_COLOR: "#0a0b0b",
-  SECONDARY_COLOR: "#0a0b0b",
-};
+export const BODY_PLAYLIST_BTN_COLOR = MAKE_COLORS("#0a0b0b", "#0a0b0b");
 
 //for MODAL component
 export const MODAL_COLOR = {
@@ -136,3 +162,11 @@ export const SIGN_IN_SIGN_OUT_BTN_COLOR = MAKE_COLORS(
   "hsl(183, 71%, 50%)",
   "#FFF"
 );
+
+//for playlistController component
+export const FONT_STYLE = {
+  fontFamily: '"Sharp Grotesk Semi Bold 20", Helvetica, Arial, "sans-serif"',
+  fontWeight: "bold",
+  color: "white",
+  fontSize: 24,
+};

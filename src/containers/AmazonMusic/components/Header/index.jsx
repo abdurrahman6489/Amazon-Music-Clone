@@ -26,10 +26,13 @@ import CustomTheme from "../../CustomTheme";
 import SearchComponent from "./components/Search";
 import UserAvatar from "./components/UserAvatar";
 
+import "./style.css";
+
 import {
   HEADER_COLORS,
   HEADER_NAVIGATING_BTN_COLORS,
   HEADER_BTN_DISPLAY,
+  MENU_COLOR,
 } from "../../constants";
 
 const Header = () => {
@@ -134,14 +137,29 @@ const Header = () => {
                   key={"music"}
                   color="primary"
                   divider="true"
-                  sx={{ color: "hsl(0, 0%, 10%)" }}
+                  sx={{
+                    backgroundColor: "#0a0b0b",
+                    ":hover": { backgroundColor: "hsl(180, 5%, 8%)" },
+                  }}
                 >
-                  <IconButton onClick={() => handleClick("libraryMusic")}>
+                  <IconButton
+                    onClick={() => handleClick("libraryMusic")}
+                    sx={{ color: "#FFF" }}
+                  >
                     <Typography varian="body1">Music</Typography>
                   </IconButton>
                 </MenuItem>
-                <MenuItem key={"Podcasts"}>
-                  <IconButton onClick={() => handleClick("libraryPodcasts")}>
+                <MenuItem
+                  key={"Podcasts"}
+                  sx={{
+                    backgroundColor: "#0a0b0b",
+                    ":hover": { backgroundColor: "hsl(180, 5%, 8%)" },
+                  }}
+                >
+                  <IconButton
+                    onClick={() => handleClick("libraryPodcasts")}
+                    sx={{ color: "#FFF" }}
+                  >
                     <Typography varian="body1">Podcasts</Typography>
                   </IconButton>
                 </MenuItem>
