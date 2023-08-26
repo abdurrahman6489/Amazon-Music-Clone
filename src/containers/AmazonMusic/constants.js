@@ -130,3 +130,9 @@ export const SONG_DETAILS_ALIGN_ITEMS = {
 export const SONG_DETAILS_TEXT_ALIGN = {
   textAlign: { xs: "center", sm: "center", md: "left", lg: "left" },
 };
+
+//for Signin and SignOut Button
+export const SIGN_IN_SIGN_OUT_BTN_COLOR = MAKE_COLORS(
+  "hsl(183, 71%, 50%)",
+  "#FFF"
+);

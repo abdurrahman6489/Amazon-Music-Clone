@@ -7,10 +7,13 @@ import SongList from "./SongList";
 import Loader from "../AmazonMusic/components/Loader";
 import { getSelectedAlbum } from "../../App/features/albums/selectedAlbumSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { addRemoveAlbums } from "../../App/features/User/userSlice";
+import { addRemoveSongs } from "../../App/features/User/userSlice";
 
 const songObject = (selectedAlbum) => {
-  const { title, artists, description, songs, image, release } = selectedAlbum;
-  return { title, artists, description, songs, image, release };
+  const { title, artists, description, songs, image, release, _id } =
+    selectedAlbum;
+  return { title, artists, description, songs, image, release, _id };
 };
 
 const Playlist = () => {
@@ -19,13 +22,42 @@ const Playlist = () => {
   const { loading, selectedAlbum, audioTrackIndex } = useSelector(
     (state) => state.selectedAlbums
   );
+  const { savedAlbums, savedSongs } = useSelector((state) => state.user);
+  const isAlbumSaved = savedAlbums.some((savedAlbum) => savedAlbum._id === id);
+
+  const handleAddRemoveAlbum = ({
+    title,
+    artists,
+    description,
+    songs,
+    image,
+    release,
+    _id,
+  }) => {
+    const album = { title, artists, description, songs, image, release, _id };
+    // console.log("from playlist component ", album);
+    dispatch(addRemoveAlbums({ album }));
+  };
+
+  const addRemoveSong = ({
+    title,
+    dateOfRelease,
+    mood,
+    thumbnail,
+    audio_url,
+    _id,
+  }) => {
+    const song = { title, dateOfRelease, mood, thumbnail, audio_url, _id };
+    console.log("playlist component ", song);
+    dispatch(addRemoveSongs({ song }));
+  };
 
   useEffect(() => {
     dispatch(getSelectedAlbum(id));
   }, []);
 
   if (loading) return <Loader />;
-  console.log("from playlist component ", selectedAlbum);
+  // console.log("from playlist component ", selectedAlbum);
 
   const allSongs = selectedAlbum?.songs?.map((song, index) => (
     <>
@@ -34,6 +66,8 @@ const Playlist = () => {
         {...song}
         songNo={index + 1}
         key={song._id}
+        isSongSaved={savedSongs.some((savedSong) => savedSong._id == song._id)}
+        addRemoveSavedData={addRemoveSong}
         audioTrackIndex={audioTrackIndex}
       />
     </>
@@ -66,7 +100,11 @@ const Playlist = () => {
             opacity: 0.8,
           }}
         >
-          <SongDetails {...songObject(selectedAlbum)} />
+          <SongDetails
+            {...songObject(selectedAlbum)}
+            isDataSaved={isAlbumSaved}
+            addDeleteSavedData={handleAddRemoveAlbum}
+          />
           <Box sx={{ mt: "5vh", mb: "15vh" }}>{allSongs}</Box>
         </Box>
       </Box>

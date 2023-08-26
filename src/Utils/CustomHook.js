@@ -24,7 +24,18 @@ export function useUserData() {
     (state) => state.user
   );
   const isLoggedIn = token ? true : false;
-  const userDetails = { name, email, token, isLoggedIn };
+  const userDetails = useMemo(
+    () => ({
+      name,
+      email,
+      token,
+      isLoggedIn,
+    }),
+    [name, email, token, isLoggedIn]
+  );
+
+  const memoizedSavedAlbums = useMemo(() => savedUserAlbums, [savedUserAlbums]);
+  const memoizedSavedSongs = useMemo(() => savedUserSongs, [savedUserSongs]);
 
   useEffect(() => {
     if (Object.keys(savedUserDetails).length > 0 && savedUserDetails.token) {
@@ -41,5 +52,5 @@ export function useUserData() {
     saveToLocalStorage("authUserDetails", userDetails);
     saveToLocalStorage("authUserAlbums", savedAlbums);
     saveToLocalStorage("authUserSongs", savedSongs);
-  }, [savedAlbums, savedSongs, userDetails]);
+  }, [memoizedSavedSongs, memoizedSavedAlbums, userDetails]);
 }

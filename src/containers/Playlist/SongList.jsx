@@ -1,14 +1,15 @@
 import React from "react";
-import { Box, Stack, Typography, List, ListItem, Fab } from "@mui/material";
+import { Box, Stack, Typography, Checkbox, Fab } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { PlayArrow } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+
 import CustomTheme from "../AmazonMusic/CustomTheme";
 
 import { useDispatch } from "react-redux";
 import { setAudioTrackIndex } from "../../App/features/albums/selectedAlbumSlice";
-import { addRemoveSongs } from "../../App/features/User/userSlice";
 
 import "./style.css";
 
@@ -23,21 +24,32 @@ const SongList = ({
   songNo,
   audioTrackIndex,
   _id,
+  addRemoveSavedData,
+  isSongSaved,
 }) => {
   const dispatch = useDispatch();
 
-  const addtheSong = (event, name) => {
+  // console.log(isSongSaved);
+
+  const addOrRemoveSong = (event, name) => {
     console.log(event);
-    event.stopPropagation();
-    // let name = event.target.name;
     console.log(name);
-    const song = { title, dateOfRelease, mood, thumbnail, audio_url, _id };
-    dispatch(addRemoveSongs({ song }));
+    addRemoveSavedData({
+      title,
+      dateOfRelease,
+      mood,
+      thumbnail,
+      audio_url,
+      _id,
+    });
   };
 
-  const handleClick = (name) => {
+  const handleClick = (event, name) => {
+    console.log(event);
+    console.log(event.target);
     console.log(name);
-    if (name == "addSongs" || name == "more") return;
+
+    // if (event.target !== event.currentTarget) return;
     dispatch(setAudioTrackIndex({ audioTrackIndex: songNo - 1 }));
   };
 
@@ -61,7 +73,7 @@ const SongList = ({
           },
         }}
         name="playSong"
-        onClick={() => handleClick("playSong")}
+        onClick={(event) => handleClick(event, "playSong")}
       >
         <Box component="div" flex={1} sx={{ ml: 4 }}>
           <Typography
@@ -131,14 +143,25 @@ const SongList = ({
           </Typography>
         </Box>
         <Box component="div" flex={2}>
-          <IconButton
+          <Checkbox
             aria-label="Add to wishlist"
             color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
+            checked={isSongSaved}
             name="addSongs"
-            onClick={(event) => addtheSong(event, "addSongs")}
-          >
-            <AddIcon />
-          </IconButton>
+            onChange={(event) => addOrRemoveSong(event, "addSongs")}
+            icon={
+              <AddIcon
+                fontSize="medium"
+                color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
+              />
+            }
+            checkedIcon={
+              <RemoveCircleOutlineIcon
+                fontSize="medium"
+                color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
+              />
+            }
+          />
         </Box>
         <Box component="div" flex={2}>
           <IconButton

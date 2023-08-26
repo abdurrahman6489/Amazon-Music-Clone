@@ -74,9 +74,15 @@ export const userSlice = createSlice({
       const { savedSongs } = action.payload;
       state.savedSongs = savedSongs;
     },
-    addAlbums: (state, action) => {
-      const { albums } = action.payload;
-      state.savedAlbums.push(albums);
+    addRemoveAlbums: (state, action) => {
+      const { album } = action.payload;
+      const id = album._id;
+      const albumFoundIndex = state.savedAlbums.findIndex(
+        (album) => album._id == id
+      );
+      console.log(id);
+      if (albumFoundIndex === -1) state.savedAlbums.push(album);
+      else state.savedAlbums.splice(albumFoundIndex, 1);
     },
     addRemoveSongs: (state, action) => {
       const { song } = action.payload;
@@ -87,6 +93,12 @@ export const userSlice = createSlice({
       console.log(id);
       if (songFoundIndex === -1) state.savedSongs.push(song);
       else state.savedSongs.splice(songFoundIndex, 1);
+    },
+    signOutUser: (state) => {
+      state.isLoggedIn = false;
+      state.name = "";
+      state.email = "";
+      state.token = "";
     },
   },
   extraReducers: {
@@ -111,7 +123,8 @@ export const {
   updateSavedUserDetails,
   updateSavedAlbums,
   updateSavedSongs,
-  addAlbums,
+  addRemoveAlbums,
   addRemoveSongs,
+  signOutUser,
 } = userSlice.actions;
 export default userSlice.reducer;

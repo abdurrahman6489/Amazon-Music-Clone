@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -12,7 +11,11 @@ import AddIcon from "@mui/icons-material/Add";
 import ShareIcon from "@mui/icons-material/Share";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import PauseIcon from "@mui/icons-material/Pause";
-import { Fab } from "@mui/material";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
+import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
+import { Fab, Checkbox } from "@mui/material";
+
 import CustomTheme from "../AmazonMusic/CustomTheme";
 
 import { setPlayerPlaying } from "../../App/features/albums/selectedAlbumSlice";
@@ -31,9 +34,25 @@ const SongDetails = ({
   songs,
   image,
   release,
+  _id,
+  isDataSaved,
+  addDeleteSavedData,
 }) => {
   const { playerPlaying } = useSelector((state) => state.selectedAlbums);
   const dispatch = useDispatch();
+  // console.log(_id);
+  const handleAddRemove = () => {
+    console.log("addRemoved clicked");
+    addDeleteSavedData({
+      title,
+      artists,
+      description,
+      songs,
+      image,
+      release,
+      _id,
+    });
+  };
   return (
     <>
       <Card
@@ -158,9 +177,21 @@ const SongDetails = ({
               <IconButton aria-label="Shuffle" color="primary">
                 <ShuffleIcon />
               </IconButton>
-              <IconButton aria-label="Add to wishlist" color="primary">
+              {/* <IconButton
+                aria-label="Add to wishlist"
+                color="primary"
+                onClick={handleAddRemove}
+              >
                 <AddIcon />
-              </IconButton>
+              </IconButton> */}
+              <Checkbox
+                aria-label="Add to wishlist"
+                color="primary"
+                checked={isDataSaved}
+                onChange={handleAddRemove}
+                icon={<AddIcon color="primary" fontSize="large" />}
+                checkedIcon={<RemoveCircleOutlineIcon fontSize="large" />}
+              />
               <IconButton aria-label="next" color="primary">
                 <SensorsIcon />
               </IconButton>
