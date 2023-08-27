@@ -16,9 +16,13 @@ import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 import CustomTheme from "../../CustomTheme";
 
 import { MODAL_COLOR, MODAL_STYLE } from "../../constants";
+import LINKS from "../../../links";
+import { useNavigate } from "react-router-dom";
 
 const MusicModal = ({ open, setOpen }) => {
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
+
   return (
     <>
       <Modal
@@ -93,6 +97,7 @@ const MusicModal = ({ open, setOpen }) => {
                   variant="outlined"
                   color="primary"
                   sx={{ flexGrow: 1, borderRadius: "1em" }}
+                  onClick={() => navigate(LINKS.login)}
                 >
                   Already a customer? Sign in
                 </Button>
@@ -100,6 +105,7 @@ const MusicModal = ({ open, setOpen }) => {
                   variant="extended"
                   color="primary"
                   sx={{ borderRadius: "1em" }}
+                  onClick={() => navigate(LINKS.signup)}
                 >
                   Try Now
                 </Fab>

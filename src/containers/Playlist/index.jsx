@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Box, Stack, List, Divider } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import SongDetails from "./SongDetails";
 import SongList from "./SongList";
 import Loader from "../AmazonMusic/components/Loader";
 import { getSelectedAlbum } from "../../App/features/albums/selectedAlbumSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { addRemoveAlbums } from "../../App/features/User/userSlice";
-import { addRemoveSongs } from "../../App/features/User/userSlice";
+import {
+  addRemoveAlbums,
+  addRemoveSongs,
+  opentheModal,
+} from "../../App/features/User/userSlice";
+import Error from "../Login/Error";
+import ShareModal from "./ShareModal";
 
 const songObject = (selectedAlbum) => {
   const { title, artists, description, songs, image, release, _id } =
@@ -17,12 +22,18 @@ const songObject = (selectedAlbum) => {
 };
 
 const Playlist = () => {
+  const [shareModalOpen, setShareModalOpen] = useState(false);
   const { id } = useParams();
+  const location = useLocation();
+  // console.log(location.pathname);
+
   const dispatch = useDispatch();
-  const { loading, selectedAlbum, audioTrackIndex } = useSelector(
+  const { loading, selectedAlbum, audioTrackIndex, error } = useSelector(
     (state) => state.selectedAlbums
   );
-  const { savedAlbums, savedSongs } = useSelector((state) => state.user);
+  const { savedAlbums, savedSongs, isLoggedIn } = useSelector(
+    (state) => state.user
+  );
   const isAlbumSaved = savedAlbums.some((savedAlbum) => savedAlbum._id === id);
 
   const handleAddRemoveAlbum = ({
@@ -35,6 +46,11 @@ const Playlist = () => {
     _id,
   }) => {
     const album = { title, artists, description, songs, image, release, _id };
+    if (!isLoggedIn) {
+      dispatch(opentheModal());
+      console.log("open the modal done");
+      return;
+    }
     // console.log("from playlist component ", album);
     dispatch(addRemoveAlbums({ album }));
   };
@@ -58,14 +74,23 @@ const Playlist = () => {
       album,
     };
     console.log("playlist component ", song);
+    if (!isLoggedIn) {
+      dispatch(opentheModal());
+      console.log("open the modal done");
+      return;
+    }
     dispatch(addRemoveSongs({ song }));
   };
+
+  const openModal = () => setShareModalOpen(true);
+  const closeModal = () => setShareModalOpen(false);
 
   useEffect(() => {
     dispatch(getSelectedAlbum(id));
   }, []);
 
   if (loading) return <Loader />;
+  if (error) return <Error msg={error} />;
   // console.log("from playlist component ", selectedAlbum);
 
   const allSongs = selectedAlbum?.songs?.map((song, index) => (
@@ -84,6 +109,11 @@ const Playlist = () => {
 
   return (
     <>
+      <ShareModal
+        open={shareModalOpen}
+        close={closeModal}
+        {...songObject(selectedAlbum)}
+      />
       <Box>
         <Box
           component="div"
@@ -113,6 +143,7 @@ const Playlist = () => {
             {...songObject(selectedAlbum)}
             isDataSaved={isAlbumSaved}
             addDeleteSavedData={handleAddRemoveAlbum}
+            openModal={openModal}
           />
           <Box sx={{ mt: "5vh", mb: "15vh" }}>{allSongs}</Box>
         </Box>
@@ -122,49 +153,3 @@ const Playlist = () => {
 };
 
 export default Playlist;
-
-{
-  /* <Box component="div" sx={{ mb: "5vh" }}>
-      <Stack
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box>
-          <Box
-            component="div"
-            style={{
-              position: "relative",
-              maxWidth: "100%",
-              mb: "5vh",
-              border: "none",
-            }}
-          >
-            <img
-              src={selectedAlbum.image}
-              style={{
-                width: "50%",
-                aspectRatio: "2/1",
-                objectFit: "cover",
-                filter: "blur(50px)",
-              }}
-            />
-            <Box
-              component="div"
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-              }}
-            >
-              <SongDetails {...songObject(selectedAlbum)} />
-            </Box>
-          </Box>
-          {allSongs}
-        </Box>
-      </Stack>
-    </Box> */
-}

@@ -5,6 +5,7 @@ import { config, SONG_URL } from "../../../containers/AmazonMusic/constants";
 const initialState = {
   albums: [],
   loading: false,
+  error: "",
 };
 
 export const getAlbums = createAsyncThunk(
@@ -17,6 +18,7 @@ export const getAlbums = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -32,9 +34,11 @@ export const albumSlice = createSlice({
     [getAlbums.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.albums = payload;
+      state.error = "";
     },
     [getAlbums.rejected]: (state) => {
       state.loading = false;
+      state.error = "Something went wrong";
     },
   },
 });

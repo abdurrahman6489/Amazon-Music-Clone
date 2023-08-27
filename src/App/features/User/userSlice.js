@@ -15,6 +15,7 @@ const initialState = {
   savedAlbums: [],
   savedSongs: [],
   error: "",
+  modalOpen: false,
 };
 
 export const login = createAsyncThunk(
@@ -100,6 +101,12 @@ export const userSlice = createSlice({
       state.email = "";
       state.token = "";
     },
+    opentheModal: (state) => {
+      state.modalOpen = true;
+    },
+    closetheModal: (state) => {
+      state.modalOpen = false;
+    },
   },
   extraReducers: {
     [login.pending]: (state) => {
@@ -112,6 +119,7 @@ export const userSlice = createSlice({
       state.name = action.payload.data.name;
       state.email = action.payload.data.email;
       state.error = "";
+      state.modalOpen = false;
     },
     [login.rejected]: (state, { payload }) => {
       state.loading = false;
@@ -126,5 +134,7 @@ export const {
   addRemoveAlbums,
   addRemoveSongs,
   signOutUser,
+  opentheModal,
+  closetheModal,
 } = userSlice.actions;
 export default userSlice.reducer;

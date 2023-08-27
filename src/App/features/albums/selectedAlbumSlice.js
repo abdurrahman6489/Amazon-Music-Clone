@@ -8,6 +8,7 @@ const initialState = {
   playerOpen: false,
   audioTrackIndex: 0,
   playerPlaying: false,
+  error: "",
 };
 
 export const getSelectedAlbum = createAsyncThunk(
@@ -21,6 +22,7 @@ export const getSelectedAlbum = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -45,9 +47,11 @@ export const selectedAlbumSlice = createSlice({
       state.loading = false;
       state.selectedAlbum = payload;
       state.playerOpen = true;
+      state.error = "";
     },
     [getSelectedAlbum.rejected]: (state) => {
       state.loading = false;
+      state.error = "Sorry this song does not exist";
     },
   },
 });

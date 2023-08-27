@@ -5,11 +5,13 @@ import { useSelector } from "react-redux";
 import { Stack, Box } from "@mui/material";
 import Loader from "../Loader";
 import { categoryArray } from "../../constants";
+import Error from "../../../Login/Error";
 
 const Body = () => {
-  const { loading, albums } = useSelector((state) => state.albums);
+  const { loading, albums, error } = useSelector((state) => state.albums);
 
   if (loading) return <Loader />;
+  if (error) return <Error msg={error} />;
 
   return (
     <Stack

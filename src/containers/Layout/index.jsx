@@ -2,17 +2,22 @@ import React from "react";
 import "./style.css";
 import Header from "../AmazonMusic/components/Header";
 import MusicPlayer from "../AmazonMusic/components/MusicPlayer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import MusicModal from "../AmazonMusic/components/Modal";
+import { closetheModal } from "../../App/features/User/userSlice";
 
 const Layout = ({ children }) => {
   const { playerOpen } = useSelector((state) => state.selectedAlbums);
+  const { isLoggedIn, modalOpen } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   return (
     <div className="layout">
       <Header />
       <div style={{ marginTop: "5vh", marginBottom: "3vh" }}></div>
       Layout
       {children}
-      {playerOpen && <MusicPlayer />}
+      {playerOpen && isLoggedIn && <MusicPlayer />}
+      <MusicModal open={modalOpen} setOpen={() => dispatch(closetheModal())} />
     </div>
   );
 };

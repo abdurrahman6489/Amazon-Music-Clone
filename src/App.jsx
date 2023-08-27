@@ -19,6 +19,7 @@ import Signup from "./containers/Signup";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setMsgDisplayedFalse } from "./App/features/User/registerUserSlice";
+import { closetheModal } from "./App/features/User/userSlice";
 import MessageComponent from "./containers/MessageComponent";
 
 function App() {
@@ -27,8 +28,8 @@ function App() {
   const { msgDisplayed, message } = useSelector(
     (state) => state.registeredUser
   );
+  const { modalOpen } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
   const router = createBrowserRouter([
     {
       path: links.home,
@@ -102,8 +103,8 @@ function App() {
         msg={message}
         setOpen={() => dispatch(setMsgDisplayedFalse())}
         open={msgDisplayed}
+        time={4000}
       />
-      <MusicModal open={open} setOpen={setOpen} />
       <RouterProvider router={router} />
     </>
   );

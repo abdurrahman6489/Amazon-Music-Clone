@@ -1,13 +1,17 @@
 import React from "react";
 import { Snackbar } from "@mui/material";
-const MessageComponent = ({ open, setOpen, msg }) => {
+const MessageComponent = ({ open, setOpen, msg, time, vertical }) => {
   const handleClose = () => setOpen();
+  const anchorOrigin = vertical
+    ? { horizontal: "center", vertical: "top" }
+    : { horizontal: "left", vertical: "bottom" };
   return (
     <Snackbar
       open={open}
-      autoHideDuration={10000}
+      autoHideDuration={time}
       onClose={handleClose}
       message={msg}
+      anchorOrigin={anchorOrigin}
     />
   );
 };

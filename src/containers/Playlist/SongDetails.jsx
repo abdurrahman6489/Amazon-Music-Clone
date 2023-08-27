@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -17,6 +18,7 @@ import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
 import { Fab, Checkbox } from "@mui/material";
 
 import CustomTheme from "../AmazonMusic/CustomTheme";
+import MessageComponent from "../MessageComponent";
 
 import { setPlayerPlaying } from "../../App/features/albums/selectedAlbumSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,10 +39,15 @@ const SongDetails = ({
   _id,
   isDataSaved,
   addDeleteSavedData,
+  openModal,
 }) => {
   const { playerPlaying } = useSelector((state) => state.selectedAlbums);
   const dispatch = useDispatch();
   // console.log(_id);
+  const [msgOpen, setMsgOpen] = useState(false);
+  const shuffleSongs = () => {
+    setMsgOpen(true);
+  };
   const handleAddRemove = () => {
     console.log("addRemoved clicked");
     addDeleteSavedData({
@@ -174,7 +181,11 @@ const SongDetails = ({
                 {!playerPlaying ? "Play" : "Pause"}
               </Fab>
               {/* </IconButton> */}
-              <IconButton aria-label="Shuffle" color="primary">
+              <IconButton
+                aria-label="Shuffle"
+                color="primary"
+                onClick={shuffleSongs}
+              >
                 <ShuffleIcon />
               </IconButton>
               {/* <IconButton
@@ -192,16 +203,24 @@ const SongDetails = ({
                 icon={<AddIcon color="primary" fontSize="large" />}
                 checkedIcon={<RemoveCircleOutlineIcon fontSize="large" />}
               />
-              <IconButton aria-label="next" color="primary">
-                <SensorsIcon />
-              </IconButton>
-              <IconButton aria-label="next" color="primary">
+              <IconButton
+                aria-label="next"
+                color="primary"
+                onClick={() => openModal()}
+              >
                 <ShareIcon />
               </IconButton>
             </Box>
           </Box>
         </CustomTheme>
       </Card>
+      <MessageComponent
+        open={msgOpen}
+        setOpen={setMsgOpen}
+        msg={"Feature coming soon"}
+        time={4000}
+        vertical={true}
+      />
     </>
   );
 };
