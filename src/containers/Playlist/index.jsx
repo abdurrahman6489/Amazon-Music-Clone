@@ -24,8 +24,6 @@ const songObject = (selectedAlbum) => {
 const Playlist = () => {
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const { id } = useParams();
-  const location = useLocation();
-  // console.log(location.pathname);
 
   const dispatch = useDispatch();
   const { loading, selectedAlbum, audioTrackIndex, error } = useSelector(
@@ -91,7 +89,6 @@ const Playlist = () => {
 
   if (loading) return <Loader />;
   if (error) return <Error msg={error} />;
-  // console.log("from playlist component ", selectedAlbum);
 
   const allSongs = selectedAlbum?.songs?.map((song, index) => (
     <>

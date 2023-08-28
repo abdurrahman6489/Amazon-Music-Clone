@@ -7,6 +7,7 @@ const MessageComponent = ({ open, setOpen, msg, time, vertical }) => {
     : { horizontal: "left", vertical: "bottom" };
   return (
     <Snackbar
+      sx={{ zIndex: 20, bgcolor: "white", color: "#333" }}
       open={open}
       autoHideDuration={time}
       onClose={handleClose}

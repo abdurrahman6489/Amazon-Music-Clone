@@ -29,11 +29,10 @@ const SongList = ({
   album,
 }) => {
   const dispatch = useDispatch();
-  console.log(album);
+  // console.log(album);
   // console.log(isSongSaved);
 
-  const addOrRemoveSong = (name) => {
-    console.log(name);
+  const addOrRemoveSong = () => {
     addRemoveSavedData({
       title,
       dateOfRelease,
@@ -46,6 +45,12 @@ const SongList = ({
   };
 
   const handleClick = (event) => {
+    // console.log("current target ", event.currentTarget);
+    console.log("target ", event.target);
+    if (event.target?.name == "addSongs") {
+      addOrRemoveSong();
+      return;
+    }
     dispatch(setAudioTrackIndex({ audioTrackIndex: songNo - 1 }));
   };
 
@@ -69,11 +74,7 @@ const SongList = ({
           },
         }}
         name="playSong"
-        onClick={(event) => {
-          console.log(event.target);
-          console.log(event.currentTarget);
-          handleClick("playSong");
-        }}
+        onClick={handleClick}
       >
         <Box component="div" flex={1} sx={{ ml: 4 }}>
           <Typography
@@ -148,11 +149,6 @@ const SongList = ({
             color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
             checked={isSongSaved}
             name="addSongs"
-            onChange={(event) => {
-              event.stopPropagation();
-              console.log(event.currentTarget);
-              addOrRemoveSong("addSongs");
-            }}
             icon={
               <AddIcon
                 fontSize="medium"

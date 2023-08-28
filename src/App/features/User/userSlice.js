@@ -11,6 +11,7 @@ const initialState = {
   email: "",
   loading: false,
   isLoggedIn: false,
+  isPasswordUpdate: false,
   token: "",
   savedAlbums: [],
   savedSongs: [],
@@ -35,19 +36,23 @@ export const login = createAsyncThunk(
   }
 );
 
-export const updatePasswordRedux = createAsyncThunk(
+export const updatePassword = createAsyncThunk(
   "user/updatePasswordRedux",
   async (credentials, { rejectWithValue }) => {
     try {
+      const userDetails =
+        JSON.parse(localStorage.getItem("authUserDetails")) || {};
+      config.authorization = `${userDetails.token}`;
+      console.log(config);
+      console.log(credentials);
       const response = await axios.post(
         UPDATE_PASSWORD_URL,
         credentials,
         config
       );
       const token = response.data.token;
-      const data = response.data.data;
-      console.log("from userSlice data is ", data, "token is ", token);
-      return { token, data };
+      console.log("from userSlice data is ", "token is ", token);
+      return token;
     } catch (error) {
       console.log(error);
       console.log(error.response.data.message);
@@ -107,6 +112,12 @@ export const userSlice = createSlice({
     closetheModal: (state) => {
       state.modalOpen = false;
     },
+    setPasswordUpdateTrue: (state) => {
+      state.isPasswordUpdate = true;
+    },
+    setPasswordUpdateFalse: (state) => {
+      state.isPasswordUpdate = false;
+    },
   },
   extraReducers: {
     [login.pending]: (state) => {
@@ -120,8 +131,24 @@ export const userSlice = createSlice({
       state.email = action.payload.data.email;
       state.error = "";
       state.modalOpen = false;
+      state.isPasswordUpdate = false;
     },
     [login.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+    [updatePassword.pending]: (state) => {
+      state.loading = true;
+    },
+    [updatePassword.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.isLoggedIn = true;
+      state.token = action.payload.token;
+      state.error = "";
+      state.modalOpen = false;
+      state.isPasswordUpdate = false;
+    },
+    [updatePassword.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },
@@ -136,5 +163,7 @@ export const {
   signOutUser,
   opentheModal,
   closetheModal,
+  setPasswordUpdateTrue,
+  setPasswordUpdateFalse,
 } = userSlice.actions;
 export default userSlice.reducer;

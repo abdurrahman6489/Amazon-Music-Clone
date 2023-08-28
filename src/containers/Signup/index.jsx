@@ -7,6 +7,9 @@ import { useNavigate } from "react-router";
 import { signup } from "../../App/features/User/registerUserSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../AmazonMusic/components/Loader";
+import { SIDE_CONTAINER_DISPLAY } from "../AmazonMusic/constants";
+import { Box, Divider, IconButton, Stack, TextField } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 const INITIAL_STATE = {
   name: "",
@@ -99,64 +102,114 @@ function Signup() {
   if (loading) return <Loader />;
 
   return (
-    <div className="login">
-      {/* <Link to='/'> */}
-      <img
-        className="login__logo"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
-        alt="Amazon logo"
-      />
-      {/* </Link> */}
+    <Stack
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        minHeight: "100vh",
+        backgroundColor: "rgba(255, 255, 255)",
+        color: "hsl(0, 0%, 4%)",
+        width: "100dvw",
+      }}
+    >
+      <Box
+        flex={3}
+        sx={{
+          ...SIDE_CONTAINER_DISPLAY,
+          textAlign: "left",
+        }}
+      >
+        <IconButton sx={{ mt: 3, ml: 5 }}>
+          <ArrowBackIosNewIcon fontSize="small" color="primary" />
+        </IconButton>
+      </Box>
+      <Box flex={6}>
+        <img
+          className="login__logo"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
+          alt="Amazon logo"
+        />
+        <Box
+          component="div"
+          sx={{
+            width: { xs: "80%", sm: "65%", md: "60%", lg: "50%" },
+            border: "1px solid #ddd",
+            borderRadius: "0.5rem",
+            backgroundColor: "#fff",
+            padding: "1rem",
+            margin: "auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}
+        >
+          <h1 className="heading">Sign up</h1>
+          <form onSubmit={register}>
+            <label htmlFor="name">Name</label>
+            <TextField
+              type="text"
+              id="name"
+              name="name"
+              fullWidth
+              placeholder="Your Name..."
+              value={name}
+              onChange={handleChange}
+              sx={{ mb: 3 }}
+            />
+            {nameError && <p style={{ color: "red" }}>{nameError}</p>}
 
-      <div className="login__container">
-        <h1>Signup</h1>
+            <label htmlFor="email">E-mail</label>
+            <TextField
+              type="text"
+              id="email"
+              name="email"
+              fullWidth
+              placeholder="Your Email..."
+              value={email}
+              onChange={handleChange}
+              sx={{ mb: 3 }}
+            />
+            {emailError && <p style={{ color: "red" }}>{emailError}</p>}
 
-        <form onSubmit={register}>
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            type="text"
-            name="name"
-            value={name}
-            onChange={handleChange}
-          />
-          {nameError && <p style={{ color: "red" }}>{nameError}</p>}
+            <label htmlFor="password">Password</label>
+            <TextField
+              id="password"
+              type="password"
+              name="password"
+              fullWidth
+              placeholder="Your Password..."
+              value={password}
+              onChange={handleChange}
+              sx={{ mb: 3 }}
+            />
+            {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
 
-          <label htmlFor="email">E-mail</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          />
-          {emailError && <p style={{ color: "red" }}>{emailError}</p>}
-
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-          />
-          {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
-
-          <button onClick={register} className="login__signInButton">
-            Signup
+            <button className="loginButton" onClick={register}>
+              Create your Amazon account
+            </button>
+          </form>
+          <p>
+            By creating an account, you agree to Amazon's Conditions of Use and
+            Privacy Notice.
+          </p>
+          <Divider
+            light
+            variant="fullWidth"
+            sx={{
+              color: "hsl(0, 0%, 45%)",
+            }}
+          >
+            New to Amazon?
+          </Divider>
+          <button onClick={routeTologin} className="signupButton">
+            Already have an account? Sign in
           </button>
-        </form>
-
-        <p>
-          By creating an account, you agree to Amazon's Conditions of Use and
-          Privacy Notice.
-        </p>
-
-        <button onClick={routeTologin} className="login__registerButton">
-          Already have an account? Sign in
-        </button>
-      </div>
-    </div>
+        </Box>
+      </Box>
+      <Box flex={3} sx={{ ...SIDE_CONTAINER_DISPLAY }}></Box>
+    </Stack>
   );
 }
 

@@ -4,15 +4,20 @@ import PlayListController from "../Body/PlaylistController";
 
 import { Box } from "@mui/material";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
-
+import { getAllSongs } from "../../../../App/features/allSongs/allSongsSlice";
+import { useNavigate } from "react-router";
+import LINKS from "../../../links";
 const Category = ({ mood, playListName, songs, isFilter }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   let filterFunction;
   if (isFilter) {
     filterFunction = (song) => song.mood === mood;
   } else filterFunction = (song) => true;
 
+  let filteredSongs = songs?.filter(filterFunction);
   const boxRef = useRef();
 
   const nextCards = () => {
@@ -30,6 +35,11 @@ const Category = ({ mood, playListName, songs, isFilter }) => {
     // console.log(boxRef.current.scrollLeft);
   };
 
+  const seeAllSongs = () => {
+    dispatch(getAllSongs(filteredSongs));
+    navigate(LINKS.allSongs);
+  };
+
   return (
     <>
       <PlayListController
@@ -37,6 +47,7 @@ const Category = ({ mood, playListName, songs, isFilter }) => {
         next={nextCards}
         prev={prevCards}
         box={boxRef}
+        seeAllSongs={seeAllSongs}
       />
       <Box
         component="div"
@@ -57,7 +68,7 @@ const Category = ({ mood, playListName, songs, isFilter }) => {
           }}
           ref={boxRef}
         >
-          {songs?.filter(filterFunction).map((song) => (
+          {filteredSongs?.map((song) => (
             <Song key={song._id} {...song} />
           ))}
         </Box>

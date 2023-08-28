@@ -6,7 +6,12 @@ import CustomTheme from "../../../CustomTheme";
 
 import { BODY_PLAYLIST_BTN_COLOR, FONT_STYLE } from "../../../constants";
 
-const PlayListController = ({ playListName, next, prev, box }) => {
+const PlayListController = ({ playListName, next, prev, box, seeAllSongs }) => {
+  const handleClick = () => {
+    console.log("see all clicked");
+    seeAllSongs();
+  };
+
   return (
     <Box component="div" sx={{ mb: "2vh", maxWidth: "92dvw" }}>
       <Stack
@@ -34,7 +39,7 @@ const PlayListController = ({ playListName, next, prev, box }) => {
           <Fab color="primary" size="small">
             <ChevronRightIcon onClick={() => next()} />
           </Fab>
-          <Fab color="primary" variant="extended">
+          <Fab color="primary" variant="extended" onClick={handleClick}>
             <Typography variant="button">SEE ALL</Typography>
           </Fab>
         </CustomTheme>

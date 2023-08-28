@@ -1,0 +1,6 @@
+.song-container{
+    display : grid;
+    grid-template-columns: repeat( auto-fit, minmax(10rem, 15rem) );
+    grid-template-rows: auto;
+    grid-gap: 0.8rem;
+}

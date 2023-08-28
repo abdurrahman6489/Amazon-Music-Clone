@@ -10,6 +10,7 @@ import CustomTheme from "../../../CustomTheme";
 import { MENU_COLOR } from "../../../constants";
 
 import "../style.css";
+import UpdatepasswordButton from "./UpdatepasswordButton";
 const UserAvatar = () => {
   const [anchorElement, setAnchorElement] = useState(null);
   const { isLoggedIn, name } = useSelector((state) => state.user);
@@ -54,13 +55,39 @@ const UserAvatar = () => {
         }}
       >
         {!isLoggedIn && (
-          <MenuItem sx={{ backgroundColor: "rgba(0, 0, 0, 0.8)", margin: 0 }}>
+          <MenuItem
+            sx={{
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              margin: 0,
+              width: 180,
+              ":hover": { backgroundColor: "hsl(180, 5%, 8%)" },
+            }}
+          >
             <SignInButton />
           </MenuItem>
         )}
         {isLoggedIn && (
-          <MenuItem sx={{ backgroundColor: "rgba(0, 0, 0, 0.8)", margin: 0 }}>
+          <MenuItem
+            sx={{
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              margin: 0,
+              width: 180,
+              ":hover": { backgroundColor: "hsl(180, 5%, 8%)" },
+            }}
+          >
             <SignoutButton />
+          </MenuItem>
+        )}
+        {isLoggedIn && (
+          <MenuItem
+            sx={{
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              margin: 0,
+              width: 180,
+              ":hover": { backgroundColor: "hsl(180, 5%, 8%)" },
+            }}
+          >
+            <UpdatepasswordButton />
           </MenuItem>
         )}
       </Menu>

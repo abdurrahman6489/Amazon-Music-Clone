@@ -1,13 +1,18 @@
 import { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router";
+
 import { getAlbums } from "../App/features/albums/albumSlice";
 import {
   updateSavedUserDetails,
   updateSavedAlbums,
   updateSavedSongs,
 } from "../App/features/User/userSlice";
+import { setAllSongs } from "../App/features/allSongs/allSongsSlice";
 import { getFromLocalStorage, saveToLocalStorage } from "./utils";
+
 import axios from "axios";
+
 export default function useAlbums() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -53,4 +58,28 @@ export function useUserData() {
     saveToLocalStorage("authUserAlbums", savedAlbums);
     saveToLocalStorage("authUserSongs", savedSongs);
   }, [memoizedSavedSongs, memoizedSavedAlbums, userDetails]);
+}
+
+export function useAllSongs() {
+  const dispatch = useDispatch();
+  const savedSongs = getFromLocalStorage("allSongs", []);
+  const { allSongs } = useSelector((state) => state.allSongs);
+
+  useEffect(() => {
+    if (savedSongs?.length > 0) {
+      dispatch(setAllSongs(savedSongs));
+    }
+  }, []);
+
+  useEffect(() => {
+    saveToLocalStorage("allSongs", allSongs);
+  }, [allSongs]);
+}
+
+export function useScrolltoTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 }

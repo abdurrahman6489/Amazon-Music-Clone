@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Category from "../Category";
 
 import { useSelector } from "react-redux";
@@ -6,12 +6,17 @@ import { Stack, Box } from "@mui/material";
 import Loader from "../Loader";
 import { categoryArray } from "../../constants";
 import Error from "../../../Login/Error";
-
+import { useNavigate } from "react-router";
+import LINKS from "../../../links";
 const Body = () => {
   const { loading, albums, error } = useSelector((state) => state.albums);
+  const isLoading = useSelector((state) => state.allSongs.loading);
+  const successful = useSelector((state) => state.allSongs.successful);
+  const hasError = useSelector((state) => state.allSongs.error);
 
-  if (loading) return <Loader />;
-  if (error) return <Error msg={error} />;
+  const navigate = useNavigate();
+  if (loading || isLoading) return <Loader />;
+  if (error || hasError) return <Error msg={error} />;
 
   return (
     <Stack

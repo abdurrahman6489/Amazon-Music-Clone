@@ -98,6 +98,7 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
                   sx={{
                     height: "100%",
                     backgroundImage: `url(${image})`,
+                    backgroundPosition: "center",
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     borderRadius: "0.5em",
@@ -160,11 +161,11 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
               >
                 <Box flex={4}>
                   <Fab
+                    size="small"
                     sx={{
                       bgcolor: "hsl(0, 1%, 26%)",
                       mr: 2,
                       color: "white",
-                      size: "small",
                       ":hover": {
                         backgroundColor: "hsl(0, 1%, 15%)",
                         transform: "scale(1.1)",
@@ -175,11 +176,10 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
                     <Twitter />
                   </Fab>
                   <Fab
+                    size="small"
                     sx={{
                       bgcolor: "hsl(0, 1%, 26%)",
                       color: "white",
-                      size: "small",
-
                       ":hover": {
                         backgroundColor: "hsl(0, 1%, 15%)",
                         transform: "scale(1.1)",

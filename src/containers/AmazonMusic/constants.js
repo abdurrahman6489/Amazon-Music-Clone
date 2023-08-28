@@ -170,3 +170,11 @@ export const FONT_STYLE = {
   color: "white",
   fontSize: 24,
 };
+
+//for login and signup container
+export const SIDE_CONTAINER_DISPLAY = MAKE_DISPLAY(
+  "none",
+  "none",
+  "block",
+  "block"
+);

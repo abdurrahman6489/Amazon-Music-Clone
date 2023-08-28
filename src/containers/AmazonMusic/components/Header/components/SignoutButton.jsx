@@ -1,5 +1,5 @@
 import React from "react";
-import { Fab, Typography } from "@mui/material";
+import { Fab, IconButton, Typography } from "@mui/material";
 import LINKS from "../../../../links";
 import { useNavigate } from "react-router";
 import CustomTheme from "../../../CustomTheme";
@@ -16,7 +16,7 @@ const SignoutButton = () => {
   };
   return (
     <CustomTheme {...SIGN_IN_SIGN_OUT_BTN_COLOR}>
-      <Fab
+      <IconButton
         onClick={handleClick}
         variant="extended"
         color="primary"
@@ -26,7 +26,7 @@ const SignoutButton = () => {
         <Typography variant="button" color="secondary">
           Sign out
         </Typography>
-      </Fab>
+      </IconButton>
     </CustomTheme>
   );
 };

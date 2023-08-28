@@ -83,7 +83,11 @@ const Header = () => {
             >
               <Fab variant="extended" color="primary">
                 <HomeIcon sx={{ color: "#FFF", mr: 1 }} fontSize="medium" />
-                <Typography variant="body2" sx={{ ...HEADER_BTN_DISPLAY }}>
+                <Typography
+                  variant="body2"
+                  color="#FFF"
+                  sx={{ ...HEADER_BTN_DISPLAY }}
+                >
                   Home
                 </Typography>
               </Fab>
@@ -97,7 +101,11 @@ const Header = () => {
             >
               <Fab variant="extended" color="primary">
                 <PodcastsIcon sx={{ color: "#FFF", mr: 1 }} fontSize="medium" />
-                <Typography variant="body2" sx={{ ...HEADER_BTN_DISPLAY }}>
+                <Typography
+                  variant="body2"
+                  color="#FFF"
+                  sx={{ ...HEADER_BTN_DISPLAY }}
+                >
                   Podcast
                 </Typography>
               </Fab>
@@ -108,7 +116,11 @@ const Header = () => {
                   sx={{ color: "#FFF", mr: 1 }}
                   fontSize="medium"
                 />
-                <Typography variant="body2" sx={{ ...HEADER_BTN_DISPLAY }}>
+                <Typography
+                  variant="body2"
+                  color="#FFF"
+                  sx={{ ...HEADER_BTN_DISPLAY }}
+                >
                   Library
                 </Typography>
                 <KeyboardArrowDownIcon

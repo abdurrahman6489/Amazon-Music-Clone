@@ -4,11 +4,14 @@ import LINKS from "../../../../links";
 import { useNavigate } from "react-router";
 import CustomTheme from "../../../CustomTheme";
 import { SIGN_IN_SIGN_OUT_BTN_COLOR } from "../../../constants";
-const SignInButton = () => {
-  const navigate = useNavigate();
 
+import { setPasswordUpdateTrue } from "../../../../../App/features/User/userSlice";
+import { useDispatch } from "react-redux";
+const UpdatepasswordButton = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleClick = () => {
-    // console.log("clicked sign in button");
+    dispatch(setPasswordUpdateTrue());
     navigate(LINKS.login);
   };
   return (
@@ -17,15 +20,15 @@ const SignInButton = () => {
         onClick={handleClick}
         variant="extended"
         color="primary"
-        sx={{ width: 100 }}
-        key="signin"
+        sx={{ margin: "auto" }}
+        key="signout"
       >
         <Typography variant="button" color="secondary">
-          Sign In
+          Update Password
         </Typography>
       </IconButton>
     </CustomTheme>
   );
 };
 
-export default SignInButton;
+export default UpdatepasswordButton;

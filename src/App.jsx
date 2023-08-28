@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "./App.css";
 import Layout from "./containers/Layout";
 import AmazonMusic from "./containers/AmazonMusic/index";
@@ -11,20 +10,21 @@ import Error from "./containers/Error";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import links from "./containers/links";
 import useAlbums from "./Utils/CustomHook.js";
-import { useUserData } from "./Utils/CustomHook";
-import MusicModal from "./containers/AmazonMusic/components/Modal";
+import { useUserData, useAllSongs } from "./Utils/CustomHook";
 import SearchPage from "./containers/SearchPage";
 import Genres from "./containers/Genres";
 import Signup from "./containers/Signup";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setMsgDisplayedFalse } from "./App/features/User/registerUserSlice";
-import { closetheModal } from "./App/features/User/userSlice";
+
 import MessageComponent from "./containers/MessageComponent";
+import AllSongs from "./containers/AllSongs";
 
 function App() {
   useAlbums();
   useUserData();
+  useAllSongs();
   const { msgDisplayed, message } = useSelector(
     (state) => state.registeredUser
   );
@@ -93,6 +93,14 @@ function App() {
       element: (
         <Layout>
           <Genres />
+        </Layout>
+      ),
+    },
+    {
+      path: links.allSongs,
+      element: (
+        <Layout>
+          <AllSongs />
         </Layout>
       ),
     },
