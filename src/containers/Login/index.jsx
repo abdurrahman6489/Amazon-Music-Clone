@@ -160,11 +160,21 @@ function Login() {
           textAlign: "left",
         }}
       >
-        <IconButton sx={{ mt: 3, ml: 5 }}>
+        <IconButton sx={{ mt: 3, ml: 5 }} onClick={() => navigate(-1)}>
           <ArrowBackIosNewIcon fontSize="small" color="primary" />
         </IconButton>
       </Box>
       <Box flex={6}>
+        <IconButton
+          sx={{
+            mt: 3,
+            ml: 5,
+            display: { xs: "block", sm: "block", md: "none", lg: "none" },
+          }}
+          onClick={() => navigate(-1)}
+        >
+          <ArrowBackIosNewIcon fontSize="small" color="primary" />
+        </IconButton>
         <img
           className="login__logo"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"

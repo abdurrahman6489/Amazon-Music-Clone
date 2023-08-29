@@ -5,19 +5,13 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
-import Paper from "@mui/material/Paper";
-import Badge from "@mui/material/Badge";
-import { Button, Fab, Stack, Tooltip, Typography } from "@mui/material";
+
+import { Fab, Tooltip, Typography } from "@mui/material";
 import { RiAmazonLine } from "react-icons/ri";
 import HomeIcon from "@mui/icons-material/Home";
 import PodcastsIcon from "@mui/icons-material/Podcasts";
 import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
-import Avatar from "@mui/material/Avatar";
-import MenuIcon from "@mui/icons-material/Menu";
+
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import links from "../../../links";
@@ -25,7 +19,8 @@ import { useNavigate } from "react-router";
 import CustomTheme from "../../CustomTheme";
 import SearchComponent from "./components/Search";
 import UserAvatar from "./components/UserAvatar";
-
+import HomeButton from "./components/HomeButton";
+import PodcastButton from "./components/PodcastButton";
 import "./style.css";
 
 import {
@@ -33,10 +28,12 @@ import {
   HEADER_NAVIGATING_BTN_COLORS,
   HEADER_BTN_DISPLAY,
   MENU_COLOR,
+  routeBtnLabelArray,
 } from "../../constants";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [btnLabelArray, setBtnLabelArray] = useState(routeBtnLabelArray);
   const navigate = useNavigate();
 
   const handleClick = (name) => {
@@ -66,14 +63,17 @@ const Header = () => {
             gap: "1em",
           }}
         >
-          <Box sx={{ width: { xs: "none", sm: "none", md: "10%", lg: "10%" } }}>
-            <img
-              width="100%"
-              src="https://d5fx445wy2wpk.cloudfront.net/static/logo.svg"
-              alt="amazon Music"
-            />
-          </Box>
-
+          <Box
+            sx={{
+              width: { xs: 250, sm: 250, md: 300, lg: 350 },
+              height: 30,
+              backgroundImage:
+                "url(https://d5fx445wy2wpk.cloudfront.net/static/logo.svg)",
+              backgroundPosition: "center",
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+            }}
+          ></Box>
           <CustomTheme {...HEADER_NAVIGATING_BTN_COLORS}>
             <Tooltip
               title="Home"
@@ -81,7 +81,7 @@ const Header = () => {
               name="home"
               onClick={() => handleClick("home")}
             >
-              <Fab variant="extended" color="primary">
+              <Fab variant="extended" color="primary" sx={{ p: 2, ml: 3 }}>
                 <HomeIcon sx={{ color: "#FFF", mr: 1 }} fontSize="medium" />
                 <Typography
                   variant="body2"
@@ -99,7 +99,7 @@ const Header = () => {
               name="podcasts"
               onClick={() => handleClick("podcasts")}
             >
-              <Fab variant="extended" color="primary">
+              <Fab variant="extended" color="primary" sx={{ p: 2, ml: 3 }}>
                 <PodcastsIcon sx={{ color: "#FFF", mr: 1 }} fontSize="medium" />
                 <Typography
                   variant="body2"
@@ -111,7 +111,12 @@ const Header = () => {
               </Fab>
             </Tooltip>
             <Tooltip title="Library" placement="right">
-              <Fab variant="extended" color="primary" onClick={handleOpenMenu}>
+              <Fab
+                variant="extended"
+                color="primary"
+                onClick={handleOpenMenu}
+                sx={{ p: 2, ml: 3 }}
+              >
                 <HeadsetMicIcon
                   sx={{ color: "#FFF", mr: 1 }}
                   fontSize="medium"
@@ -178,7 +183,7 @@ const Header = () => {
               </Menu>
             </Tooltip>
           </CustomTheme>
-          <Box sx={{ flexGrow: 1 }} />
+
           <SearchComponent />
           <UserAvatar />
         </Toolbar>

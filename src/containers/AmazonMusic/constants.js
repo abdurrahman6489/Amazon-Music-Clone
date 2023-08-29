@@ -85,6 +85,12 @@ export const HEADER_BTN_DISPLAY = {
   display: { xs: "none", sm: "none", md: "flex", lg: "flex" },
 };
 
+export const routeBtnLabelArray = [
+  { isActive: true, label: "Best" },
+  { isActive: false, label: "Podcasts" },
+  { isActive: false, label: "Library" },
+];
+
 //for body playlist component
 export const BODY_PLAYLIST_BTN_COLOR = MAKE_COLORS("#0a0b0b", "#0a0b0b");
 

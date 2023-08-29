@@ -52,7 +52,6 @@ const Category = ({ mood, playListName, songs, isFilter }) => {
       <Box
         component="div"
         sx={{
-          maxWidth: "92dvw",
           position: "relative",
           overflow: "hidden",
           mb: "2vh",

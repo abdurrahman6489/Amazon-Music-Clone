@@ -20,29 +20,35 @@ const PlayListController = ({ playListName, next, prev, box, seeAllSongs }) => {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
-          gap: "1em",
+          gap: "0.5em",
         }}
       >
         <Typography
           variant="h6"
           color="#FFF"
           noWrap
-          sx={{ ...FONT_STYLE, width: 300, textAlign: "left" }}
+          sx={{
+            ...FONT_STYLE,
+            textAlign: "left",
+            width: { xs: 200, sm: 200, md: 300, lg: 300 },
+          }}
         >
           {playListName}
         </Typography>
-        <Box sx={{ flexGrow: 1 }}></Box>
-        <CustomTheme {...BODY_PLAYLIST_BTN_COLOR}>
-          <Fab color="primary" size="small" onClick={() => prev()}>
-            <ChevronLeftIcon />
-          </Fab>
-          <Fab color="primary" size="small">
-            <ChevronRightIcon onClick={() => next()} />
-          </Fab>
-          <Fab color="primary" variant="extended" onClick={handleClick}>
-            <Typography variant="button">SEE ALL</Typography>
-          </Fab>
-        </CustomTheme>
+
+        <Box sx={{ textAlign: "right" }}>
+          <CustomTheme {...BODY_PLAYLIST_BTN_COLOR}>
+            <Fab color="primary" size="small" onClick={() => prev()}>
+              <ChevronLeftIcon />
+            </Fab>
+            <Fab color="primary" size="small">
+              <ChevronRightIcon onClick={() => next()} />
+            </Fab>
+            <Fab color="primary" variant="extended" onClick={handleClick}>
+              <Typography variant="button">SEE ALL</Typography>
+            </Fab>
+          </CustomTheme>
+        </Box>
       </Stack>
     </Box>
   );

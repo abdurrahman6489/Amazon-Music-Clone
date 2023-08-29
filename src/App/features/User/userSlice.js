@@ -42,10 +42,12 @@ export const updatePassword = createAsyncThunk(
     try {
       const userDetails =
         JSON.parse(localStorage.getItem("authUserDetails")) || {};
-      config.authorization = `${userDetails.token}`;
-      console.log(config);
-      console.log(credentials);
-      const response = await axios.post(
+      config.headers.Authorization = `Bearer ${userDetails.token}`;
+
+      // console.log(config);
+      // console.log(credentials);
+
+      const response = await axios.patch(
         UPDATE_PASSWORD_URL,
         credentials,
         config
@@ -56,6 +58,7 @@ export const updatePassword = createAsyncThunk(
     } catch (error) {
       console.log(error);
       console.log(error.response.data.message);
+
       return rejectWithValue(error.response.data.message);
     }
   }
