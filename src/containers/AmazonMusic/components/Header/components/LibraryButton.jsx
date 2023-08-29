@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 
-import { Fab, Tooltip, Typography } from "@mui/material";
+import { Fab, Tooltip, Typography, IconButton } from "@mui/material";
 import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
-import { HEADER_NAVIGATING_BTN_COLORS } from "../../../constants";
+import {
+  HEADER_NAVIGATING_BTN_COLORS,
+  HEADER_BTN_DISPLAY,
+} from "../../../constants";
 import CustomTheme from "../../../CustomTheme";
 import LINKS from "../../../../links";
 
 import { useNavigate } from "react-router";
 
-const LibraryButton = ({ label, changeColor, isActive }) => {
+const LibraryButton = ({ label, changeColor, isActive, key }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
 
@@ -21,32 +24,38 @@ const LibraryButton = ({ label, changeColor, isActive }) => {
     changeColor(label);
   };
 
-  const handleRoute = (routeName) => {
-    navigate(LINKS[routeName]);
-  };
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
 
   return (
     <CustomTheme {...HEADER_NAVIGATING_BTN_COLORS}>
-      <Tooltip title="Home" placement="right" name="home">
+      <Tooltip title="Library" placement="right" name="Library">
         <Fab
           variant="extended"
           color="primary"
           sx={{ p: 2, ml: 3 }}
           onClick={handleClick}
         >
-          <HeadsetMicIcon sx={{ color: "#FFF", mr: 1 }} fontSize="medium" />
+          <HeadsetMicIcon
+            color={!isActive ? "#FFF" : "secondary"}
+            sx={{ mr: 1 }}
+            fontSize="medium"
+          />
           <Typography
-            variant="body2"
-            color="#FFF"
-            sx={{ ...HEADER_BTN_DISPLAY }}
+            variant="body1"
+            color={!isActive ? "#FFF" : "secondary"}
+            sx={{
+              ...HEADER_BTN_DISPLAY,
+              fontWeight: 700,
+              fontFamily: "HELVETICA ARIAL sans-serif",
+            }}
           >
             {label}
           </Typography>
           <KeyboardArrowDownIcon
-            sx={{ color: "#FFF", ml: 1 }}
+            color={!isActive ? "#FFF" : "secondary"}
+            sx={{ ml: 1 }}
             fontSize="medium"
           />
         </Fab>
@@ -77,7 +86,7 @@ const LibraryButton = ({ label, changeColor, isActive }) => {
             }}
           >
             <IconButton
-              onClick={() => handleClick(LINKS.libraryMusic)}
+              onClick={() => navigate(LINKS.libraryMusic)}
               sx={{ color: "#FFF" }}
             >
               <Typography varian="body1">Music</Typography>
@@ -91,7 +100,7 @@ const LibraryButton = ({ label, changeColor, isActive }) => {
             }}
           >
             <IconButton
-              onClick={() => handleRoute(LINKS.libraryPodcasts)}
+              onClick={() => navigate(LINKS.libraryPodcasts)}
               sx={{ color: "#FFF" }}
             >
               <Typography varian="body1">Podcasts</Typography>

@@ -133,10 +133,7 @@ const MusicPlayer = () => {
     audioRef.current.currentTime = 0;
   };
   return (
-    <CustomTheme
-      primaryColor={PLAYER_COLOR.PRIMARY_COLOR}
-      secondaryColor={PLAYER_COLOR.SECONDARY_COLOR}
-    >
+    <CustomTheme {...PLAYER_COLOR}>
       <audio
         src={audioTrack[currentTrackIndex].audio_url}
         ref={audioRef}

@@ -9,9 +9,11 @@ import LINKS from "../../../../links";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius + 10,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.white, 1),
+  color: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.white, 0.95),
+    color: alpha(theme.palette.common.white, 0.2),
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -37,9 +39,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
+    color: alpha(theme.palette.common.black, 1),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
+    "&:hover": {
+      color: alpha(theme.palette.common.black, 0.95),
+    },
     [theme.breakpoints.up("md")]: {
       width: "20ch",
     },
@@ -50,7 +56,7 @@ const SearchComponent = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log("search clicked");
+    // console.log("search clicked");
     navigate(LINKS.search);
   };
 
@@ -69,7 +75,12 @@ const SearchComponent = () => {
     <form onSubmit={handleSubmit}>
       <Search onClick={() => handleClick()}>
         <SearchIconWrapper>
-          <SearchIcon />
+          <SearchIcon
+            sx={{
+              color: "hsl(0, 0%, 25%)",
+              ":hover": { color: "hsl(0, 0%, 20%)" },
+            }}
+          />
         </SearchIconWrapper>
         <StyledInputBase
           placeholder="Search…"

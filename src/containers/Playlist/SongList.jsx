@@ -55,10 +55,7 @@ const SongList = ({
   };
 
   return (
-    <CustomTheme
-      primaryColor={SONG_LIST_COLOR.PRIMARY_COLOR}
-      secondaryColor={SONG_LIST_COLOR.SECONDARY_COLOR}
-    >
+    <CustomTheme {...SONG_LIST_COLOR}>
       <Box
         sx={{
           display: "flex",

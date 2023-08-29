@@ -23,10 +23,7 @@ const UserAvatar = () => {
     setAnchorElement(null);
   };
   return (
-    <CustomTheme
-      primaryColor={MENU_COLOR.PRIMARY_COLOR}
-      secondaryColor={MENU_COLOR.SECONDARY_COLOR}
-    >
+    <CustomTheme {...MENU_COLOR}>
       <IconButton size="large" onClick={handleOpenMenu} color="inherit">
         {!isLoggedIn && (
           <Avatar>

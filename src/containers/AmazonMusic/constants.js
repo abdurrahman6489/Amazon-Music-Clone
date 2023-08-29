@@ -6,11 +6,6 @@ export const config = {
   },
 };
 
-export const body = {
-  email: "abdurahman@gmail.com",
-  password: "12345678",
-};
-
 export const SIGN_IN_AUTH_URL =
   "https://academics.newtonschool.co/api/v1/user/login";
 
@@ -41,6 +36,11 @@ function MAKE_DISPLAY(xs = "block", sm = "block", md = "block", lg = "block") {
   };
 }
 
+export const whiteColor = "#FFF";
+export const blackColor = "#0a0b0b";
+export const darkBlackColor = "rgba(0, 0, 0, 0.8)";
+export const lightBlueColor = "hsl(183, 71%, 50%)";
+
 //for Body container of Home page.
 export const categoryArray = [
   {
@@ -66,19 +66,13 @@ export const categoryArray = [
 ];
 
 //for header component
-export const HEADER_COLORS = {
-  PRIMARY_COLOR: "#0a0b0b",
-  SECONDARY_COLOR: "#0a0b0b",
-};
+export const HEADER_COLORS = MAKE_COLORS(blackColor, blackColor);
 
-export const MENU_COLOR = {
-  PRIMARY_COLOR: "rgba(0, 0, 0, 0.8)",
-  SECONDARY_COLOR: "rgba(0, 0, 0, 0.8)",
-};
+export const MENU_COLOR = MAKE_COLORS(darkBlackColor, darkBlackColor);
 
 export const HEADER_NAVIGATING_BTN_COLORS = MAKE_COLORS(
   "hsl(0, 0%, 4%)",
-  "hsl(183, 71%, 50%)"
+  lightBlueColor
 );
 
 export const HEADER_BTN_DISPLAY = {
@@ -86,19 +80,16 @@ export const HEADER_BTN_DISPLAY = {
 };
 
 export const routeBtnLabelArray = [
-  { isActive: true, label: "Best" },
+  { isActive: true, label: "Home" },
   { isActive: false, label: "Podcasts" },
   { isActive: false, label: "Library" },
 ];
 
 //for body playlist component
-export const BODY_PLAYLIST_BTN_COLOR = MAKE_COLORS("#0a0b0b", "#0a0b0b");
+export const BODY_PLAYLIST_BTN_COLOR = MAKE_COLORS(blackColor, blackColor);
 
 //for MODAL component
-export const MODAL_COLOR = {
-  PRIMARY_COLOR: "rgb(37, 209, 218)",
-  SECONDARY_COLOR: "#FFF",
-};
+export const MODAL_COLOR = MAKE_COLORS("rgb(37, 209, 218)", whiteColor);
 
 export const MODAL_STYLE = {
   position: "absolute",
@@ -133,21 +124,15 @@ export const smallScreenPlayerDisplay = {
   },
 };
 
-export const PLAYER_COLOR = {
-  PRIMARY_COLOR: "#FFF",
-  SECONDARY_COLOR: "hsla(0, 0%, 100%, 0.15)",
-};
+export const PLAYER_COLOR = MAKE_COLORS(whiteColor, "hsla(0, 0%, 100%, 0.15)");
 
 //for songlist component
-export const SONG_LIST_COLOR = {
-  PRIMARY_COLOR: "#FFF",
-  SECONDARY_COLOR: "hsl(183, 71%, 50%)",
-};
+export const SONG_LIST_COLOR = MAKE_COLORS(whiteColor, lightBlueColor);
 
 //for playlist page song details component
 export const SONG_DETAILS_COLOR = MAKE_COLORS(
   "hsl(0, 0%, 100%)",
-  "hsl(183, 71%, 50%)"
+  lightBlueColor
 );
 
 export const SONG_DETAILS_ALIGN_ITEMS = {
@@ -165,8 +150,8 @@ export const SONG_DETAILS_TEXT_ALIGN = {
 
 //for Signin and SignOut Button
 export const SIGN_IN_SIGN_OUT_BTN_COLOR = MAKE_COLORS(
-  "hsl(183, 71%, 50%)",
-  "#FFF"
+  lightBlueColor,
+  whiteColor
 );
 
 //for playlistController component

@@ -32,10 +32,7 @@ const MusicModal = ({ open, setOpen }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={MODAL_STYLE}>
-          <CustomTheme
-            primaryColor={MODAL_COLOR.PRIMARY_COLOR}
-            secondaryColor={MODAL_COLOR.SECONDARY_COLOR}
-          >
+          <CustomTheme {...MODAL_COLOR}>
             <Box
               sx={{
                 display: "flex",
