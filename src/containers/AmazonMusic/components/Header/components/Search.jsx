@@ -51,12 +51,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-const SearchComponent = () => {
+const SearchComponent = ({ label, changeColor, isActive, key }) => {
   const [searchParams, setSearchParams] = useState("");
   const navigate = useNavigate();
 
   const handleClick = () => {
     // console.log("search clicked");
+    changeColor(label);
     navigate(LINKS.search);
   };
 

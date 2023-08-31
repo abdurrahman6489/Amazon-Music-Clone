@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { config, SONG_URL } from "../../../containers/AmazonMusic/constants";
+import { config, URLS } from "../../../containers/AmazonMusic/constants";
 
 const initialState = {
   albums: [],
@@ -12,7 +12,7 @@ export const getAlbums = createAsyncThunk(
   "albums/getAlbums",
   async (thunkAPI) => {
     try {
-      const response = await axios.get(SONG_URL, config);
+      const response = await axios.get(URLS.SONG_URL, config);
       const data = response.data.data;
       console.log("albumSlice ", data);
       return data;

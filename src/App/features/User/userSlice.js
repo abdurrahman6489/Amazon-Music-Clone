@@ -1,10 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import {
-  SIGN_IN_AUTH_URL,
-  UPDATE_PASSWORD_URL,
-  config,
-} from "../../../containers/AmazonMusic/constants";
+import { URLS, config } from "../../../containers/AmazonMusic/constants";
 
 const initialState = {
   name: "",
@@ -23,7 +19,11 @@ export const login = createAsyncThunk(
   "user/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post(SIGN_IN_AUTH_URL, credentials, config);
+      const response = await axios.post(
+        URLS.SIGN_IN_AUTH_URL,
+        credentials,
+        config
+      );
       const token = response.data.token;
       const data = response.data.data;
       console.log("from userSlice data is ", data, "token is ", token);
@@ -44,11 +44,8 @@ export const updatePassword = createAsyncThunk(
         JSON.parse(localStorage.getItem("authUserDetails")) || {};
       config.headers.Authorization = `Bearer ${userDetails.token}`;
 
-      // console.log(config);
-      // console.log(credentials);
-
       const response = await axios.patch(
-        UPDATE_PASSWORD_URL,
+        URLS.UPDATE_PASSWORD_URL,
         credentials,
         config
       );
@@ -56,9 +53,7 @@ export const updatePassword = createAsyncThunk(
       console.log("from userSlice data is ", "token is ", token);
       return token;
     } catch (error) {
-      console.log(error);
       console.log(error.response.data.message);
-
       return rejectWithValue(error.response.data.message);
     }
   }

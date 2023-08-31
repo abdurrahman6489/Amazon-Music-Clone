@@ -1,3 +1,5 @@
+import { MAKE_COLORS, MAKE_DISPLAY } from "../../Utils/utils";
+
 //for api calls
 export const config = {
   headers: {
@@ -6,35 +8,17 @@ export const config = {
   },
 };
 
-export const SIGN_IN_AUTH_URL =
-  "https://academics.newtonschool.co/api/v1/user/login";
-
-export const SIGN_UP_AUTH_URL =
-  "https://academics.newtonschool.co/api/v1/user/signup";
-
-export const UPDATE_PASSWORD_URL =
-  "https://academics.newtonschool.co/api/v1/user/updateMyPassword";
-
-export const SONG_URL = "https://academics.newtonschool.co/api/v1/music/song";
-
-export const ALBUM_URL = "https://academics.newtonschool.co/api/v1/music/album";
-
-export const ALL_ARTISTS_URL =
-  "https://academics.newtonschool.co/api/v1/music/artist/";
-
-export const SEARCH_URL =
-  "https://academics.newtonschool.co/api/v1/music/song?filter=";
-
-//FUNCTIONS
-function MAKE_COLORS(primaryColor, secondaryColor) {
-  return { primaryColor, secondaryColor };
-}
-
-function MAKE_DISPLAY(xs = "block", sm = "block", md = "block", lg = "block") {
-  return {
-    display: { xs, sm, md, lg },
-  };
-}
+export const URLS = {
+  SIGN_IN_AUTH_URL: "https://academics.newtonschool.co/api/v1/user/login",
+  SIGN_UP_AUTH_URL: "https://academics.newtonschool.co/api/v1/user/signup",
+  UPDATE_PASSWORD_URL:
+    "https://academics.newtonschool.co/api/v1/user/updateMyPassword",
+  SONG_URL: "https://academics.newtonschool.co/api/v1/music/song",
+  ALBUM_URL: "https://academics.newtonschool.co/api/v1/music/album",
+  ALL_ARTISTS_URL: "https://academics.newtonschool.co/api/v1/music/artist/",
+  SEARCH_URL: "https://academics.newtonschool.co/api/v1/music/song?filter=",
+  BASE_URL: "http://localhost:5173",
+};
 
 export const whiteColor = "#FFF";
 export const blackColor = "#0a0b0b";
@@ -83,6 +67,8 @@ export const routeBtnLabelArray = [
   { isActive: true, label: "Home" },
   { isActive: false, label: "Podcasts" },
   { isActive: false, label: "Library" },
+  { isActive: false, label: "Search" },
+  { isActive: false, label: "UserAvatar" },
 ];
 
 //for body playlist component
@@ -135,32 +121,11 @@ export const SONG_DETAILS_COLOR = MAKE_COLORS(
   lightBlueColor
 );
 
-export const SONG_DETAILS_ALIGN_ITEMS = {
-  alignItems: {
-    xs: "center",
-    sm: "center",
-    md: "flex-start",
-    lg: "flex-start",
-  },
-};
-
-export const SONG_DETAILS_TEXT_ALIGN = {
-  textAlign: { xs: "center", sm: "center", md: "left", lg: "left" },
-};
-
 //for Signin and SignOut Button
 export const SIGN_IN_SIGN_OUT_BTN_COLOR = MAKE_COLORS(
   lightBlueColor,
   whiteColor
 );
-
-//for playlistController component
-export const FONT_STYLE = {
-  fontFamily: '"Sharp Grotesk Semi Bold 20", Helvetica, Arial, "sans-serif"',
-  fontWeight: "bold",
-  color: "white",
-  fontSize: 24,
-};
 
 //for login and signup container
 export const SIDE_CONTAINER_DISPLAY = MAKE_DISPLAY(
@@ -169,3 +134,40 @@ export const SIDE_CONTAINER_DISPLAY = MAKE_DISPLAY(
   "block",
   "block"
 );
+
+//signup page
+export const INITIAL_STATE_SIGN_UP = {
+  name: "",
+  email: "",
+  password: "",
+};
+
+export const INITIAL_ERROR_DATA_SING_UP = {
+  nameError: "",
+  emailError: "",
+  passwordError: "",
+};
+
+//for login page
+export const INITIAL_STATE_LOG_IN = {
+  email: "",
+  password: "",
+};
+
+export const INITIAL_ERROR_DATA_LOG_IN = {
+  emailError: "",
+  passwordError: "",
+};
+
+export const INITIAL_UPDATE_PASSWORD = {
+  value: "",
+  updatePasswordError: "",
+};
+
+//for search page
+export const SONG_FILTERS = [
+  { text: "Love & Romantic", mood: "romantic" },
+  { text: "Be Happy", mood: "happy" },
+  { text: "Party Time", mood: "excited" },
+  { text: "Heartbreak", mood: "sad" },
+];

@@ -1,18 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { SEARCH_URL, config } from "../../../containers/AmazonMusic/constants";
+import { config, URLS } from "../../../containers/AmazonMusic/constants";
 
 const initialState = {
   searchSongs: [],
   loading: false,
   filterBy: "title",
+  error: "",
 };
 
 export const getSearchedSongs = createAsyncThunk(
   "searchSongs/getSearchedSongs",
   async (filter, thunkAPI) => {
     try {
-      const response = await axios.get(`${SEARCH_URL}${filter}`, config);
+      const response = await axios.get(`${URLS.SEARCH_URL}${filter}`, config);
       const data = response.data.data;
       const status = response.data.status;
       console.log(data);
@@ -20,6 +21,7 @@ export const getSearchedSongs = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -38,10 +40,12 @@ export const searchSongsSlice = createSlice({
     },
     [getSearchedSongs.fulfilled]: (state, { payload }) => {
       state.loading = false;
+      state.error = "";
       state.searchSongs = payload;
     },
-    [getSearchedSongs.rejected]: (state) => {
+    [getSearchedSongs.rejected]: (state, { payload }) => {
       state.loading = false;
+      state.error = payload;
     },
   },
 });

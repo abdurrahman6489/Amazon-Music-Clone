@@ -4,16 +4,16 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CustomTheme from "../../../CustomTheme";
 
-import { BODY_PLAYLIST_BTN_COLOR, FONT_STYLE } from "../../../constants";
+import { BODY_PLAYLIST_BTN_COLOR } from "../../../constants";
+import { styles } from "./index.style";
 
 const PlayListController = ({ playListName, next, prev, box, seeAllSongs }) => {
   const handleClick = () => {
-    console.log("see all clicked");
     seeAllSongs();
   };
 
   return (
-    <Box component="div" sx={{ mb: "2vh", maxWidth: "92dvw" }}>
+    <Box component="div" sx={styles.CONTAINER_STYLE}>
       <Stack
         sx={{
           display: "flex",
@@ -23,20 +23,11 @@ const PlayListController = ({ playListName, next, prev, box, seeAllSongs }) => {
           gap: "0.5em",
         }}
       >
-        <Typography
-          variant="h6"
-          color="#FFF"
-          noWrap
-          sx={{
-            ...FONT_STYLE,
-            textAlign: "left",
-            width: { xs: 200, sm: 200, md: 300, lg: 300 },
-          }}
-        >
+        <Typography variant="h6" color="#FFF" noWrap sx={styles.TITLE_STYLE}>
           {playListName}
         </Typography>
 
-        <Box sx={{ textAlign: "right" }}>
+        <Box sx={styles.BTN_CONTAINER_STYLE}>
           <CustomTheme {...BODY_PLAYLIST_BTN_COLOR}>
             <Fab color="primary" size="small" onClick={() => prev()}>
               <ChevronLeftIcon />

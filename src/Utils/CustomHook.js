@@ -13,7 +13,7 @@ import { getFromLocalStorage, saveToLocalStorage } from "./utils";
 
 import axios from "axios";
 
-export default function useAlbums() {
+export function useAlbums() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAlbums());
@@ -22,34 +22,32 @@ export default function useAlbums() {
 
 export function useUserData() {
   const dispatch = useDispatch();
-  const savedUserDetails = getFromLocalStorage("authUserDetails", {});
-  const savedUserAlbums = getFromLocalStorage("authUserAlbums", []);
-  const savedUserSongs = getFromLocalStorage("authUserSongs", []);
+  const savedUserDetails = getFromLocalStorage("authUserDetails");
+  const savedUserAlbums = getFromLocalStorage("authUserAlbums");
+  const savedUserSongs = getFromLocalStorage("authUserSongs");
   const { name, email, token, savedAlbums, savedSongs } = useSelector(
     (state) => state.user
   );
   const isLoggedIn = token ? true : false;
-  const userDetails = useMemo(
-    () => ({
-      name,
-      email,
-      token,
-      isLoggedIn,
-    }),
-    [name, email, token, isLoggedIn]
-  );
-
-  const memoizedSavedAlbums = useMemo(() => savedUserAlbums, [savedUserAlbums]);
-  const memoizedSavedSongs = useMemo(() => savedUserSongs, [savedUserSongs]);
+  const userDetails = {
+    name,
+    email,
+    token,
+    isLoggedIn,
+  };
 
   useEffect(() => {
-    if (Object.keys(savedUserDetails).length > 0 && savedUserDetails.token) {
+    if (
+      savedUserDetails &&
+      Object.keys(savedUserDetails)?.length > 0 &&
+      savedUserDetails?.token
+    ) {
       dispatch(updateSavedUserDetails({ ...savedUserDetails }));
     }
-    if (savedUserAlbums.length > 0) {
+    if (savedUserAlbums && savedUserAlbums?.length > 0) {
       dispatch(updateSavedAlbums({ savedAlbums: savedUserAlbums }));
     }
-    if (savedUserSongs.length > 0) {
+    if (savedUserAlbums && savedUserSongs?.length > 0) {
       dispatch(updateSavedSongs({ savedSongs: savedUserSongs }));
     }
   }, []);
@@ -57,7 +55,7 @@ export function useUserData() {
     saveToLocalStorage("authUserDetails", userDetails);
     saveToLocalStorage("authUserAlbums", savedAlbums);
     saveToLocalStorage("authUserSongs", savedSongs);
-  }, [memoizedSavedSongs, memoizedSavedAlbums, userDetails]);
+  }, [savedSongs, savedAlbums, userDetails]);
 }
 
 export function useAllSongs() {

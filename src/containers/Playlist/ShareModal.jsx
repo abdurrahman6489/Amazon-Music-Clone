@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router";
 import {
-  Divider,
   Typography,
   Fab,
   Tooltip,
   Modal,
   Box,
-  Button,
   IconButton,
 } from "@mui/material";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
+import { FacebookRounded, Twitter } from "@mui/icons-material";
 
 import CustomTheme from "../AmazonMusic/CustomTheme";
 import { MODAL_COLOR, MODAL_STYLE } from "../AmazonMusic/constants";
@@ -21,9 +20,8 @@ import {
   copyToClipboard,
   shareOnFacebook,
 } from "../../Utils/utils";
-import { FacebookRounded, Twitter } from "@mui/icons-material";
-
-const BASE_URL = "http://localhost:5173";
+import { URLS } from "../AmazonMusic/constants";
+import { shareModaStyles } from "./shareModal.style";
 
 const ShareModal = ({ open, close, title, description, image, _id }) => {
   const location = useLocation();
@@ -31,12 +29,11 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
   const handleClose = () => close();
   const [msgOpen, setMsgOpen] = useState(false);
   const faceBookShare = () => {
-    // shareOnFacebook(title, BASE_URL + pathname);
     setMsgOpen(true);
   };
 
   const twitterShare = () => {
-    shareOnTwitter(title, BASE_URL + pathname);
+    shareOnTwitter(title, URLS.BASE_URL + pathname);
   };
   return (
     <>
@@ -47,22 +44,9 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={MODAL_STYLE}>
-          <CustomTheme
-            primaryColor={MODAL_COLOR.PRIMARY_COLOR}
-            secondaryColor={MODAL_COLOR.SECONDARY_COLOR}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                alignItems: "center",
-                gap: "1em",
-                position: "relative",
-                width: { lg: "40%", md: "70%", sm: "80%", xs: "90%" },
-              }}
-            >
-              <Box component="div" sx={{ textAlign: "right", width: "100%" }}>
+          <CustomTheme {...MODAL_COLOR}>
+            <Box sx={shareModaStyles.CONTAINER_STYLE}>
+              <Box component="div" sx={shareModaStyles.CLOSE_BTN_STYLE}>
                 <Tooltip onClick={handleClose} placement="top" title="Close">
                   <IconButton size="small" color="inherit">
                     <DisabledByDefaultIcon color="secondary" />
@@ -73,59 +57,28 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
                 variant="h5"
                 component="h2"
                 color="secondary"
-                sx={{
-                  fontFamily: `Helvetica Arial "sans-serif"`,
-                  fontSize: "18",
-                  textOverFlow: "ellipsis",
-                }}
+                sx={shareModaStyles.PLAYLIST_HEADING_STYLE}
               >
                 Share this playlist
               </Typography>
-              <Box
-                component="div"
-                sx={{
-                  width: "100%",
-                  height: 120,
-                  display: "flex",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  gap: "0.5em",
-                }}
-              >
+              <Box component="div" sx={shareModaStyles.IMG_CONTAINER_STYLE}>
                 <Box
                   component="div"
                   flex={1}
                   sx={{
-                    height: "100%",
+                    ...shareModaStyles.IMG_STYLE,
                     backgroundImage: `url(${image})`,
-                    backgroundPosition: "center",
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    borderRadius: "0.5em",
                   }}
                 ></Box>
                 <Box
                   component="div"
                   flex={5}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "Column",
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                    gap: "0.3em",
-
-                    height: "100%",
-                  }}
+                  sx={shareModaStyles.DETAIL_CONTAINER_STYLE}
                 >
                   <Typography
                     variant="h6"
                     color="rgb(37, 209, 218)"
-                    sx={{
-                      fontSize: 15,
-                      fontFamily: `"Sharp Grotesk" "Semi Bold 20" Helvetica Arial "sans-serif"`,
-                      textTransform: "uppercase",
-                      fontWeight: "bold",
-                    }}
+                    sx={shareModaStyles.DETAIL_STYLE}
                   >
                     Album
                   </Typography>
@@ -147,29 +100,16 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
                   Share link
                 </Typography>
                 <Typography variant="body1" color="#FFF">
-                  {BASE_URL + pathname}
+                  {URLS.BASE_URL + pathname}
                 </Typography>
               </Box>
-              <Box
-                component="div"
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
+              <Box component="div" sx={shareModaStyles.BTN_CONTAINER_STYLE}>
                 <Box flex={4}>
                   <Fab
                     size="small"
                     sx={{
-                      bgcolor: "hsl(0, 1%, 26%)",
+                      ...shareModaStyles.BUTTON_STYLE,
                       mr: 2,
-                      color: "white",
-                      ":hover": {
-                        backgroundColor: "hsl(0, 1%, 15%)",
-                        transform: "scale(1.1)",
-                      },
                     }}
                     onClick={twitterShare}
                   >
@@ -177,14 +117,7 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
                   </Fab>
                   <Fab
                     size="small"
-                    sx={{
-                      bgcolor: "hsl(0, 1%, 26%)",
-                      color: "white",
-                      ":hover": {
-                        backgroundColor: "hsl(0, 1%, 15%)",
-                        transform: "scale(1.1)",
-                      },
-                    }}
+                    sx={shareModaStyles.BUTTON_STYLE}
                     onClick={faceBookShare}
                   >
                     <FacebookRounded />
@@ -194,28 +127,15 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
                   <Fab
                     variant="extended"
                     sx={{
-                      bgcolor: "hsl(0, 1%, 26%)",
-                      color: "white",
+                      ...shareModaStyles.BUTTON_STYLE,
                       width: "80%",
-                      ":hover": {
-                        backgroundColor: "hsl(0, 1%, 15%)",
-                        transform: "scale(1.1)",
-                      },
                     }}
-                    onClick={() => copyToClipboard(BASE_URL + pathname)}
+                    onClick={() => copyToClipboard(URLS.BASE_URL + pathname)}
                   >
                     <CopyAllIcon />
                     <Typography
                       variant="button"
-                      sx={{
-                        ml: 1,
-                        display: {
-                          xs: "none",
-                          sm: "none",
-                          md: "inline-block",
-                          lg: "inline-block",
-                        },
-                      }}
+                      sx={shareModaStyles.COPY_BTN_TEXT_STYLE}
                     >
                       Copy link
                     </Typography>
@@ -239,4 +159,3 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
 };
 
 export default ShareModal;
-// ("http://localhost:5173/playlist/64cee72fe41f6d0a8b0cd0aa");

@@ -1,9 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import {
-  SIGN_UP_AUTH_URL,
-  config,
-} from "../../../containers/AmazonMusic/constants";
+import { config, URLS } from "../../../containers/AmazonMusic/constants";
 
 const initialState = {
   token: "",
@@ -18,7 +15,11 @@ export const signup = createAsyncThunk(
   "registerUser/signup",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post(SIGN_UP_AUTH_URL, credentials, config);
+      const response = await axios.post(
+        URLS.SIGN_UP_AUTH_URL,
+        credentials,
+        config
+      );
       const token = response.data.token;
       const data = response.data.data;
       console.log(

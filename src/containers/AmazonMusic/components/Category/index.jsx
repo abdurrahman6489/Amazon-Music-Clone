@@ -1,38 +1,37 @@
 import React, { useRef } from "react";
-import Song from "../Song";
-import PlayListController from "../Body/PlaylistController";
 
 import { Box } from "@mui/material";
 
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router";
-import { getAllSongs } from "../../../../App/features/allSongs/allSongsSlice";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+
+import Song from "../Song";
+import PlayListController from "../Body/PlaylistController";
+
+import { getAllSongs } from "../../../../App/features/allSongs/allSongsSlice";
+
 import LINKS from "../../../links";
+import { styles } from "./index.style";
 const Category = ({ mood, playListName, songs, isFilter }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const boxRef = useRef();
+
   let filterFunction;
   if (isFilter) {
     filterFunction = (song) => song.mood === mood;
   } else filterFunction = (song) => true;
 
   let filteredSongs = songs?.filter(filterFunction);
-  const boxRef = useRef();
 
   const nextCards = () => {
     let width = boxRef.current.clientWidth;
     boxRef.current.scrollLeft = boxRef.current.scrollLeft + width;
-    // console.log(width);
-    // console.log(boxRef);
-    // console.log(boxRef.current.scrollLeft);
   };
 
   const prevCards = () => {
     let width = boxRef.current.clientWidth;
     boxRef.current.scrollLeft = boxRef.current.scrollLeft - width;
-    // console.log(width);
-    // console.log(boxRef.current.scrollLeft);
   };
 
   const seeAllSongs = () => {
@@ -49,24 +48,8 @@ const Category = ({ mood, playListName, songs, isFilter }) => {
         box={boxRef}
         seeAllSongs={seeAllSongs}
       />
-      <Box
-        component="div"
-        sx={{
-          position: "relative",
-          overflow: "hidden",
-          mb: "2vh",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "1em",
-            overflow: "hidden",
-            scrollBehavior: "smooth",
-          }}
-          ref={boxRef}
-        >
+      <Box component="div" sx={styles.CONTAINER_STYLE}>
+        <Box sx={styles.SONG_CONTAINER_STYLE} ref={boxRef}>
           {filteredSongs?.map((song) => (
             <Song key={song._id} {...song} />
           ))}

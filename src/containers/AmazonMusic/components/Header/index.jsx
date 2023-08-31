@@ -20,6 +20,8 @@ const Header = () => {
     Home: HomeButton,
     Library: LibraryButton,
     Podcasts: PodcastButton,
+    Search: SearchComponent,
+    UserAvatar: UserAvatar,
   };
 
   function changeColor(label) {
@@ -63,8 +65,8 @@ const Header = () => {
               : null;
           })}
 
-          <SearchComponent />
-          <UserAvatar />
+          {/* <SearchComponent />
+          <UserAvatar /> */}
         </Toolbar>
       </AppBar>
     </CustomTheme>

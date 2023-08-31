@@ -13,11 +13,13 @@ import {
 } from "@mui/material";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 
+import { useNavigate } from "react-router-dom";
+
 import CustomTheme from "../../CustomTheme";
 
 import { MODAL_COLOR, MODAL_STYLE } from "../../constants";
 import LINKS from "../../../links";
-import { useNavigate } from "react-router-dom";
+import { styles } from "./index.style";
 
 const MusicModal = ({ open, setOpen }) => {
   const handleClose = () => setOpen(false);
@@ -33,18 +35,8 @@ const MusicModal = ({ open, setOpen }) => {
       >
         <Box sx={MODAL_STYLE}>
           <CustomTheme {...MODAL_COLOR}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                alignItems: "center",
-                gap: "1em",
-                position: "relative",
-                width: { lg: "40%", md: "70%", sm: "80%", xs: "90%" },
-              }}
-            >
-              <Box component="div" sx={{ textAlign: "right", width: "100%" }}>
+            <Box sx={styles.CONTAINER_STYLE}>
+              <Box component="div" sx={styles.CLOSE_BTN_CONTAINER_STYLE}>
                 <Tooltip onClick={handleClose} placement="top" title="Close">
                   <IconButton size="small" color="inherit">
                     <DisabledByDefaultIcon color="secondary" />
@@ -55,11 +47,7 @@ const MusicModal = ({ open, setOpen }) => {
                 variant="h5"
                 component="h2"
                 color="secondary"
-                sx={{
-                  fontFamily: `Helvetica Arial "sans-serif"`,
-                  fontSize: "18",
-                  textOverFlow: "ellipsis",
-                }}
+                sx={styles.HEADING_STYLE}
               >
                 Try Amazon Prime Music
               </Typography>
@@ -67,33 +55,16 @@ const MusicModal = ({ open, setOpen }) => {
                 variant="body2"
                 component="p"
                 color="secondary"
-                sx={{
-                  fontFamily: `Ember Helvetica Arial "sans-serif"`,
-                  fontSize: "18",
-                  textOverFlow: "ellipsis",
-                  textAlign: "center",
-                }}
+                sx={styles.CONTENT_STYLE}
               >
                 Ad-free music streaming included with Prime membership. Also
                 includes free shipping and video streaming.
               </Typography>
-              <Box
-                component="div"
-                sx={{
-                  display: "flex",
-                  flexDirection: {
-                    xs: "column",
-                    sm: "column",
-                    md: "row",
-                    lg: "row",
-                  },
-                  gap: "1em",
-                }}
-              >
+              <Box component="div" sx={styles.BTN_CONTAINER_STYLE}>
                 <Button
                   variant="outlined"
                   color="primary"
-                  sx={{ flexGrow: 1, borderRadius: "1em" }}
+                  sx={{ ...styles.BUTTON_STYLE, flexGrow: 1 }}
                   onClick={() => navigate(LINKS.login)}
                 >
                   Already a customer? Sign in
@@ -101,7 +72,7 @@ const MusicModal = ({ open, setOpen }) => {
                 <Fab
                   variant="extended"
                   color="primary"
-                  sx={{ borderRadius: "1em" }}
+                  sx={styles.BUTTON_STYLE}
                   onClick={() => navigate(LINKS.signup)}
                 >
                   Try Now

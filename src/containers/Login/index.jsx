@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import "./style.css";
-import {
-  Box,
-  Divider,
-  IconButton,
-  Link,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Box, Divider, Stack, TextField } from "@mui/material";
+import { styles } from "./index.style";
 import { useNavigate } from "react-router";
 import LINKS from "../links";
 
@@ -17,30 +11,25 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Loader from "../AmazonMusic/components/Loader";
 import Error from "./Error";
-import { SIDE_CONTAINER_DISPLAY } from "../AmazonMusic/constants";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import BackButton from "./BackButton";
+import {
+  SIDE_CONTAINER_DISPLAY,
+  INITIAL_STATE_LOG_IN,
+  INITIAL_ERROR_DATA_LOG_IN,
+  INITIAL_UPDATE_PASSWORD,
+} from "../AmazonMusic/constants";
 
-const INITIAL_STATE = {
-  email: "",
-  password: "",
-};
-
-const INITIAL_ERROR_DATA = {
-  emailError: "",
-  passwordError: "",
-};
-
-const INITIAL_UPDATE_PASSWORD = {
-  value: "",
-  updatePasswordError: "",
-};
+import {
+  passwordValidation,
+  emailPasswordValidation as validation,
+} from "../../Utils/utils";
 
 function Login() {
   const { isLoggedIn, isPasswordUpdate, loading, error, name } = useSelector(
-    (state) => state.user
+    (state) => state?.user
   );
-  const [userData, setUserData] = useState(INITIAL_STATE);
-  const [errorData, setErrorData] = useState(INITIAL_ERROR_DATA);
+  const [userData, setUserData] = useState(INITIAL_STATE_LOG_IN);
+  const [errorData, setErrorData] = useState(INITIAL_ERROR_DATA_LOG_IN);
   const [updatePasswordObj, setUpdatePasswordObj] = useState(
     INITIAL_UPDATE_PASSWORD
   );
@@ -67,8 +56,7 @@ function Login() {
 
   const loginUser = (event) => {
     event.preventDefault();
-    setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA }));
-    console.log("clicked login");
+    setToInitialErrorData();
     const errorResult = validation(userData);
 
     if (errorResult) {
@@ -78,61 +66,51 @@ function Login() {
       //dispatch login action
       //submit user data
       dispatch(login({ ...userData, appType: "music" }));
-      console.log(userData);
-      setUserData((obj) => ({ ...obj, ...INITIAL_STATE }));
-      setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA }));
+      resetData();
     }
   };
 
   const updatePasswordFunction = (event) => {
     event.preventDefault();
-    setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA }));
-    console.log("clicked login");
+    setToInitialErrorData();
     const errorResult = validation(userData);
+    const updatePasswordValidation = passwordValidation(
+      updatePasswordObj.value
+    );
 
     if (errorResult) {
       setErrorData((obj) => ({ ...obj, ...errorResult }));
       return;
+    } else if (updatePasswordValidation) {
+      setUpdatePasswordObj((obj) => ({
+        ...obj,
+        updatePasswordError: updatePasswordValidation,
+      }));
     } else {
       //dispatch login action
       //submit user data
       const submitData = {
         name,
-        email: userData.email,
-        passwordCurrent: userData.password,
-        password: updatePasswordObj.value,
+        email: userData?.email,
+        passwordCurrent: userData?.password,
+        password: updatePasswordObj?.value,
       };
       dispatch(updatePassword({ ...submitData, appType: "music" }));
-      console.log(submitData);
-      setUserData((obj) => ({ ...obj, ...INITIAL_STATE }));
-      setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA }));
+      resetData();
     }
-  };
-
-  const validation = (userData) => {
-    const { email, password } = userData;
-
-    if (!email || !password) {
-      return {
-        emailError: "Please enter all fields",
-        passwordError: "Please enter all fields",
-      };
-    }
-    let emailError =
-      email.length > 3 && email.includes("") ? "" : "Please enter valid email";
-    let passwordError =
-      password.length > 3 ? "" : "password must contain atleast 3 letters";
-    console.log(emailError, passwordError);
-
-    if (!emailError && !passwordError) return false;
-    return {
-      emailError,
-      passwordError,
-    };
   };
 
   const routeToSingup = () => {
     navigate(LINKS.signup);
+  };
+
+  const resetData = () => {
+    setUserData((obj) => ({ ...obj, ...INITIAL_STATE_LOG_IN }));
+    setToInitialErrorData();
+  };
+
+  const setToInitialErrorData = () => {
+    setErrorData((obj) => ({ ...obj, ...INITIAL_ERROR_DATA_LOG_IN }));
   };
 
   const { email, password } = userData;
@@ -142,17 +120,7 @@ function Login() {
   if (loading) return <Loader />;
 
   return (
-    <Stack
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        minHeight: "100vh",
-        backgroundColor: "rgba(255, 255, 255)",
-        color: "hsl(0, 0%, 4%)",
-        width: "100dvw",
-      }}
-    >
+    <Stack sx={styles.STACK_STYLE}>
       <Box
         flex={3}
         sx={{
@@ -160,42 +128,19 @@ function Login() {
           textAlign: "left",
         }}
       >
-        <IconButton sx={{ mt: 3, ml: 5 }} onClick={() => navigate(-1)}>
-          <ArrowBackIosNewIcon fontSize="small" color="primary" />
-        </IconButton>
+        <BackButton />
       </Box>
       <Box flex={6}>
-        <IconButton
-          sx={{
-            mt: 3,
-            ml: 5,
-            display: { xs: "block", sm: "block", md: "none", lg: "none" },
-          }}
-          onClick={() => navigate(-1)}
-        >
-          <ArrowBackIosNewIcon fontSize="small" color="primary" />
-        </IconButton>
+        <Box component="div" sx={styles.BACK_BTN_BOX_STYLE}>
+          <BackButton />
+        </Box>
         <img
           className="login__logo"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
           alt="Amazon logo"
         />
         {error && <Error msg={error} />}
-        <Box
-          component="div"
-          sx={{
-            width: { xs: "80%", sm: "65%", md: "60%", lg: "50%" },
-            border: "1px solid #ddd",
-            borderRadius: "0.5rem",
-            backgroundColor: "#fff",
-            padding: "1rem",
-            margin: "auto",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
-        >
+        <Box component="div" sx={styles.CONTAINER_STYLE}>
           <h1 className="heading">Sign in</h1>
           <form onSubmit={loginUser}>
             <label htmlFor="email">E-mail</label>
@@ -274,15 +219,3 @@ function Login() {
 }
 
 export default Login;
-
-// "email" : "abdurrahman@gmail.com",
-//     "password" : "123456789",
-//     "appType" : "music"
-
-// {
-//   "name" : "Abdul Rahman",
-//   "email" : "abdurrahman@gmail.com",
-//   "passwordCurrent" : "123456788",
-//   "password" : "123456789",
-//   "appType" : "music"
-// }

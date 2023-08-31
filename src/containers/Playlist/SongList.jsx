@@ -14,6 +14,7 @@ import { setAudioTrackIndex } from "../../App/features/albums/selectedAlbumSlice
 import "./style.css";
 
 import { SONG_LIST_COLOR } from "../AmazonMusic/constants";
+import { songListStyles } from "./songList.style";
 
 const SongList = ({
   title,
@@ -29,9 +30,11 @@ const SongList = ({
   album,
 }) => {
   const dispatch = useDispatch();
-  // console.log(album);
-  // console.log(isSongSaved);
 
+  const isActiveSong = audioTrackIndex == songNo - 1;
+  const activeColor = isActiveSong ? "secondary" : "primary";
+  const textActiveColor = isActiveSong ? "hsl(183, 71%, 50%)" : "#FFF";
+  console.log(songListStyles);
   const addOrRemoveSong = () => {
     addRemoveSavedData({
       title,
@@ -45,8 +48,6 @@ const SongList = ({
   };
 
   const handleClick = (event) => {
-    // console.log("current target ", event.currentTarget);
-    console.log("target ", event.target);
     if (event.target?.name == "addSongs") {
       addOrRemoveSong();
       return;
@@ -58,84 +59,47 @@ const SongList = ({
     <CustomTheme {...SONG_LIST_COLOR}>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: "1em",
-          cursor: "pointer",
-          backgroundColor:
-            audioTrackIndex == songNo - 1 ? "hsl(0, 0%, 10%)" : "inherit",
-          ":hover": {
-            backgroundColor: "hsl(0, 0%, 10%)",
-          },
+          ...songListStyles.CONTAINER_STYLE,
+          backgroundColor: isActiveSong ? "hsl(0, 0%, 10%)" : "inherit",
         }}
         name="playSong"
         onClick={handleClick}
       >
         <Box component="div" flex={1} sx={{ ml: 4 }}>
-          <Typography
-            variant="h6"
-            color={
-              audioTrackIndex == songNo - 1 ? "hsl(183, 71%, 50%)" : "#FFF"
-            }
-          >
+          <Typography variant="h6" color={textActiveColor}>
             {songNo}
           </Typography>
         </Box>
-        <Box component="div" flex={1} style={{ position: "relative" }}>
+        <Box
+          component="div"
+          flex={1}
+          style={songListStyles.THUMBNAIL_CONTAINER_STYLE}
+        >
           <img
             src={thumbnail}
             height="50px"
             width="50px"
-            style={{ zIndex: 1 }}
+            style={songListStyles.THUMBNAIL_STYLE}
           />
-          {/* {audioTrackIndex == songNo - 1 && ( */}
-          <IconButton
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 4,
-
-              size: "small",
-            }}
-            color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
-          >
+          <IconButton sx={songListStyles.PLAY_ICON_STYLE} color={activeColor}>
             <PlayArrow />
           </IconButton>
-          {/* )} */}
         </Box>
         <Box component="div" flex={10}>
           <Typography
             variant="h6"
-            color={
-              audioTrackIndex == songNo - 1 ? "hsl(183, 71%, 50%)" : "#FFF"
-            }
-            sx={{
-              textAlign: "left",
-              ":hover": { color: "hsl(183, 71%, 50%)" },
-            }}
+            color={textActiveColor}
+            sx={songListStyles.TITLE_STYLE}
           >
             {title}
           </Typography>
-          {/* <Typography variant="body2" color="#FFF" sx={{ textAlign: "left" }}>
-          {artistName}
-        </Typography> */}
         </Box>
         <Box
           component="div"
           flex={4}
-          sx={{
-            display: { xs: "none", sm: "none", md: "block", lg: "block" },
-          }}
+          sx={songListStyles.DURATION_CONTAINER_STYLE}
         >
-          <Typography
-            variant="body2"
-            color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
-          >
-            {/* {songDuration} */}
+          <Typography variant="body2" color={activeColor}>
             03 : 00
           </Typography>
         </Box>
@@ -143,27 +107,19 @@ const SongList = ({
         <Box component="div" flex={2}>
           <Checkbox
             aria-label="Add to wishlist"
-            color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
+            color={activeColor}
             checked={isSongSaved}
             name="addSongs"
-            icon={
-              <AddIcon
-                fontSize="medium"
-                color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
-              />
-            }
+            icon={<AddIcon fontSize="medium" color={activeColor} />}
             checkedIcon={
-              <RemoveCircleOutlineIcon
-                fontSize="medium"
-                color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
-              />
+              <RemoveCircleOutlineIcon fontSize="medium" color={activeColor} />
             }
           />
         </Box>
         <Box component="div" flex={2}>
           <IconButton
             aria-label="Add to wishlist"
-            color={audioTrackIndex == songNo - 1 ? "secondary" : "primary"}
+            color={activeColor}
             name="more"
           >
             <MoreHorizIcon />

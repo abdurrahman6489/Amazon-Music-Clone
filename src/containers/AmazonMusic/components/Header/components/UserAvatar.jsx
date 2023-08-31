@@ -11,13 +11,14 @@ import { MENU_COLOR } from "../../../constants";
 
 import "../style.css";
 import UpdatepasswordButton from "./UpdatepasswordButton";
-const UserAvatar = () => {
+const UserAvatar = ({ label, changeColor, isActive, key }) => {
   const [anchorElement, setAnchorElement] = useState(null);
   const { isLoggedIn, name } = useSelector((state) => state.user);
   const userFirstLeter = name?.split("")[0] || "";
 
   const handleOpenMenu = (event) => {
     setAnchorElement(event.currentTarget);
+    changeColor(label);
   };
   const handleCloseMenu = () => {
     setAnchorElement(null);

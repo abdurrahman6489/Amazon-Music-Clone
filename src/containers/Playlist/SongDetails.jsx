@@ -23,11 +23,9 @@ import MessageComponent from "../MessageComponent";
 import { setPlayerPlaying } from "../../App/features/albums/selectedAlbumSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  SONG_DETAILS_COLOR,
-  SONG_DETAILS_ALIGN_ITEMS,
-  SONG_DETAILS_TEXT_ALIGN,
-} from "../AmazonMusic/constants";
+import { SONG_DETAILS_COLOR } from "../AmazonMusic/constants";
+
+import { styles } from "./songDetails.style";
 
 const SongDetails = ({
   title,
@@ -41,15 +39,14 @@ const SongDetails = ({
   addDeleteSavedData,
   openModal,
 }) => {
-  const { playerPlaying } = useSelector((state) => state.selectedAlbums);
+  const { playerPlaying } = useSelector((state) => state?.selectedAlbums);
   const dispatch = useDispatch();
-  // console.log(_id);
+
   const [msgOpen, setMsgOpen] = useState(false);
   const shuffleSongs = () => {
     setMsgOpen(true);
   };
   const handleAddRemove = () => {
-    console.log("addRemoved clicked");
     addDeleteSavedData({
       title,
       artists,
@@ -62,50 +59,31 @@ const SongDetails = ({
   };
   return (
     <>
-      <Card
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "column", md: "row", lg: "row" },
-          justifyContent: "flex-start",
-          alignItems: "center",
-          gap: { xs: "0.5em", sm: "0.5em", md: "1em", lg: "1em" },
-          backgroundColor: "inherit",
-          border: "none",
-        }}
-      >
+      <Card sx={styles.CONTAINER_STYLE}>
         <CardMedia
           component="img"
-          sx={{
-            width: 300,
-            height: 300,
-          }}
+          sx={styles.IMAGE_STYLE}
           image={image}
           alt={title}
         />
         <CustomTheme {...SONG_DETAILS_COLOR}>
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-around",
-              ...SONG_DETAILS_ALIGN_ITEMS,
-              border: "none",
+              ...styles.ALIGN_ITEMS_STYLE,
+              ...styles.DETAILS_CONTAINER_STYLE,
             }}
           >
             <CardContent
               sx={{
-                // border: "1px solid white",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-around",
-                ...SONG_DETAILS_ALIGN_ITEMS,
+                ...styles.ALIGN_ITEMS_STYLE,
+                ...styles.CARD_CONTENT_STYLE,
               }}
             >
               <Typography
                 component="div"
                 variant="subtitle1"
                 color="secondary"
-                sx={{ ...SONG_DETAILS_TEXT_ALIGN }}
+                sx={{ ...styles.TEXT_ALIGN_STYLE }}
               >
                 ALBUM
               </Typography>
@@ -114,9 +92,8 @@ const SongDetails = ({
                 variant="h6"
                 color="primary"
                 sx={{
-                  width: 300,
-                  ...SONG_DETAILS_TEXT_ALIGN,
-                  // border: "1px solid white",
+                  ...styles.TITLE_STYLE,
+                  ...styles.TEXT_ALIGN_STYLE,
                 }}
                 noWrap
               >
@@ -126,7 +103,7 @@ const SongDetails = ({
                 component="div"
                 variant="body2"
                 color="primary"
-                sx={{ ...SONG_DETAILS_TEXT_ALIGN }}
+                sx={{ ...styles.TEXT_ALIGN_STYLE }}
               >
                 {description}
               </Typography>
@@ -136,9 +113,8 @@ const SongDetails = ({
                 component="div"
                 noWrap
                 sx={{
-                  width: 200,
-                  ...SONG_DETAILS_TEXT_ALIGN,
-                  // border: "1px solid white",
+                  ...styles.ARTISTS_NAME_STYLE,
+                  ...styles.TEXT_ALIGN_STYLE,
                 }}
               >
                 {artists?.map((artist) => artist.name).join(", ")}
@@ -147,7 +123,7 @@ const SongDetails = ({
                 variant="subtitle1"
                 color="primary"
                 component="div"
-                sx={{ ...SONG_DETAILS_TEXT_ALIGN }}
+                sx={{ ...styles.TEXT_ALIGN_STYLE }}
               >
                 {songs?.length}
                 {" songs"}
@@ -157,21 +133,7 @@ const SongDetails = ({
                 {new Date(release).toLocaleString()}
               </Typography>
             </CardContent>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                pl: 1,
-                pb: 1,
-                textAlign: {
-                  xs: "leftt",
-                  sm: "left",
-                  md: "center",
-                  lg: "center",
-                },
-              }}
-            >
-              {/* <IconButton aria-label="previous"> */}
+            <Box sx={styles.BTN_CONTAINER_STYLE}>
               <Fab
                 variant="extended"
                 color="secondary"
@@ -180,7 +142,6 @@ const SongDetails = ({
                 {!playerPlaying ? <PlayArrowIcon /> : <PauseIcon />}{" "}
                 {!playerPlaying ? "Play" : "Pause"}
               </Fab>
-              {/* </IconButton> */}
               <IconButton
                 aria-label="Shuffle"
                 color="primary"
@@ -188,13 +149,6 @@ const SongDetails = ({
               >
                 <ShuffleIcon />
               </IconButton>
-              {/* <IconButton
-                aria-label="Add to wishlist"
-                color="primary"
-                onClick={handleAddRemove}
-              >
-                <AddIcon />
-              </IconButton> */}
               <Checkbox
                 aria-label="Add to wishlist"
                 color="primary"
