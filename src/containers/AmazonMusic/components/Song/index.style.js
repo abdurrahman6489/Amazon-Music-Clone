@@ -6,6 +6,12 @@ export const CONTAINER_STYLE = {
   color: "#FFF",
   cursor: "pointer",
   margin: "auto",
+  boxShadow: "5px 5px 10px hsla(0, 0%, 5%, 0.6)",
+  ":hover": {
+    boxShadow: "5px 5px 10px hsla(0, 0%, 8%, 0.6)",
+    transform: "scale(1.04)",
+    transition: "transform 400ms ease-in-out",
+  },
 };
 
 export const TITLE_STYLE = {
@@ -20,11 +26,26 @@ export const ARTISTS_STYLE = {
   textAlign: "left",
 };
 
+export const IMG_BOX_STYLE = { position: "relative" };
+
 export const IMAGE_STYLE = { borderRadius: "0.5em" };
+
+export const FAB_BTN_STYLE = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  ":hover": {
+    transform: "translate(-50%, -40%)",
+    transition: "transform 500ms ease-in-out",
+  },
+};
 
 export const styles = {
   CONTAINER_STYLE,
   TITLE_STYLE,
   ARTISTS_STYLE,
+  IMG_BOX_STYLE,
   IMAGE_STYLE,
+  FAB_BTN_STYLE,
 };

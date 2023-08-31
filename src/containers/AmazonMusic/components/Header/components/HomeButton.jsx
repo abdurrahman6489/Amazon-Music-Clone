@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { Fab, Tooltip, Typography, backdropClasses } from "@mui/material";
+import { Fab, Tooltip, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 
 import {
@@ -10,15 +10,20 @@ import {
 import CustomTheme from "../../../CustomTheme";
 import LINKS from "../../../../links";
 
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 const HomeButton = ({ label, changeColor, isActive, key }) => {
   const navigate = useNavigate();
-
+  const { pathname } = useLocation();
+  console.log(pathname);
   const handleClick = () => {
     navigate(LINKS.home);
-    changeColor(label);
+    // changeColor(label);
   };
+
+  useEffect(() => {
+    if (pathname == LINKS.home) changeColor(label);
+  }, [pathname]);
 
   return (
     <CustomTheme {...HEADER_NAVIGATING_BTN_COLORS}>

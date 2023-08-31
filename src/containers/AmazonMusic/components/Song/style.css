@@ -2,8 +2,8 @@
     max-width: 200;
     max-height: 320;
     border : none;
-    background-color: #0a0b0b;
-    color : "#FFF"
+    background-color: hsl(180, 5%, 4%);
+    color : hsla(0, 0%, 0%, 0.4);
 }
 .card-img{
     border-radius: "1em";
