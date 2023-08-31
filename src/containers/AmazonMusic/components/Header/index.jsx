@@ -10,6 +10,7 @@ import HomeButton from "./components/HomeButton";
 import LibraryButton from "./components/LibraryButton";
 import PodcastButton from "./components/PodcastButton";
 import "./style.css";
+import { styles } from "./index.style";
 
 import { HEADER_COLORS, routeBtnLabelArray } from "../../constants";
 
@@ -36,24 +37,12 @@ const Header = () => {
   return (
     <CustomTheme {...HEADER_COLORS}>
       <AppBar position="fixed" color="secondary">
-        <Toolbar
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            gap: "1em",
-          }}
-        >
+        <Toolbar sx={styles.CONTAINER_STYLE}>
           <Box
             sx={{
-              width: { xs: 250, sm: 250, md: 300, lg: 350 },
-              height: 30,
+              ...styles.IMG_STYLE,
               backgroundImage:
                 "url(https://d5fx445wy2wpk.cloudfront.net/static/logo.svg)",
-              backgroundPosition: "center",
-              backgroundSize: "contain",
-              backgroundRepeat: "no-repeat",
             }}
           ></Box>
           {btnLabelArray?.map((btn) => {
@@ -64,9 +53,6 @@ const Header = () => {
               ? button({ label, changeColor, isActive, key })
               : null;
           })}
-
-          {/* <SearchComponent />
-          <UserAvatar /> */}
         </Toolbar>
       </AppBar>
     </CustomTheme>

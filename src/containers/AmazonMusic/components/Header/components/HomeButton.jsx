@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Fab, Tooltip, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
@@ -13,16 +13,20 @@ import LINKS from "../../../../links";
 import { useNavigate, useLocation } from "react-router";
 
 const HomeButton = ({ label, changeColor, isActive, key }) => {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
-  console.log(pathname);
+  const [isActiveColor, setIsActiveColor] = useState(
+    () => pathname == LINKS.home
+  );
+  const navigate = useNavigate();
+
   const handleClick = () => {
     navigate(LINKS.home);
-    // changeColor(label);
+    changeColor(label);
   };
 
   useEffect(() => {
-    if (pathname == LINKS.home) changeColor(label);
+    setIsActiveColor((prevValue) => pathname == LINKS.home);
+    console.log("effect run homebutton");
   }, [pathname]);
 
   return (
@@ -40,7 +44,7 @@ const HomeButton = ({ label, changeColor, isActive, key }) => {
           size="large"
         >
           <HomeIcon
-            color={!isActive ? "#FFF" : "secondary"}
+            color={!isActiveColor ? "#FFF" : "secondary"}
             fontSize="large"
             sx={{
               mr: 1,
@@ -51,7 +55,7 @@ const HomeButton = ({ label, changeColor, isActive, key }) => {
           />
           <Typography
             variant="body1"
-            color={!isActive ? "#FFF" : "secondary"}
+            color={!isActiveColor ? "#FFF" : "secondary"}
             sx={{
               ...HEADER_BTN_DISPLAY,
               fontWeight: 700,

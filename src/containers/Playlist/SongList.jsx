@@ -34,7 +34,6 @@ const SongList = ({
   const isActiveSong = audioTrackIndex == songNo - 1;
   const activeColor = isActiveSong ? "secondary" : "primary";
   const textActiveColor = isActiveSong ? "hsl(183, 71%, 50%)" : "#FFF";
-  console.log(songListStyles);
   const addOrRemoveSong = () => {
     addRemoveSavedData({
       title,

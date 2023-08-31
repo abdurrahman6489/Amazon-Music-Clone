@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Fab, Tooltip, Typography } from "@mui/material";
 import PodcastsIcon from "@mui/icons-material/Podcasts";
@@ -10,15 +10,24 @@ import {
 import CustomTheme from "../../../CustomTheme";
 import LINKS from "../../../../links";
 
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const PodcastButton = ({ label, changeColor, isActive, key }) => {
+  const { pathname } = useLocation();
+  const [isActiveColor, setIsActiveColor] = useState(
+    () => pathname == LINKS.podcasts
+  );
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate(LINKS.podcasts);
     changeColor(label);
   };
+
+  useEffect(() => {
+    setIsActiveColor((prevValue) => pathname == LINKS.podcasts);
+    console.log("effect run podcast");
+  }, [pathname]);
 
   return (
     <CustomTheme {...HEADER_NAVIGATING_BTN_COLORS}>
@@ -30,13 +39,13 @@ const PodcastButton = ({ label, changeColor, isActive, key }) => {
       >
         <Fab variant="extended" color="primary" sx={{ p: 2, ml: 3 }}>
           <PodcastsIcon
-            color={!isActive ? "#FFF" : "secondary"}
+            color={!isActiveColor ? "#FFF" : "secondary"}
             sx={{ mr: 1 }}
             fontSize="medium"
           />
           <Typography
             variant="body1"
-            color={!isActive ? "#FFF" : "secondary"}
+            color={!isActiveColor ? "#FFF" : "secondary"}
             sx={{
               ...HEADER_BTN_DISPLAY,
               fontWeight: 700,
