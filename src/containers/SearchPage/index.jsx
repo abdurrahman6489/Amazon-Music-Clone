@@ -20,11 +20,12 @@ const SearchPage = () => {
   return (
     <>
       <Box sx={styles.CONTAINER_STYLE}>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        <Box sx={styles.BOX_STYLE}>
           <Typography variant="h6" color="white">
             Mood & Activities
           </Typography>
-          <Typography
+          <Box
+            component="div"
             variant="div"
             textAlign="center"
             sx={styles.BTN_CONTAINER_STYLE}
@@ -37,7 +38,7 @@ const SearchPage = () => {
                 {filter.text}
               </Button>
             ))}
-          </Typography>
+          </Box>
         </Box>
       </Box>
     </>

@@ -6,7 +6,7 @@ import { Stack, Box } from "@mui/material";
 import Loader from "../Loader";
 import { categoryArray } from "../../constants";
 import Error from "../../../Login/Error";
-import { SIDE_CONTAINER_DISPLAY } from "../../constants";
+import { styles } from "./index.style";
 const Body = () => {
   const { loading, albums, error } = useSelector((state) => state.albums);
   const isLoading = useSelector((state) => state.allSongs.loading);
@@ -17,7 +17,7 @@ const Body = () => {
   if (error || hasError) return <Error msg={error} />;
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={styles.BOX_STYLE}>
       {categoryArray?.map((category) => {
         const { mood, playListName, isFilter } = category;
         return (

@@ -8,6 +8,7 @@ body {
   color : "#FFF";
   overflow-x: hidden;  
   font-family: Arial sans-serif;
+
 }
 body::-webkit-scrollbar{
   display : none;

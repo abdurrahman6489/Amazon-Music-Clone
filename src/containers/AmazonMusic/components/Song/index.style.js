@@ -1,9 +1,11 @@
 export const CONTAINER_STYLE = {
   minWidth: "170px",
+  maxWidth: "250px",
   height: "200px",
   backgroundColor: "#0a0b0b",
   color: "#FFF",
   cursor: "pointer",
+  margin: "auto",
 };
 
 export const TITLE_STYLE = {
@@ -18,7 +20,7 @@ export const ARTISTS_STYLE = {
   textAlign: "left",
 };
 
-export const IMAGE_STYLE = { border: "1em" };
+export const IMAGE_STYLE = { borderRadius: "0.5em" };
 
 export const styles = {
   CONTAINER_STYLE,

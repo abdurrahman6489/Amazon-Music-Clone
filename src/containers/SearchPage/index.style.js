@@ -6,9 +6,16 @@ export const CONTAINER_STYLE = {
   gap: 4,
 };
 
+export const BOX_STYLE = {
+  margin: "auto",
+  marginTop: 10,
+};
+
 export const BTN_CONTAINER_STYLE = {
+  margin: "auto",
+  marginTop: 5,
   display: "flex",
-  flexDirection: "column",
+  flexDirection: { xs: "column", sm: "column", md: "row", lg: "row" },
   gap: 4,
 };
 
@@ -21,4 +28,9 @@ export const BUTTON_STYLE = {
   color: "white",
 };
 
-export const styles = { CONTAINER_STYLE, BTN_CONTAINER_STYLE, BUTTON_STYLE };
+export const styles = {
+  CONTAINER_STYLE,
+  BTN_CONTAINER_STYLE,
+  BOX_STYLE,
+  BUTTON_STYLE,
+};
