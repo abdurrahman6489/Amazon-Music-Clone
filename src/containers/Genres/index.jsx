@@ -11,6 +11,8 @@ import Loader from "../AmazonMusic/components/Loader";
 import Category from "../AmazonMusic/components/Category";
 import EmptyRecords from "../AmazonMusic/components/EmptyRecords";
 
+import { styles } from "./index.style";
+
 const Genres = () => {
   const { filter } = useParams();
 
@@ -30,7 +32,7 @@ const Genres = () => {
   if (!searchSongs) return <EmptyRecords msg={filter} />;
 
   return (
-    <Box sx={{ width: "100%", p: 5 }}>
+    <Box sx={styles.BOX_STYLE}>
       <Category
         mood={"happy"}
         songs={searchSongs}

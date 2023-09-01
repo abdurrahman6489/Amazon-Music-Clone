@@ -5,6 +5,9 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router";
 import LINKS from "../../../../links";
+import { filterByObj } from "../../../constants";
+import { setFilterBy } from "../../../../../App/features/SearchSongs/SearchSongSlice";
+import { useDispatch } from "react-redux";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -55,19 +58,20 @@ const SearchComponent = ({ label, changeColor, isActive, key }) => {
   const [searchParams, setSearchParams] = useState("");
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const handleClick = () => {
-    // console.log("search clicked");
     changeColor(label);
     navigate(LINKS.search);
   };
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setSearchParams(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    dispatch(setFilterBy(filterByObj.title));
     navigate(`${LINKS.genres}/${searchParams}`);
     setSearchParams("");
   };

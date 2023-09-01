@@ -6,14 +6,14 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setFilterBy } from "../../App/features/SearchSongs/SearchSongSlice";
 import LINKS from "../links";
-import { SONG_FILTERS } from "../AmazonMusic/constants";
+import { SONG_FILTERS, filterByObj } from "../AmazonMusic/constants";
 
 const SearchPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleClick = (mood) => {
-    dispatch(setFilterBy("mood"));
+    dispatch(setFilterBy(filterByObj.mood));
     navigate(`${LINKS.genres}/${mood}`);
   };
 

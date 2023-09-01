@@ -25,6 +25,8 @@ export const THUMBNAIL_STYLE = { zIndex: 1 };
 
 export const TITLE_STYLE = {
   textAlign: "left",
+  fontWeight: "50",
+  fontSize: "1rem",
   ":hover": { color: "hsl(183, 71%, 50%)" },
 };
 

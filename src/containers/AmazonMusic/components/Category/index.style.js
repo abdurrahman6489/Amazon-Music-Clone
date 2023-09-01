@@ -9,7 +9,7 @@ export const SONG_CONTAINER_STYLE = {
   flexDirection: "row",
   justifyContent: "flex-start",
   alignItems: "center",
-  gap: "0.5em",
+  gap: "1em",
   overflow: "hidden",
   scrollBehavior: "smooth",
 };

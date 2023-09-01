@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { config, URLS } from "../../../containers/AmazonMusic/constants";
+import {
+  config,
+  URLS,
+  filterByObj,
+} from "../../../containers/AmazonMusic/constants";
 
 const initialState = {
   searchSongs: [],
   loading: false,
-  filterBy: "title",
+  filterBy: filterByObj.title,
   error: "",
 };
 

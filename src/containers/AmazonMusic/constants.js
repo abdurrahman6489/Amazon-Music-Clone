@@ -171,3 +171,8 @@ export const SONG_FILTERS = [
   { text: "Party Time", mood: "excited" },
   { text: "Heartbreak", mood: "sad" },
 ];
+
+export const filterByObj = {
+  title: "title",
+  mood: "mood",
+};
