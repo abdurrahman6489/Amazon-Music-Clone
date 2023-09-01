@@ -5,6 +5,7 @@ import searchSongReducer from "./features/SearchSongs/SearchSongSlice";
 import userReducer from "./features/User/userSlice";
 import registeredUserReducer from "./features/User/registerUserSlice";
 import allSongsReducer from "./features/allSongs/allSongsSlice";
+import comingSoonReducer from "./features/comingSoon/comingSoonSlice";
 export const store = configureStore({
   reducer: {
     albums: albumReducer,
@@ -13,5 +14,6 @@ export const store = configureStore({
     user: userReducer,
     registeredUser: registeredUserReducer,
     allSongs: allSongsReducer,
+    comingSoon: comingSoonReducer,
   },
 });

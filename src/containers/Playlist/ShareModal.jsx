@@ -14,7 +14,9 @@ import { FacebookRounded, Twitter } from "@mui/icons-material";
 
 import CustomTheme from "../AmazonMusic/CustomTheme";
 import { MODAL_COLOR, MODAL_STYLE } from "../AmazonMusic/constants";
-import MessageComponent from "../MessageComponent";
+import { setOpen } from "../../App/features/comingSoon/comingSoonSlice";
+import { useDispatch } from "react-redux";
+
 import {
   shareOnTwitter,
   copyToClipboard,
@@ -22,14 +24,15 @@ import {
 } from "../../Utils/utils";
 import { URLS } from "../AmazonMusic/constants";
 import { shareModaStyles } from "./shareModal.style";
+import FEATURECOMINGSOON from "../FEATURECOMINGSOON";
 
 const ShareModal = ({ open, close, title, description, image, _id }) => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const pathname = location.pathname;
   const handleClose = () => close();
-  const [msgOpen, setMsgOpen] = useState(false);
   const faceBookShare = () => {
-    setMsgOpen(true);
+    dispatch(setOpen());
   };
 
   const twitterShare = () => {
@@ -146,14 +149,6 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
           </CustomTheme>
         </Box>
       </Modal>
-      {
-        <MessageComponent
-          open={msgOpen}
-          setOpen={setMsgOpen}
-          msg={"Feature coming soon"}
-          time={4000}
-        />
-      }
     </>
   );
 };

@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import LINKS from "../../../links";
 import { styles } from "./index.style";
 import { Box, Fab } from "@mui/material";
+import PlayButton from "./PlayButton";
 
 const Song = ({ title, album, artist, mood, thumbnail, audio_url }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -38,11 +39,7 @@ const Song = ({ title, album, artist, mood, thumbnail, audio_url }) => {
           alt={title}
           sx={{ ...styles.IMAGE_STYLE }}
         />
-        {isHovered && (
-          <Fab color="error" size="small" sx={styles.FAB_BTN_STYLE}>
-            <AiFillPlayCircle size={40} color="hsla(0, 0%, 5%, 0.8)" />
-          </Fab>
-        )}
+        <PlayButton isHovered={isHovered} fabSize="small" iconSize={40} />
       </Box>
       <CardContent>
         <Typography

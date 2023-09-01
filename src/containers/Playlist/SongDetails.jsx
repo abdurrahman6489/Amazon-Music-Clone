@@ -21,6 +21,7 @@ import CustomTheme from "../AmazonMusic/CustomTheme";
 import MessageComponent from "../MessageComponent";
 
 import { setPlayerPlaying } from "../../App/features/albums/selectedAlbumSlice";
+import { setOpen } from "../../App/features/comingSoon/comingSoonSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { SONG_DETAILS_COLOR } from "../AmazonMusic/constants";
@@ -42,9 +43,8 @@ const SongDetails = ({
   const { playerPlaying } = useSelector((state) => state?.selectedAlbums);
   const dispatch = useDispatch();
 
-  const [msgOpen, setMsgOpen] = useState(false);
   const shuffleSongs = () => {
-    setMsgOpen(true);
+    dispatch(setOpen());
   };
   const handleAddRemove = () => {
     addDeleteSavedData({
@@ -168,13 +168,6 @@ const SongDetails = ({
           </Box>
         </CustomTheme>
       </Card>
-      <MessageComponent
-        open={msgOpen}
-        setOpen={setMsgOpen}
-        msg={"Feature coming soon"}
-        time={4000}
-        vertical={true}
-      />
     </>
   );
 };

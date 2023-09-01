@@ -3,7 +3,7 @@ export const CONTAINER_STYLE = {
   flexDirection: "row",
   justifyContent: "flex-start",
   alignItems: "center",
-  gap: "1em",
+  gap: "0.5em",
 };
 
 export const IMG_STYLE = {

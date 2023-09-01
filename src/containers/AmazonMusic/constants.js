@@ -54,6 +54,8 @@ export const HEADER_COLORS = MAKE_COLORS(blackColor, blackColor);
 
 export const MENU_COLOR = MAKE_COLORS(darkBlackColor, darkBlackColor);
 
+export const USER_AVATAR_COLOR = MAKE_COLORS(lightBlueColor, blackColor);
+
 export const HEADER_NAVIGATING_BTN_COLORS = MAKE_COLORS(
   "hsl(0, 0%, 4%)",
   lightBlueColor

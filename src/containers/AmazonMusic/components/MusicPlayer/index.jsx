@@ -20,6 +20,8 @@ import {
   setAudioTrackIndex,
   setPlayerPlaying,
 } from "../../../../App/features/albums/selectedAlbumSlice";
+import { setOpen } from "../../../../App/features/comingSoon/comingSoonSlice";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import "./style.css";
@@ -30,6 +32,8 @@ import {
   smallScreenPlayerDisplay,
   PLAYER_COLOR,
 } from "../../constants";
+
+import { styles } from "./index.style";
 
 const MusicPlayer = () => {
   const { selectedAlbum } = useSelector((state) => state.selectedAlbums);
@@ -132,6 +136,10 @@ const MusicPlayer = () => {
   const repeatTrack = () => {
     audioRef.current.currentTime = 0;
   };
+
+  const shuffleSong = () => {
+    dispatch(setOpen());
+  };
   return (
     <CustomTheme {...PLAYER_COLOR}>
       <audio
@@ -141,17 +149,7 @@ const MusicPlayer = () => {
         onEnded={nextSong}
       />
 
-      <Box
-        sx={{
-          position: "fixed",
-          bottom: "4vh",
-          left: 0,
-          right: 0,
-          height: "10vh",
-          backgroundColor: "hsl(180, 5%, 3%)",
-          zIndex: 1000,
-        }}
-      >
+      <Box sx={styles.CONTAINER_STYLE}>
         <div className="progress">
           <span className="time current">{formatTime(timeProgress)}</span>
           <input
@@ -162,29 +160,8 @@ const MusicPlayer = () => {
           />
           <span className="time">{formatTime(duration)}</span>
         </div>
-        <Stack
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-betwween",
-            alignItems: "center",
-            gap: { xs: "0.5em", sm: "0.5em", md: "1em", lg: "1em" },
-            backgroundColor: "hsl(180, 5%, 3%)",
-          }}
-        >
-          <Box
-            component="div"
-            flex={4}
-            sx={{
-              textAlign: "left",
-              ml: 2,
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              gap: "0.5em",
-            }}
-          >
+        <Stack sx={styles.STACK_STYLE}>
+          <Box component="div" flex={4} sx={styles.IMG_CONTAINER_STYLE}>
             {isPlaying ? (
               <Animation />
             ) : (
@@ -195,30 +172,13 @@ const MusicPlayer = () => {
               />
             )}
             <Box component="div" sx={{ textAlign: "left" }}>
-              <p
-                style={{
-                  color: "#FFF",
-                  textAlign: "left",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  fontSize: "1.3rem",
-                  width: "150px",
-                  margin: 0,
-                }}
-              >
+              <p style={styles.TITLE_STYLE}>
                 {audioTrack[currentTrackIndex].title}
               </p>
               <p
                 style={{
-                  color: "#FFF",
-                  textAlign: "left",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
+                  ...styles.TITLE_STYLE,
                   fontSize: "1rem",
-                  width: "150px",
-                  margin: 0,
                 }}
               >
                 {audioTrack[currentTrackIndex].title}
@@ -229,12 +189,8 @@ const MusicPlayer = () => {
             component="div"
             flex={10}
             sx={{
-              display: "flex",
+              ...styles.PLAYER_BTN_CONTAINER_STYLE,
               ...smallScreenPlayerDisplay,
-              gap: "0.5em",
-              alignItems: "center",
-              textAlign: "left",
-              color: "primary",
             }}
           >
             <IconButton
@@ -275,12 +231,20 @@ const MusicPlayer = () => {
             >
               <Forward10Icon />
             </IconButton>
-            <IconButton color="primary" sx={{ ...smallScreenDisplay }}>
+            <IconButton
+              color="primary"
+              sx={{ ...smallScreenDisplay }}
+              onClick={shuffleSong}
+            >
               <ShuffleIcon />
             </IconButton>
           </Box>
-          <Box component="div" flex={4} sx={{ textAlign: "right" }}>
-            <IconButton color="primary" sx={{ mr: 3 }} onClick={openVolumeMenu}>
+          <Box component="div" flex={4} sx={styles.VOLUME_CONTAINER_STYLE}>
+            <IconButton
+              color="primary"
+              sx={styles.VOLUME_BTN_STYLE}
+              onClick={openVolumeMenu}
+            >
               <VolumeUpIcon />
             </IconButton>
             <Menu

@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Avatar from "@mui/material/Avatar";
-import { Menu, MenuItem, IconButton } from "@mui/material";
-import { deepOrange, deepPurple } from "@mui/material/colors";
+import { Menu, MenuItem, IconButton, Fab, Typography } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import SignInButton from "./SignInButton";
 import SignoutButton from "./SignoutButton";
 import CustomTheme from "../../../CustomTheme";
-import { MENU_COLOR } from "../../../constants";
+import { MENU_COLOR, USER_AVATAR_COLOR } from "../../../constants";
 
 import "../style.css";
+import { styles } from "./userAvatar.style";
 import UpdatepasswordButton from "./UpdatepasswordButton";
 const UserAvatar = ({ label, changeColor, isActive, key }) => {
   const [anchorElement, setAnchorElement] = useState(null);
   const { isLoggedIn, name } = useSelector((state) => state.user);
-  const userFirstLeter = name?.split("")[0] || "";
+  const userFirstName = name?.split(" ")[0] || "";
 
   const handleOpenMenu = (event) => {
     setAnchorElement(event.currentTarget);
@@ -25,16 +26,34 @@ const UserAvatar = ({ label, changeColor, isActive, key }) => {
   };
   return (
     <CustomTheme {...MENU_COLOR}>
-      <IconButton size="large" onClick={handleOpenMenu} color="inherit">
-        {!isLoggedIn && (
+      {!isLoggedIn && (
+        <IconButton size="large" onClick={handleOpenMenu} color="inherit">
           <Avatar>
             <AccountCircleIcon fontSize="large" />
           </Avatar>
-        )}
-        {isLoggedIn && (
-          <Avatar sx={{ bgcolor: deepOrange[500] }}>{userFirstLeter}</Avatar>
-        )}
-      </IconButton>
+        </IconButton>
+      )}
+      {isLoggedIn && (
+        <CustomTheme {...USER_AVATAR_COLOR}>
+          <Fab
+            size="large"
+            onClick={handleOpenMenu}
+            variant="extended"
+            color="secondary"
+            sx={{ transform: "scale(1.1)" }}
+          >
+            <Typography variant="body2" color="primary">
+              {userFirstName}
+            </Typography>
+            <KeyboardArrowDownIcon
+              color={"primary"}
+              fontSize="small"
+              sx={styles.KEYBOARD_ICON_STYLE}
+            />
+          </Fab>
+        </CustomTheme>
+      )}
+
       <Menu
         id="basic-menu"
         anchorEl={anchorElement}

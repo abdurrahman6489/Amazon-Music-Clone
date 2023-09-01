@@ -10,8 +10,7 @@ import {
 } from "../App/features/User/userSlice";
 import { setAllSongs } from "../App/features/allSongs/allSongsSlice";
 import { getFromLocalStorage, saveToLocalStorage } from "./utils";
-
-import axios from "axios";
+import { setMsgDisplayedFalse } from "../App/features/User/registerUserSlice";
 
 export function useAlbums() {
   const dispatch = useDispatch();
@@ -80,4 +79,13 @@ export function useScrolltoTop() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+}
+
+export function useMessage() {
+  const dispatch = useDispatch();
+  const { msgDisplayed, message } = useSelector(
+    (state) => state?.registeredUser
+  );
+  const handleClose = () => dispatch(setMsgDisplayedFalse());
+  return { msgDisplayed, message, handleClose };
 }

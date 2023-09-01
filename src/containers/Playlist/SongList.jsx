@@ -1,10 +1,10 @@
 import React from "react";
-import { Box, Stack, Typography, Checkbox, Fab } from "@mui/material";
+import { Box, Typography, Checkbox, Fab } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { PlayArrow } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { AiFillPlayCircle } from "react-icons/ai";
 
 import CustomTheme from "../AmazonMusic/CustomTheme";
 
@@ -33,6 +33,7 @@ const SongList = ({
 
   const isActiveSong = audioTrackIndex == songNo - 1;
   const activeColor = isActiveSong ? "secondary" : "primary";
+  const iconActiveColor = isActiveSong ? "hsla(183, 71%, 50%, 0.8)" : "#FFF";
   const textActiveColor = isActiveSong ? "hsl(183, 71%, 50%)" : "#FFF";
   const addOrRemoveSong = () => {
     addRemoveSavedData({
@@ -80,9 +81,11 @@ const SongList = ({
             width="50px"
             style={songListStyles.THUMBNAIL_STYLE}
           />
-          <IconButton sx={songListStyles.PLAY_ICON_STYLE} color={activeColor}>
-            <PlayArrow />
-          </IconButton>
+          {isActiveSong && (
+            <IconButton sx={songListStyles.PLAY_ICON_STYLE} color={activeColor}>
+              <AiFillPlayCircle size={30} />
+            </IconButton>
+          )}
         </Box>
         <Box component="div" flex={10}>
           <Typography

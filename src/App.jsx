@@ -9,26 +9,27 @@ import MyPodcast from "./containers/Library/MyPodcast";
 import Error from "./containers/Error";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import links from "./containers/links";
-import { useUserData, useAllSongs, useAlbums } from "./Utils/CustomHook";
+import {
+  useUserData,
+  useAllSongs,
+  useAlbums,
+  useMessage,
+} from "./Utils/CustomHook";
 import SearchPage from "./containers/SearchPage";
 import Genres from "./containers/Genres";
 import Signup from "./containers/Signup";
-
-import { useSelector, useDispatch } from "react-redux";
-import { setMsgDisplayedFalse } from "./App/features/User/registerUserSlice";
-
 import MessageComponent from "./containers/MessageComponent";
+import FEATURECOMINGSOON from "./containers/FEATURECOMINGSOON";
 import AllSongs from "./containers/AllSongs";
+
+import { useSelector } from "react-redux";
 
 function App() {
   useAlbums();
   useUserData();
   useAllSongs();
-  const { msgDisplayed, message } = useSelector(
-    (state) => state.registeredUser
-  );
-  const { modalOpen } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const { msgDisplayed, message, handleClose } = useMessage();
+  const { open } = useSelector((state) => state?.comingSoon);
   const router = createBrowserRouter([
     {
       path: links.home,
@@ -106,9 +107,10 @@ function App() {
   ]);
   return (
     <>
+      <FEATURECOMINGSOON open={open} />
       <MessageComponent
         msg={message}
-        setOpen={() => dispatch(setMsgDisplayedFalse())}
+        setOpen={handleClose}
         open={msgDisplayed}
         time={4000}
       />
