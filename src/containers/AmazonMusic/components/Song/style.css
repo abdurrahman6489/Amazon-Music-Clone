@@ -1,0 +1,10 @@
+.card{
+    max-width: 200;
+    max-height: 320;
+    border : none;
+    background-color: hsl(180, 5%, 4%);
+    color : hsla(0, 0%, 0%, 0.4);
+}
+.card-img{
+    border-radius: "1em";
+}
