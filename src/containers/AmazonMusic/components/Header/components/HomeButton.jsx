@@ -26,7 +26,6 @@ const HomeButton = ({ label, changeColor, isActive, key }) => {
 
   useEffect(() => {
     setIsActiveColor((prevValue) => pathname == LINKS.home);
-    console.log("effect run homebutton");
   }, [pathname]);
 
   return (

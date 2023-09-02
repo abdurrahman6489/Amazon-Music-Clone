@@ -26,7 +26,6 @@ const PodcastButton = ({ label, changeColor, isActive, key }) => {
 
   useEffect(() => {
     setIsActiveColor((prevValue) => pathname == LINKS.podcasts);
-    console.log("effect run podcast");
   }, [pathname]);
 
   return (
