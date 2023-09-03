@@ -97,8 +97,9 @@ export function useAuthenticate() {
   const autenticate = () => {
     if (!isLoggedIn) {
       dispatch(opentheModal());
-      return;
+      return false;
     }
+    return true;
   };
   return autenticate;
 }

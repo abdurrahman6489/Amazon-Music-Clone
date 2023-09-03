@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Fab, Tooltip, Typography } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
 import { MdHomeFilled } from "react-icons/md";
 
 import {
@@ -43,7 +44,7 @@ const HomeButton = ({ label, changeColor, isActive, key }) => {
         onClick={handleClick}
       >
         <Fab variant="extended" color="primary" size="large">
-          <MdHomeFilled color={iconActiveColor} size={60} />
+          <HomeIcon color={activeColor} fontSize="medium" />
           <Typography
             variant="body1"
             color={activeColor}

@@ -5,7 +5,7 @@ export const CONTAINER_STYLE = {
   alignItems: "center",
   gap: "1em",
   position: "relative",
-  width: { lg: "40%", md: "70%", sm: "80%", xs: "90%" },
+  width: { lg: "40%", md: "70%", sm: "80%", xs: "85%" },
 };
 export const CLOSE_BTN_STYLE = { textAlign: "right", width: "100%" };
 

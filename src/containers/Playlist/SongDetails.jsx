@@ -45,11 +45,11 @@ const SongDetails = ({
   const dispatch = useDispatch();
 
   const shuffleSongs = () => {
-    authenticate();
+    if (!authenticate()) return;
     dispatch(setOpen());
   };
   const handleAddRemove = () => {
-    authenticate();
+    if (!authenticate()) return;
     addDeleteSavedData({
       title,
       artists,
@@ -59,6 +59,11 @@ const SongDetails = ({
       release,
       _id,
     });
+  };
+
+  const handlePlay = () => {
+    if (!authenticate()) return;
+    dispatch(setPlayerPlaying(playerPlaying));
   };
   return (
     <>
@@ -137,11 +142,7 @@ const SongDetails = ({
               </Typography>
             </CardContent>
             <Box sx={styles.BTN_CONTAINER_STYLE}>
-              <Fab
-                variant="extended"
-                color="secondary"
-                onClick={() => dispatch(setPlayerPlaying(playerPlaying))}
-              >
+              <Fab variant="extended" color="secondary" onClick={handlePlay}>
                 {!playerPlaying ? <PlayArrowIcon /> : <PauseIcon />}{" "}
                 {!playerPlaying ? "Play" : "Pause"}
               </Fab>

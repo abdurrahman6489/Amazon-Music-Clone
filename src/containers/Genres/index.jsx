@@ -16,7 +16,7 @@ import { styles } from "./index.style";
 const Genres = () => {
   const { filter } = useParams();
 
-  const { loading, searchSongs, filterBy } = useSelector(
+  const { loading, searchSongs, filterBy, error } = useSelector(
     (state) => state?.searchSong
   );
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const Genres = () => {
 
   if (loading) return <Loader />;
 
-  if (!searchSongs) return <EmptyRecords msg={filter} />;
+  if (error) return <EmptyRecords msg={filter} />;
 
   return (
     <Box sx={styles.BOX_STYLE}>

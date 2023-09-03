@@ -49,6 +49,7 @@ export const searchSongsSlice = createSlice({
     },
     [getSearchedSongs.rejected]: (state, { payload }) => {
       state.loading = false;
+      state.searchSongs = [];
       state.error = payload;
     },
   },

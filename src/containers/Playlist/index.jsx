@@ -38,15 +38,12 @@ const Playlist = () => {
   );
 
   const handleAddRemoveAlbum = ({ ...album }) => {
-    if (!isLoggedIn) {
-      dispatch(opentheModal());
-      return;
-    }
+    if (!authenticate()) return;
     dispatch(addRemoveAlbums({ album }));
   };
 
   const addRemoveSong = ({ ...song }) => {
-    authenticate();
+    if (!authenticate()) return;
     dispatch(addRemoveSongs({ song }));
   };
 
@@ -72,7 +69,6 @@ const Playlist = () => {
         )}
         addRemoveSavedData={addRemoveSong}
         audioTrackIndex={audioTrackIndex}
-        authenticate={authenticate}
       />
     </>
   ));
