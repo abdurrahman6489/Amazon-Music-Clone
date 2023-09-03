@@ -6,12 +6,14 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useDispatch, useSelector } from "react-redux";
 import SignInButton from "./SignInButton";
 import SignoutButton from "./SignoutButton";
+import UpdatepasswordButton from "./UpdatepasswordButton";
+import SearchForSmallScreen from "./SearchForSmallScreen";
 import CustomTheme from "../../../CustomTheme";
 import { MENU_COLOR, USER_AVATAR_COLOR } from "../../../constants";
 
 import "../style.css";
 import { styles } from "./userAvatar.style";
-import UpdatepasswordButton from "./UpdatepasswordButton";
+
 const UserAvatar = ({ label, changeColor, isActive, key }) => {
   const [anchorElement, setAnchorElement] = useState(null);
   const { isLoggedIn, name } = useSelector((state) => state.user);
@@ -71,39 +73,21 @@ const UserAvatar = ({ label, changeColor, isActive, key }) => {
           horizontal: "left",
         }}
       >
+        <MenuItem sx={{ ...styles.MENUITEM_STYLE, ...styles.MENUITEM_DISPLAY }}>
+          <SearchForSmallScreen changeColor={changeColor} label={label} />
+        </MenuItem>
         {!isLoggedIn && (
-          <MenuItem
-            sx={{
-              backgroundColor: "rgba(0, 0, 0, 0.8)",
-              margin: 0,
-              width: 180,
-              ":hover": { backgroundColor: "hsl(180, 5%, 8%)" },
-            }}
-          >
+          <MenuItem sx={styles.MENUITEM_STYLE}>
             <SignInButton />
           </MenuItem>
         )}
         {isLoggedIn && (
-          <MenuItem
-            sx={{
-              backgroundColor: "rgba(0, 0, 0, 0.8)",
-              margin: 0,
-              width: 180,
-              ":hover": { backgroundColor: "hsl(180, 5%, 8%)" },
-            }}
-          >
+          <MenuItem sx={styles.MENUITEM_STYLE}>
             <SignoutButton />
           </MenuItem>
         )}
         {isLoggedIn && (
-          <MenuItem
-            sx={{
-              backgroundColor: "rgba(0, 0, 0, 0.8)",
-              margin: 0,
-              width: 180,
-              ":hover": { backgroundColor: "hsl(180, 5%, 8%)" },
-            }}
-          >
+          <MenuItem sx={styles.MENUITEM_STYLE}>
             <UpdatepasswordButton />
           </MenuItem>
         )}

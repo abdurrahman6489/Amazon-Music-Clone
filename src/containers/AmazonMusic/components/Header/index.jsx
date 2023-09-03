@@ -9,6 +9,7 @@ import UserAvatar from "./components/UserAvatar";
 import HomeButton from "./components/HomeButton";
 import LibraryButton from "./components/LibraryButton";
 import PodcastButton from "./components/PodcastButton";
+import AmazonIcon from "./components/AmazonIcon";
 import "./style.css";
 import { styles } from "./index.style";
 
@@ -45,6 +46,7 @@ const Header = () => {
                 "url(https://d5fx445wy2wpk.cloudfront.net/static/logo.svg)",
             }}
           ></Box>
+          <AmazonIcon />
           {btnLabelArray?.map((btn) => {
             const { isActive, label } = btn;
             const key = label;
