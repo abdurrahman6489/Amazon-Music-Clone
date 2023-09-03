@@ -8,11 +8,12 @@ export const CONTAINER_STYLE = {
 
 export const IMG_STYLE = {
   display: { xs: "none", sm: "block", md: "block", lg: "block" },
-  width: { xs: 250, sm: 250, md: 300, lg: 350 },
+  width: { xs: 250, sm: 250, md: 300, lg: 300 },
   height: 30,
   backgroundPosition: "center",
   backgroundSize: "contain",
   backgroundRepeat: "no-repeat",
+  cursor: "pointer",
 };
 
 export const styles = {

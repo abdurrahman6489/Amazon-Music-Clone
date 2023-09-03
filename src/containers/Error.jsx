@@ -1,14 +1,17 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
+import LINKS from "./links";
+import { styles } from "./error.style";
+import "../assets/error.png";
 const Error = () => {
   return (
-    <div>
-      <h1>We were unable to find the page you were looking for.</h1>
-      <p>
-        Please return to the <a href="">Amazon Music homepage</a>.
+    <div style={styles.CONTAINER_STYLE}>
+      <h1 style={styles.TEXT_STYLE}>
+        We were unable to find the page you were looking for.
+      </h1>
+      <p style={styles.TEXT_STYLE}>
+        Please return to the <Link to={LINKS.home}>Amazon Music homepage</Link>.
       </p>
-      <img src="src\error.png" width="300px" height="200px" />
-      <img src="src\AmazonMusicLogoPurple.svg" width="200px" height="100px" />
     </div>
   );
 };
