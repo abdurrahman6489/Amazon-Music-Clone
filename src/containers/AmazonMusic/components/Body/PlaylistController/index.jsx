@@ -14,15 +14,7 @@ const PlayListController = ({ playListName, next, prev, box, seeAllSongs }) => {
 
   return (
     <Box component="div" sx={styles.CONTAINER_STYLE}>
-      <Stack
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: "0.5em",
-        }}
-      >
+      <Stack sx={styles.STACK_STYLE}>
         <Typography variant="h6" color="#FFF" noWrap sx={styles.TITLE_STYLE}>
           {playListName}
         </Typography>

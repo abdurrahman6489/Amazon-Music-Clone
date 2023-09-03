@@ -5,6 +5,7 @@ export const CONTAINER_STYLE = {
   backgroundColor: "#0a0b0b",
   color: "#FFF",
   cursor: "pointer",
+  margin: { xs: "auto", sm: 0, md: 0, lg: 0 },
   boxShadow: "5px 5px 10px hsla(0, 0%, 5%, 0.6)",
   ":hover": {
     boxShadow: "5px 5px 10px hsla(0, 0%, 8%, 0.6)",

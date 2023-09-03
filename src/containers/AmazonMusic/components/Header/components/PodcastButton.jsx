@@ -12,11 +12,14 @@ import LINKS from "../../../../links";
 
 import { useLocation, useNavigate } from "react-router";
 
+import { styles } from "./homeBtn.style";
+
 const PodcastButton = ({ label, changeColor, isActive, key }) => {
   const { pathname } = useLocation();
   const [isActiveColor, setIsActiveColor] = useState(
     () => pathname == LINKS.podcasts
   );
+  const activeColor = isActive && isActiveColor ? "secondary" : "#FFF";
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -37,18 +40,13 @@ const PodcastButton = ({ label, changeColor, isActive, key }) => {
         onClick={handleClick}
       >
         <Fab variant="extended" color="primary" sx={{ p: 2, ml: 3 }}>
-          <PodcastsIcon
-            color={!isActiveColor ? "#FFF" : "secondary"}
-            sx={{ mr: 1 }}
-            fontSize="medium"
-          />
+          <PodcastsIcon color={activeColor} fontSize="medium" />
           <Typography
             variant="body1"
-            color={!isActiveColor ? "#FFF" : "secondary"}
+            color={activeColor}
             sx={{
               ...HEADER_BTN_DISPLAY,
-              fontWeight: 700,
-              fontFamily: "HELVETICA ARIAL sans-serif",
+              ...styles.TEXT_STYLE,
             }}
           >
             {label}

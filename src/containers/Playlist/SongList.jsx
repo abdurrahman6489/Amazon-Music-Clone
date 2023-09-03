@@ -8,7 +8,7 @@ import { AiFillPlayCircle } from "react-icons/ai";
 
 import CustomTheme from "../AmazonMusic/CustomTheme";
 
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setAudioTrackIndex } from "../../App/features/albums/selectedAlbumSlice";
 
 import "./style.css";
@@ -28,9 +28,9 @@ const SongList = ({
   addRemoveSavedData,
   isSongSaved,
   album,
+  authenticate,
 }) => {
   const dispatch = useDispatch();
-
   const isActiveSong = audioTrackIndex == songNo - 1;
   const activeColor = isActiveSong ? "secondary" : "primary";
   const iconActiveColor = isActiveSong ? "hsla(183, 71%, 50%, 0.8)" : "#FFF";
@@ -48,6 +48,7 @@ const SongList = ({
   };
 
   const handleClick = (event) => {
+    authenticate();
     if (event.target?.name == "addSongs") {
       addOrRemoveSong();
       return;

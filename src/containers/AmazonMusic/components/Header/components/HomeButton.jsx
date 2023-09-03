@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Fab, Tooltip, Typography } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
+import { MdHomeFilled } from "react-icons/md";
 
 import {
   HEADER_NAVIGATING_BTN_COLORS,
@@ -12,11 +12,17 @@ import LINKS from "../../../../links";
 
 import { useNavigate, useLocation } from "react-router";
 
+import { styles } from "./homeBtn.style";
+
 const HomeButton = ({ label, changeColor, isActive, key }) => {
   const { pathname } = useLocation();
   const [isActiveColor, setIsActiveColor] = useState(
     () => pathname == LINKS.home
   );
+
+  const activeColor = isActive && isActiveColor ? "secondary" : "#FFF";
+  const iconActiveColor =
+    isActive && isActiveColor ? "hsl(183, 71%, 50%)" : "#FFF";
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -36,32 +42,14 @@ const HomeButton = ({ label, changeColor, isActive, key }) => {
         name="home"
         onClick={handleClick}
       >
-        <Fab
-          variant="extended"
-          color="primary"
-          sx={{ p: 2, ml: 3 }}
-          size="large"
-        >
-          <HomeIcon
-            color={!isActiveColor ? "#FFF" : "secondary"}
-            fontSize="large"
-            sx={{
-              mr: 1,
-              ":hover": {
-                color: HEADER_NAVIGATING_BTN_COLORS.secondaryColor,
-              },
-            }}
-          />
+        <Fab variant="extended" color="primary" size="large">
+          <MdHomeFilled color={iconActiveColor} size={60} />
           <Typography
             variant="body1"
-            color={!isActiveColor ? "#FFF" : "secondary"}
+            color={activeColor}
             sx={{
               ...HEADER_BTN_DISPLAY,
-              fontWeight: 700,
-              fontFamily: "HELVETICA ARIAL sans-serif",
-              ":hover": {
-                bgcolor: "secondary",
-              },
+              ...styles.TEXT_STYLE,
             }}
           >
             {label}

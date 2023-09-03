@@ -1,37 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Category from "../../AmazonMusic/components/Category";
 import { useSelector } from "react-redux";
 
-import { Stack, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import "./style.css";
+import { styles } from "../style";
+
+import { useNavigate } from "react-router";
+import LINKS from "../../links";
 
 const MyPodcast = () => {
-  const { savedSongs } = useSelector((state) => state.user);
+  const { savedSongs, isLoggedIn } = useSelector((state) => state?.user);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) navigate(LINKS.login);
+  }, [isLoggedIn]);
+
   return (
-    <Stack
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        mt: "1vh",
-        mb: "8vh",
-      }}
-    >
-      <Box flex={1}></Box>
-      <Box
-        flex={50}
-        sx={{ border: "1px solid black", maxWidth: "92dvw", p: 5 }}
-      >
-        <Category
-          mood={"allPodcasts"}
-          songs={savedSongs}
-          playListName={"All saved Podcasts"}
-          key={"allPodcasts"}
-          isFilter={false}
-        />
-      </Box>
-      <Box flex={1}></Box>
-    </Stack>
+    <Box sx={styles.BOX_STYLE}>
+      <Category
+        mood={"allPodcasts"}
+        songs={savedSongs}
+        playListName={"All saved Podcasts"}
+        key={"allPodcasts"}
+        isFilter={false}
+      />
+    </Box>
   );
 };
 

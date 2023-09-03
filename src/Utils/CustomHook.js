@@ -7,6 +7,7 @@ import {
   updateSavedUserDetails,
   updateSavedAlbums,
   updateSavedSongs,
+  opentheModal,
 } from "../App/features/User/userSlice";
 import { setAllSongs } from "../App/features/allSongs/allSongsSlice";
 import { getFromLocalStorage, saveToLocalStorage } from "./utils";
@@ -88,4 +89,16 @@ export function useMessage() {
   );
   const handleClose = () => dispatch(setMsgDisplayedFalse());
   return { msgDisplayed, message, handleClose };
+}
+
+export function useAuthenticate() {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state?.user);
+  const autenticate = () => {
+    if (!isLoggedIn) {
+      dispatch(opentheModal());
+      return;
+    }
+  };
+  return autenticate;
 }
