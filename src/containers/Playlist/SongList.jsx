@@ -11,6 +11,7 @@ import { useAuthenticate } from "../../Utils/CustomHook";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setAudioTrackIndex } from "../../App/features/albums/selectedAlbumSlice";
+import { setOpen } from "../../App/features/comingSoon/comingSoonSlice";
 
 import "./style.css";
 
@@ -31,7 +32,6 @@ const SongList = ({
   album,
 }) => {
   const dispatch = useDispatch();
-
   const authenticate = useAuthenticate();
 
   const isActiveSong = audioTrackIndex == songNo - 1;
@@ -55,6 +55,10 @@ const SongList = ({
     if (!authenticate()) return;
     if (event.target?.name == "addSongs") {
       addOrRemoveSong();
+      return;
+    }
+    if (event.target?.name == "more") {
+      dispatch(setOpen());
       return;
     }
     dispatch(setAudioTrackIndex({ audioTrackIndex: songNo - 1 }));
@@ -128,6 +132,7 @@ const SongList = ({
             aria-label="Add to wishlist"
             color={activeColor}
             name="more"
+            size="large"
           >
             <MoreHorizIcon />
           </IconButton>

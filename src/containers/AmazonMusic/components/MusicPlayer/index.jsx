@@ -36,14 +36,15 @@ import {
 import { styles } from "./index.style";
 
 const MusicPlayer = () => {
-  const { selectedAlbum } = useSelector((state) => state.selectedAlbums);
+  const { selectedAlbum } = useSelector((state) => state?.selectedAlbums);
   const audioTrack = selectedAlbum?.songs;
   const dispatch = useDispatch();
   const currentTrackIndex = useSelector(
-    (state) => state.selectedAlbums.audioTrackIndex
+    (state) => state.selectedAlbums?.audioTrackIndex
   );
-  const isPlaying = useSelector((state) => state.selectedAlbums.playerPlaying);
-  const isRepeating = useSelector((state) => state.selectedAlbums.isRepeating);
+  const isPlaying = useSelector(
+    (state) => state?.selectedAlbums?.playerPlaying
+  );
   const [anchorEl, setAnchorEl] = useState(null);
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -61,7 +62,6 @@ const MusicPlayer = () => {
   };
 
   const repeat = useCallback(() => {
-    // console.log("run");
     const currentTime = audioRef.current.currentTime;
     setTimeProgress(currentTime);
     progressBarRef.current.value = currentTime;
@@ -71,10 +71,6 @@ const MusicPlayer = () => {
     );
     playAnimationRef.current = requestAnimationFrame(repeat);
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
-
-  useEffect(() => {
-    if (isRepeating) repeat();
-  }, []);
 
   useEffect(() => {
     if (isPlaying) {
@@ -127,7 +123,6 @@ const MusicPlayer = () => {
 
   const changeVolumeSliderValue = (event) => {
     let volume = audioVolumeRef.current.value;
-    console.log(volume);
     if (audioRef) {
       audioRef.current.volume = volume / 100;
     }
