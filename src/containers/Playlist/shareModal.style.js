@@ -1,11 +1,21 @@
 export const CONTAINER_STYLE = {
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-between",
+  justifyContent: {
+    lg: "space-between",
+    md: "space-between%",
+    sm: "space-between%",
+    xs: "flex-start",
+  },
   alignItems: "center",
-  gap: "1em",
   position: "relative",
-  width: { lg: "40%", md: "70%", sm: "80%", xs: "85%" },
+  width: { lg: "40%", md: "70%", sm: "80%", xs: "90%" },
+  minHeight: { xs: "100vh", sm: "auto", md: "auto", lg: "auto" },
+};
+
+export const MODAL_STYLE = {
+  p: { lg: 4, md: 4, sm: 4, xs: 0 },
+  paddingTop: { lg: 5, md: 5, sm: 5, xs: 0 },
 };
 export const CLOSE_BTN_STYLE = { textAlign: "right", width: "100%" };
 
@@ -17,15 +27,17 @@ export const PLAYLIST_HEADING_STYLE = {
 
 export const IMG_CONTAINER_STYLE = {
   width: "100%",
-  height: 120,
+  height: { lg: 120, md: 120, sm: 120, xs: 350, xl: 120 },
   display: "flex",
+  flexDirection: { xs: "column", sm: "row", md: "row", lg: "row" },
   justifyContent: "flex-start",
   alignItems: "center",
-  gap: "0.5em",
+  gap: { lg: "0.5em", md: "0.5em", sm: "0.5em", xs: 0 },
 };
 
 export const IMG_STYLE = {
-  height: "100%",
+  width: { lg: "30%", md: "30%", sm: "30%", xs: "80%" },
+  height: { lg: 120, md: 120, sm: 120, xs: 270, xl: 120 },
   backgroundPosition: "center",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
@@ -36,9 +48,15 @@ export const DETAIL_CONTAINER_STYLE = {
   display: "flex",
   flexDirection: "Column",
   justifyContent: "center",
-  alignItems: "flex-start",
+  alignItems: {
+    xs: "center",
+    sm: "flex-start",
+    md: "flex-start",
+    lg: "flex-start",
+  },
   gap: "0.3em",
   height: "100%",
+  textAlign: { xs: "center", sm: "left", md: "left", lg: "left" },
 };
 
 export const DETAIL_STYLE = {
@@ -48,7 +66,12 @@ export const DETAIL_STYLE = {
   fontWeight: "bold",
 };
 
+export const TITLE_STYLE = {
+  textAlign: { xs: "center", sm: "left", md: "left", lg: "left" },
+};
+
 export const BTN_CONTAINER_STYLE = {
+  marginTop: 2,
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
@@ -75,6 +98,7 @@ export const COPY_BTN_TEXT_STYLE = {
 };
 
 export const shareModaStyles = {
+  MODAL_STYLE,
   CONTAINER_STYLE,
   CLOSE_BTN_STYLE,
   PLAYLIST_HEADING_STYLE,
@@ -82,6 +106,7 @@ export const shareModaStyles = {
   IMG_STYLE,
   DETAIL_CONTAINER_STYLE,
   DETAIL_STYLE,
+  TITLE_STYLE,
   BTN_CONTAINER_STYLE,
   BUTTON_STYLE,
   COPY_BTN_TEXT_STYLE,

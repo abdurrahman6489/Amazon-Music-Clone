@@ -46,7 +46,10 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={MODAL_STYLE}>
+        <Box
+          sx={{ ...MODAL_STYLE, ...shareModaStyles.MODAL_STYLE }}
+          disableScrollLock={true}
+        >
           <CustomTheme {...MODAL_COLOR}>
             <Box sx={shareModaStyles.CONTAINER_STYLE}>
               <Box component="div" sx={shareModaStyles.CLOSE_BTN_STYLE}>
@@ -67,7 +70,6 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
               <Box component="div" sx={shareModaStyles.IMG_CONTAINER_STYLE}>
                 <Box
                   component="div"
-                  flex={1}
                   sx={{
                     ...shareModaStyles.IMG_STYLE,
                     backgroundImage: `url(${image})`,
@@ -75,7 +77,6 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
                 ></Box>
                 <Box
                   component="div"
-                  flex={5}
                   sx={shareModaStyles.DETAIL_CONTAINER_STYLE}
                 >
                   <Typography
@@ -87,13 +88,17 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
                   </Typography>
                   <Typography
                     variant="body1"
-                    color="#FFf"
+                    color="#FFF"
                     noWrap
-                    sx={{ width: 200 }}
+                    sx={{ width: 200, ...shareModaStyles.TITLE_STYLE }}
                   >
                     {title}
                   </Typography>
-                  <Typography variant="body2" color="rgba(255, 255, 255, 0.6)">
+                  <Typography
+                    variant="body2"
+                    color="rgba(255, 255, 255, 0.6)"
+                    sx={{ ...shareModaStyles.TITLE_STYLE }}
+                  >
                     {description}
                   </Typography>
                 </Box>
@@ -102,7 +107,7 @@ const ShareModal = ({ open, close, title, description, image, _id }) => {
                 <Typography variant="body2" color="rgba(255, 255, 255, 0.6)">
                   Share link
                 </Typography>
-                <Typography variant="body1" color="#FFF">
+                <Typography variant="body2" color="#FFF" sx={{ width: "90%" }}>
                   {URLS.BASE_URL + pathname}
                 </Typography>
               </Box>
