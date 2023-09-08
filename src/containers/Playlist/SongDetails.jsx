@@ -7,7 +7,6 @@ import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SensorsIcon from "@mui/icons-material/Sensors";
 import AddIcon from "@mui/icons-material/Add";
 import ShareIcon from "@mui/icons-material/Share";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
@@ -19,7 +18,10 @@ import { Fab, Checkbox } from "@mui/material";
 
 import CustomTheme from "../AmazonMusic/CustomTheme";
 
-import { setPlayerPlaying } from "../../App/features/albums/selectedAlbumSlice";
+import {
+  setPlayerPlaying,
+  shuffleSongs,
+} from "../../App/features/albums/selectedAlbumSlice";
 import { setOpen } from "../../App/features/comingSoon/comingSoonSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -44,9 +46,9 @@ const SongDetails = ({
   const authenticate = useAuthenticate();
   const dispatch = useDispatch();
 
-  const shuffleSongs = () => {
+  const handleShuffleSongs = () => {
     if (!authenticate()) return;
-    dispatch(setOpen());
+    dispatch(shuffleSongs());
   };
   const handleAddRemove = () => {
     if (!authenticate()) return;
@@ -149,7 +151,7 @@ const SongDetails = ({
               <IconButton
                 aria-label="Shuffle"
                 color="primary"
-                onClick={shuffleSongs}
+                onClick={handleShuffleSongs}
               >
                 <ShuffleIcon />
               </IconButton>

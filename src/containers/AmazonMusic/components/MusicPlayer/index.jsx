@@ -21,6 +21,7 @@ import {
   setPlayerPlaying,
 } from "../../../../App/features/albums/selectedAlbumSlice";
 import { setOpen } from "../../../../App/features/comingSoon/comingSoonSlice";
+import { shuffleSongs } from "../../../../App/features/albums/selectedAlbumSlice";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -133,7 +134,7 @@ const MusicPlayer = () => {
   };
 
   const shuffleSong = () => {
-    dispatch(setOpen());
+    dispatch(shuffleSongs());
   };
   return (
     <CustomTheme {...PLAYER_COLOR}>

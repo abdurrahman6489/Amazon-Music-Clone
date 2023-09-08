@@ -37,6 +37,9 @@ export const selectedAlbumSlice = createSlice({
     setPlayerPlaying: (state, action) => {
       state.playerPlaying = !action.payload;
     },
+    shuffleSongs: (state) => {
+      state.selectedAlbum?.songs?.sort((a, b) => Math.random() - 0.5);
+    },
   },
   extraReducers: {
     [getSelectedAlbum.pending]: (state) => {
@@ -54,6 +57,6 @@ export const selectedAlbumSlice = createSlice({
     },
   },
 });
-export const { setAudioTrackIndex, setPlayerPlaying } =
+export const { setAudioTrackIndex, setPlayerPlaying, shuffleSongs } =
   selectedAlbumSlice.actions;
 export default selectedAlbumSlice.reducer;
