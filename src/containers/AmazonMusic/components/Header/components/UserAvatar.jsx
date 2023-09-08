@@ -28,33 +28,24 @@ const UserAvatar = ({ label, changeColor, isActive, key }) => {
   };
   return (
     <CustomTheme {...MENU_COLOR}>
-      {!isLoggedIn && (
-        <IconButton size="large" onClick={handleOpenMenu} color="inherit">
-          <Avatar>
-            <AccountCircleIcon fontSize="large" />
-          </Avatar>
-        </IconButton>
-      )}
-      {isLoggedIn && (
-        <CustomTheme {...USER_AVATAR_COLOR}>
-          <Fab
-            size="large"
-            onClick={handleOpenMenu}
-            variant="extended"
-            color="secondary"
-            sx={{ transform: "scale(1.1)" }}
-          >
-            <Typography variant="body2" color="primary">
-              {userFirstName}
-            </Typography>
-            <KeyboardArrowDownIcon
-              color={"primary"}
-              fontSize="small"
-              sx={styles.KEYBOARD_ICON_STYLE}
-            />
-          </Fab>
-        </CustomTheme>
-      )}
+      <CustomTheme {...USER_AVATAR_COLOR}>
+        <Fab
+          size="large"
+          onClick={handleOpenMenu}
+          variant="extended"
+          color="secondary"
+          sx={{ transform: "scale(1.1)" }}
+        >
+          <Typography variant="body2" color="primary">
+            {isLoggedIn ? userFirstName : "Login"}
+          </Typography>
+          <KeyboardArrowDownIcon
+            color={"primary"}
+            fontSize="small"
+            sx={styles.KEYBOARD_ICON_STYLE}
+          />
+        </Fab>
+      </CustomTheme>
 
       <Menu
         id="basic-menu"

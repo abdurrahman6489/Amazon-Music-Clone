@@ -85,7 +85,7 @@ export const userSlice = createSlice({
         (album) => album._id == id
       );
       console.log(id);
-      if (albumFoundIndex === -1) state.savedAlbums.push(album);
+      if (albumFoundIndex === -1) state.savedAlbums.unshift(album);
       else state.savedAlbums.splice(albumFoundIndex, 1);
     },
     addRemoveSongs: (state, action) => {
@@ -95,7 +95,7 @@ export const userSlice = createSlice({
         (song) => song._id == id
       );
       console.log(id);
-      if (songFoundIndex === -1) state.savedSongs.push(song);
+      if (songFoundIndex === -1) state.savedSongs.unshift(song);
       else state.savedSongs.splice(songFoundIndex, 1);
     },
     signOutUser: (state) => {

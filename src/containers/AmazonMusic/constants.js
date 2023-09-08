@@ -17,7 +17,7 @@ export const URLS = {
   ALBUM_URL: "https://academics.newtonschool.co/api/v1/music/album",
   ALL_ARTISTS_URL: "https://academics.newtonschool.co/api/v1/music/artist/",
   SEARCH_URL: "https://academics.newtonschool.co/api/v1/music/song?filter=",
-  BASE_URL: "http://localhost:5173",
+  BASE_URL: "https://amazon-music.netlify.app",
 };
 
 export const whiteColor = "#FFF";

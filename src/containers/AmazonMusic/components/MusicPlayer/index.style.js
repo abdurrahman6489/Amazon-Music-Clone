@@ -1,9 +1,9 @@
 export const CONTAINER_STYLE = {
   position: "fixed",
-  bottom: "4vh",
+  bottom: 0,
   left: 0,
   right: 0,
-  height: "10vh",
+  height: 100,
   backgroundColor: "hsl(180, 5%, 3%)",
   zIndex: 1000,
 };
